@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST03</title>
+</head>
+<body>
+    <div class="bottom">1</div>
+    <div class="chat">
+        <input class="input">
+        <input class="input">
+        <button>입력</button>
+    </div>
+    <div class="chatting"></div>
+    <style>
+        * {
+            margin: 0;
+            overflow: hidden;
+        }
+        html, body {
+            height: 100%;
+            background-color: #333;
+        }
+        input {
+            width: 250px;
+            height: 40px;
+            font-size: 30px;
+            text-align: start;
+        }
+        .chatting {
+            height: 94%;
+            border: 10px solid #444;
+            box-shadow: 8px 8px 5px black;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            font-size: 25px;
+            overflow: auto;
+        }
+        .chat {
+            float: right;
+            width: 260px;
+            border: 1px solid #333;
+            padding: 10px 10px 10px 10px;
+            background-color: black;
+        }
+        .bottom {
+            float: right;
+            padding: 10px 10px 10px 10px;
+            color: white;
+        }
+    </style>
+    <script src="chat.js"></script>
+</body>
+</html>
