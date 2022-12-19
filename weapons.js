@@ -1,8 +1,20 @@
 function change(n, m){
+    if(n >= 0 && n <= 3){
+        maincharacter.weapontype = 'gun';
+    }else if(n == 4){
+        maincharacter.weapontype = 'sword';
+    }else if(n == 5){
+        maincharacter.weapontype = 'shield';
+    }
     weapon.present = [];
     weapons[n][m].forEach(e=>{
         weapon.present.push(e);
     })
+    weapon.bullets = 0;
+    weapon.loading = false;
+    weapon.load = 0;
+    weapon.firing = false;
+    weapon.fire = 0;
 }
 
 var weapon = {
@@ -49,7 +61,8 @@ var weapon = {
 const weapons = [
     [//pistol[0]
     //[name, damge, knockback, src, level, loadable, loadingspeed, ammunitionspeed, firerapidity]
-        ["k5", 10, 5, 'images/game/weapons/k5', 0, 12, 50, 20, 10]
+        ["k5", 10, 5, 'images/game/weapons/k5', 0, 12, 50, 20, 10],
+        ["STRV9", 8, 10, 'images/game/weapons/STRV9', 0, 6, 30, 20, 7]
     ],[//SMG[1]
         []        
     ],[//shotgun[2]
@@ -141,54 +154,6 @@ var gun = [
         chargingspeed : 70,
         knockback : 20,
         src : 'images/game/K14.png'
-    },{
-        name : "용사의 검",
-        damage : 15,
-        knockback : 5,
-        x : 0,
-        y : 0,
-        width : 50,
-        height : 20,
-        level : 0,
-        src : 'images/game/sword.png',
-        rightsrc : 'images/game/rightsword.png',
-        leftsrc : 'images/game/leftsword.png',
-        draw(){
-            this.y = maincharacter.y + maincharacter.height / 2;
-            let image = new Image();
-            if(maincharacter.direction == 'right'){
-                image.src = this.rightsrc;
-                this.x = maincharacter.x - (ingametimer.bullettimer - 10) * ingametimer.bullettimer * 2;
-            }else{
-                image.src = this.leftsrc;
-                this.x = maincharacter.x + (ingametimer.bullettimer - 10) * ingametimer.bullettimer * 2;
-            }
-            ctx.drawImage(image, this.x, this.y, this.width, this.height);
-        }
-    },{
-        name : "용사의 방패",
-        damage : 5,
-        knockback : 15,
-        x : 0,
-        y : 0,
-        width : 20,
-        height : 50,
-        level : 0,
-        src : 'images/game/weapons/shield.png',
-        rightsrc : 'images/game/rightshield.png',
-        leftsrc : 'images/game/leftshield.png',
-        draw(){
-            this.y = maincharacter.y;
-            let image = new Image();
-            if(maincharacter.direction == 'right'){
-                image.src = this.rightsrc;
-                this.x = maincharacter.x + 30 - (ingametimer.bullettimer - 10) * ingametimer.bullettimer * 2;
-            }else{
-                image.src = this.leftsrc;
-                this.x = maincharacter.x + (ingametimer.bullettimer - 10) * ingametimer.bullettimer * 2;
-            }
-            ctx.drawImage(image, this.x, this.y, this.width, this.height);
-        }
     }
 ]
 
@@ -208,59 +173,6 @@ class Bullet {
 }
 
 var bullets = [[], []]
-
-function fire(){
-    if(maincharacter.weapontype == 'gun'){
-        if(!weapon.loading){
-            if(weapon.bullets > 0){
-                if(weapon.firing){
-                    if(weapon.fire % weapon.present[8] == 0){
-                        var bullet = new Bullet()
-                        if(maincharacter.direction == "right"){
-                            bullets[1].push(bullet);
-                            if(ingametimer.tutorial == 10){
-                                ingametimer.tutorial = 11;
-                            }
-                        }else{
-                            bullets[0].push(bullet);
-                            if(ingametimer.tutorial == 10){
-                                ingametimer.tutorial = 12;
-                            }
-                        }
-                        weapon.bullets -= 1;
-                    }
-                    weapon.fire += 1;
-                }else{
-                    weapon.fire = 0;
-                }
-            }
-        }
-    }else if(maincharacter.weapontype == 'sword' || maincharacter.weapontype == 'shield'){
-        if(weapon.firing){
-            weapon.fire += 1;
-            if(weapon.fire >= 10){
-                weapon.fire = 0;
-            }
-        }else if(weapon.fire == 0 || weapon.fire >= 10){
-            weapon.fire = 0;
-        }else{
-            weapon.fire += 1;
-        }
-        if(maincharacter.weapontype == 'sword'){
-            if(maincharacter.direction == 'left'){
-                weapon.present[6] = maincharacter.x + (weapon.fire - 10) * weapon.fire * 2 + 3;
-            }else{
-                weapon.present[6] = maincharacter.x - (weapon.fire - 10) * weapon.fire * 2 + 22;
-            }
-        }else{
-            if(maincharacter.direction == 'left'){
-                weapon.present[6] = maincharacter.x + (weapon.fire - 10) * weapon.fire * 2;
-            }else{
-                weapon.present[6] = maincharacter.x - (weapon.fire - 10) * weapon.fire * 2 + 30;
-            }
-        }
-    }
-}
 
 var thrownweapon = {
     present : ['피묻은 벽돌', 30, 5, 'images/game/weapons/brick.png', 10, '#b1432f'],
@@ -300,23 +212,4 @@ class Object{
     }
 }
 
-var objects = [[], []]
-
-function throwweapon(){
-    if(thrownweapon.objects > 0){
-        if(thrownweapon.throwing == true){
-            if(thrownweapon.throw % 30 == 0){
-                var object = new Object();
-                if(maincharacter.direction == 'left'){
-                    objects[0].push(object);
-                }else{
-                    objects[1].push(object);
-                }
-                thrownweapon.objects -= 1;
-            }
-            thrownweapon.throw += 1;
-        }else{
-            thrownweapon.throw = 0;
-        }
-    }
-}
+var objects = [[], []];

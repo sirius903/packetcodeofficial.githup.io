@@ -1,6 +1,6 @@
 /**주인공 */
 var maincharacter = {
-    name : "최원준",
+    name : "테스트",
     recentexp : 0,
     direction : "right",
     weapontype : 'gun',
@@ -12,10 +12,11 @@ var maincharacter = {
     height : 52.6,
     color : 'lime',
     speed : 10,
-    src : 'images/game/characters/maincharacter_right.png',
+    jump : 15,
+    src : 'images/game/characters/maincharacter_0',
     draw(){
         let image = new Image();
-        image.src = this.src;
+        image.src = this.src + this.direction + '.png';
         ctx.drawImage(image, this.x, this.y, this.width, this.height);
     }
 }
@@ -48,8 +49,8 @@ class Enemy {
         }
     }
     exp(){
-        exp.value += Math.floor(Math.random() * (ens[this.n].maxexp - ens[this.n].minexp)) + 1 + ens[this.n].minexp;
-        ingametimer.exp += 1;
+        exp[0] += Math.floor(Math.random() * (ens[this.n].maxexp - ens[this.n].minexp)) + 1 + ens[this.n].minexp;
+        ingame.exp += 1;
     }
 }
 

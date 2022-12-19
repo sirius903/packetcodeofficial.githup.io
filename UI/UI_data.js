@@ -1,26 +1,26 @@
-//---------------------------------inmenu----------------------------------
 var background = {
+    type : 0,
     x : 0,
     y : 0,
     width : innerWidth,
     height : innerHeight,
     inmenusrc : 'images/menu/background.png',
-    ingamesrc : 'images/game/background.png',
+    ingamesrc : ['images/game/background.png'],
     adjust(){
         this.width = innerWidth;
         this.height = innerHeight;
     },
     draw(){
         let image = new Image();
-        if(inmenutimer.whether){
+        if(windows.menu){
             image.src = this.inmenusrc;
-            if(innerHeight * 2 > innerWidth){
-                ctx.drawImage(image, (innerWidth - 2 * innerHeight) / 2, 0, innerHeight * 2, innerHeight);
+            if(innerHeight * 1280 > innerWidth * 960){
+                ctx.drawImage(image, (innerWidth - 1280 / 960 * innerHeight) / 2, 0, innerHeight / 960 * 1280, innerHeight);
             }else{
-                ctx.drawImage(image, 0, innerHeight - innerWidth / 2, innerWidth, innerWidth / 2);
+                ctx.drawImage(image, 0, innerHeight - innerWidth  * 960 / 1280, innerWidth, innerWidth * 960 / 1280);
             }
-        }else if(ingametimer.whether){
-            image.src = this.ingamesrc;
+        }else if(windows.game){
+            image.src = this.ingamesrc[this.type];
             if(innerHeight - 250 > innerWidth / 3){
                 ctx.drawImage(image, (innerWidth - 3 * innerHeight + 750) / 2, 0, (innerHeight - 250) * 3, innerHeight - 250);
             }else{
@@ -30,104 +30,56 @@ var background = {
     }
 }
 
-var playbutton = {
-    x : 110,
-    y : innerHeight - 170,
-    width : (innerWidth - 200) / 4 - 20,
-    height : 100,
-    color : 'gray',
-    text : "플레이하기",
-    adjust(){
-        this.y = innerHeight - 170;
-        this.width = (innerWidth - 200) / 4 - 20;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
+var inmenubutton = [
+    {
+        x : 110,
+        y : innerHeight - 170,
+        width : (innerWidth - 200) / 4 - 20,
+        height : 100,
+        color : 'gray',
+        text : "플레이",
+        adjust(){
+            this.y = innerHeight - 170;
+            this.width = (innerWidth - 200) / 4 - 20;
+        }
+    },{
+        x : (innerWidth - 200) / 4 + 110,
+        y : innerHeight - 170,
+        width : (innerWidth - 200) / 4 - 20,
+        height : 100,
+        color : 'gray',
+        text : "스킨",
+        adjust(){
+            this.x = (innerWidth - 200) / 4 + 110;
+            this.y = innerHeight - 170;
+            this.width = (innerWidth - 200) / 4 - 20;
+        }
+    },{
+        x : (innerWidth - 200) / 2 + 110,
+        y : innerHeight - 170,
+        width : (innerWidth - 200) / 4 - 20,
+        height : 100,
+        color : 'gray',
+        text : "랭킹",
+        adjust(){
+            this.x = (innerWidth - 200) / 2 + 110;
+            this.y = innerHeight - 170;
+            this.width = (innerWidth - 200) / 4 - 20;
+        }
+    },{
+        x : innerWidth - (innerWidth - 200) / 4 - 90,
+        y : innerHeight - 170,
+        width : (innerWidth - 200) / 4 - 20,
+        height : 100,
+        color : 'gray',
+        text : "설정",
+        adjust(){
+            this.x = innerWidth - (innerWidth - 200) / 4 - 90;
+            this.y = innerHeight - 170;
+            this.width = (innerWidth - 200) / 4 - 20;
+        }
     }
-}
-
-var setskinbutton = {
-    x : (innerWidth - 200) / 4 + 110,
-    y : innerHeight - 170,
-    width : (innerWidth - 200) / 4 - 20,
-    height : 100,
-    color : 'gray',
-    text : "커스터마이징",
-    adjust(){
-        this.x = (innerWidth - 200) / 4 + 110;
-        this.y = innerHeight - 170;
-        this.width = (innerWidth - 200) / 4 - 20;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
-
-var achievementbutton = {
-    x : (innerWidth - 200) / 2 + 110,
-    y : innerHeight - 170,
-    width : (innerWidth - 200) / 4 - 20,
-    height : 100,
-    color : 'gray',
-    text : "업적",
-    adjust(){
-        this.x = (innerWidth - 200) / 2 + 110;
-        this.y = innerHeight - 170;
-        this.width = (innerWidth - 200) / 4 - 20;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
-
-var menusettingbutton = {
-    x : innerWidth - (innerWidth - 200) / 4 - 90,
-    y : innerHeight - 170,
-    width : (innerWidth - 200) / 4 - 20,
-    height : 100,
-    color : 'gray',
-    text : "설정",
-    adjust(){
-        this.x = innerWidth - (innerWidth - 200) / 4 - 90;
-        this.y = innerHeight - 170;
-        this.width = (innerWidth - 200) / 4 - 20;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
+]
 
 var backbutton = {
     x : innerWidth - (innerWidth - 200) / 4 + 60,
@@ -153,11 +105,12 @@ var backbutton = {
     }
 }
 
-var playtitle = {
+var title = {
     x : 10,
     y : 10,
     width : innerWidth / 2,
-    text : "게임목록",
+    text : ["게임목록", '스킨목록', '랭킹', '설정'],
+    n : 0,
     adjust(){
         this.width = innerWidth / 2;
     },
@@ -166,7 +119,7 @@ var playtitle = {
         ctx.textAlign = 'start';
         ctx.textBaseline = 'top';
         ctx.font = '100px Sam3KRFont';
-        ctx.fillText(this.text, this.x, this.y, this.width);
+        ctx.fillText(this.text[this.n], this.x, this.y, this.width);
     }
 }
 
@@ -175,136 +128,73 @@ var playbackground = {
     y : 150,
     width : innerWidth / 2,
     height : innerHeight - 170,
-    src : ["", "images/menu/tutorial.png", "images/menu/nomalgame.png", "images/menu/specialmod.png", "images/menu/speedrun.png"],
+    src : ["images/menu/tutorial.png", "images/menu/nomalgame.png", "images/menu/specialmod.png", "images/menu/speedrun.png"],
     adjust(){
         this.width = innerWidth / 2;
         this.height = innerHeight - 170;
     },
     draw(){
         let image = new Image();
-        image.src = this.src[inmenutimer.play_n];
+        image.src = this.src[inmenu.play[1]];
         ctx.drawImage(image, this.x, this.y, this.width, this.height);
     }
 }
 
-var tutorialbutton = {
-    x : innerWidth / 2 + 80,
-    y : 160,
-    width : innerWidth / 6,
-    height : (innerHeight - 200) / 4 - 20,
-    color : 'gray',
-    text : "튜토리얼",
-    adjust(){
-        this.x = innerWidth / 2 + 80;
-        this.width = innerWidth / 6;
-        this.height = (innerHeight - 200) / 4 - 20;
-    },
-    draw(){
-        if(inmenutimer.play_n == 1){
-            ctx.fillStyle = 'blue';
-        }else{
-            ctx.fillStyle = 'black';
+var playbutton = [
+    {
+        x : innerWidth / 2 + 80,
+        y : 160,
+        width : innerWidth / 6,
+        height : (innerHeight - 200) / 4 - 20,
+        color : 'gray',
+        text : "튜토리얼",
+        adjust(){
+            this.x = innerWidth / 2 + 80;
+            this.width = innerWidth / 6;
+            this.height = (innerHeight - 200) / 4 - 20;
         }
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2);
+    },{
+        x : innerWidth / 2 + 80,
+        y : (innerHeight - 200) / 4 + 160,
+        width : innerWidth / 6,
+        height : (innerHeight - 200) / 4 - 20,
+        color : 'gray',
+        text : "일반게임",
+        adjust(){
+            this.x = innerWidth / 2 + 80;
+            this.y = (innerHeight - 200) / 4 + 160;
+            this.width = innerWidth / 6;
+            this.height = (innerHeight - 200) / 4 - 20;
+        }
+    },{
+        x : innerWidth / 2 + 80,
+        y : (innerHeight - 200) / 2 + 160,
+        width : innerWidth / 6,
+        height : (innerHeight - 200) / 4 - 20,
+        color : 'gray',
+        text : "특별모드",
+        adjust(){
+            this.x = innerWidth / 2 + 80;
+            this.y = (innerHeight - 200) / 2 + 160;
+            this.width = innerWidth / 6;
+            this.height = (innerHeight - 200) / 4 - 20;
+        }
+    },{
+        x : innerWidth / 2 + 80,
+        y : innerHeight - (innerHeight - 200) / 4 - 40,
+        width : innerWidth / 6,
+        height : (innerHeight - 200) / 4 - 20,
+        color : 'gray',
+        text : "스피드런",
+        adjust(){
+            this.x = innerWidth / 2 + 80;
+            this.y = innerHeight - (innerHeight - 200) / 4 - 40;
+            this.width = innerWidth / 6;
+            this.height = (innerHeight - 200) / 4 - 20;
+        }
     }
-}
+]
 
-var nomalgamebutton = {
-    x : innerWidth / 2 + 80,
-    y : (innerHeight - 200) / 4 + 160,
-    width : innerWidth / 6,
-    height : (innerHeight - 200) / 4 - 20,
-    color : 'gray',
-    text : "일반게임",
-    adjust(){
-        this.x = innerWidth / 2 + 80;
-        this.y = (innerHeight - 200) / 4 + 160;
-        this.width = innerWidth / 6;
-        this.height = (innerHeight - 200) / 4 - 20;
-    },
-    draw(){
-        if(inmenutimer.play_n == 2){
-            ctx.fillStyle = 'blue';
-        }else{
-            ctx.fillStyle = 'black';
-        }
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2);
-    }
-}
-
-var specialmodbutton = {
-    x : innerWidth / 2 + 80,
-    y : (innerHeight - 200) / 2 + 160,
-    width : innerWidth / 6,
-    height : (innerHeight - 200) / 4 - 20,
-    color : 'gray',
-    text : "특별모드",
-    adjust(){
-        this.x = innerWidth / 2 + 80;
-        this.y = (innerHeight - 200) / 2 + 160;
-        this.width = innerWidth / 6;
-        this.height = (innerHeight - 200) / 4 - 20;
-    },
-    draw(){
-        if(inmenutimer.play_n == 3){
-            ctx.fillStyle = 'blue';
-        }else{
-            ctx.fillStyle = 'black';
-        }
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2);
-    }
-}
-
-var speedrunbutton = {
-    x : innerWidth / 2 + 80,
-    y : innerHeight - (innerHeight - 200) / 4 - 40,
-    width : innerWidth / 6,
-    height : (innerHeight - 200) / 4 - 20,
-    color : 'gray',
-    text : "스피드런",
-    adjust(){
-        this.x = innerWidth / 2 + 80;
-        this.y = innerHeight - (innerHeight - 200) / 4 - 40;
-        this.width = innerWidth / 6;
-        this.height = (innerHeight - 200) / 4 - 20;
-    },
-    draw(){
-        if(inmenutimer.play_n == 4){
-            ctx.fillStyle = 'blue';
-        }else{
-            ctx.fillStyle = 'black';
-        }
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2);
-    }
-}
 
 var specialmods = [
     [
@@ -318,21 +208,6 @@ var specialmods = [
             type : 'sworder',
             adjust(){
                 this.width = innerWidth / 6 - 30;
-            },
-            draw(){
-                if(ingametimer.type == this.type){
-                    ctx.fillStyle = 'blue';
-                }else{
-                    ctx.fillStyle = 'black';
-                }
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-                ctx.fillStyle = 'black';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.font = '50px Sam3KRFont';
-                ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
             }
         },{
             x : innerWidth / 6 + 100,
@@ -345,21 +220,6 @@ var specialmods = [
             adjust(){
                 this.x = innerWidth / 6 + 100;
                 this.width = innerWidth / 6 - 30;
-            },
-            draw(){
-                if(ingametimer.type == this.type){
-                    ctx.fillStyle = 'blue';
-                }else{
-                    ctx.fillStyle = 'black';
-                }
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-                ctx.fillStyle = 'black';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.font = '50px Sam3KRFont';
-                ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
             }
         },{
             x : innerWidth / 3 + 90,
@@ -372,21 +232,6 @@ var specialmods = [
             adjust(){
                 this.x = innerWidth / 3 + 90;
                 this.width = innerWidth / 6 - 30;
-            },
-            draw(){
-                if(ingametimer.type == this.type){
-                    ctx.fillStyle = 'blue';
-                }else{
-                    ctx.fillStyle = 'black';
-                }
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-                ctx.fillStyle = 'black';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.font = '50px Sam3KRFont';
-                ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
             }
         },{
             x : innerWidth / 2 + 80,
@@ -399,21 +244,6 @@ var specialmods = [
             adjust(){
                 this.x = innerWidth / 2 + 80;
                 this.width = innerWidth / 6 - 30;
-            },
-            draw(){
-                if(ingametimer.type == this.type){
-                    ctx.fillStyle = 'blue';
-                }else{
-                    ctx.fillStyle = 'black';
-                }
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-                ctx.fillStyle = 'black';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.font = '50px Sam3KRFont';
-                ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
             }
         }
     ],
@@ -422,7 +252,7 @@ var specialmods = [
 ]
 
 
-var startui = {
+var startbutton = {
     x : innerWidth / 3 * 2 + 100,
     y : innerHeight - 120,
     width : innerWidth / 3 - 120,
@@ -448,7 +278,7 @@ var startui = {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = '50px Sam3KRFont';
-        if(inmenutimer.play_n != 3 || inmenutimer.specailmod){
+        if(inmenu.play[1] != 2 || inmenu.play[2]){
             ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2);
         }else{
             ctx.fillText("특별모드둘러보기", this.x + this.width / 2, this.y + this.height / 2, this.width);
@@ -463,11 +293,19 @@ var gameex = {
     sx : innerWidth / 3 * 2 + 120,
     sy : 180,
     text : [
-        "설명설명설명설명설명설명설명설명설명",
-        "튜토리얼",
-        "일반게임",
-        "특별모드",
-        "스피드런"
+        [
+           "튜토리얼",
+            "일반게임",
+            "특별모드",
+            "스피드런"
+        ],[
+            [
+                ['용사의 검만 사용 가능'],
+                ['아직 안 만듦1'],
+                ['아직 안 만듦2'],
+                ['아직 안 만듦3']
+            ]
+        ]
     ],
     adjust(){
         this.x = innerWidth / 3 * 2 + 110,
@@ -479,32 +317,57 @@ var gameex = {
         ctx.textAlign = 'start';
         ctx.textBaseline = 'top';
         ctx.font = '50px Sam3KRFont';
-        if(inmenutimer.specailmod){
-            if(ingametimer.type == 'sworder'){
-                ctx.fillText('용사의 모험', this.x, this.y, this.width);
-                ctx.font = '30px Sam3KRFont';
-                ctx.fillText('용사의 검만 사용 가능',this.sx, this.sy);
-            }
-        }else{
-            if(inmenutimer.play_n == 1){
-                ctx.fillText(tutorialbutton.text, this.x, this.y, this.width);
-            }else if(inmenutimer.play_n == 2){
-                ctx.fillText(nomalgamebutton.text, this.x, this.y, this.width);
-            }else if(inmenutimer.play_n == 3){
-                ctx.fillText(specialmodbutton.text, this.x, this.y, this.width);
-            }else if(inmenutimer.play_n == 4){
-                ctx.fillText(speedrunbutton.text, this.x, this.y, this.width);
-            }
+        if(inmenu.play[2]){
+            ctx.fillText(specialmods[inmenu.play[3][0]][inmenu.play[3][1]].text, this.x, this.y, this.width);
             ctx.font = '30px Sam3KRFont';
-            ctx.fillText(this.text[inmenutimer.play_n],this.sx, this.sy);
+            ctx.fillText(this.text[1][inmenu.play[3][0]][inmenu.play[3][1]] ,this.sx, this.sy);
+        }else{
+            ctx.fillText(playbutton[inmenu.play[1]].text, this.x, this.y, this.width)
+            ctx.font = '30px Sam3KRFont';
+            ctx.fillText(this.text[0][inmenu.play[1]],this.sx, this.sy);
         }
     }
 }
 
-
-
-
-
+var ingamebutton = [
+    {
+        x : innerWidth - 60,
+        y : 60,
+        width : 50,
+        height : 50,
+        color : '#00000000',
+        draw(){
+            ctx.fillStyle = 'gray';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    },{
+        x : innerWidth - 60,
+        y : 120,
+        width : 50,
+        height : 50,
+        color : '#00000000',
+        draw(){
+            ctx.fillStyle = 'gray';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    },{
+        x : innerWidth - 60,
+        y : 180,
+        width : 50,
+        height : 50,
+        color : '#00000000',
+        draw(){
+            ctx.fillStyle = 'gray';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+]
 
 var screen = {
     x : 0,
@@ -534,7 +397,7 @@ var gamewindow = {
     draw(){
         ctx.fillStyle = '#20aaffb0';
         ctx.fillRect(this.x, this.y, this.width, this.height);
-        if(ingametimer.shop){
+        if(pausing.shop){
             ctx.fillStyle = 'white';
             ctx.textBaseline = "top";
             ctx.textAlign = "center";
@@ -547,7 +410,67 @@ var gamewindow = {
     }
 }
 
-var shoplist = [
+var controll = [
+    {
+        text : '던지기',
+        x : 500,
+        y : 150,
+        width : 100,
+        height : 50,
+        color : 'black',
+        key : controlls.throwing
+    },{
+        text : '건설하기',
+        x : 500,
+        y : 230,
+        width : 100,
+        height : 50,
+        color : 'black',
+        key : controlls.building
+    },{
+        text : '장전하기',
+        x : 500,
+        y : 310,
+        width : 100,
+        height : 50,
+        color : 'black',
+        key : controlls.loading
+    },{
+        text : '스킵하기',
+        x : 500,
+        y : 390,
+        width : 100,
+        height : 50,
+        color : 'black',
+        key : controlls.skip
+    },{
+        text : '상점열기',
+        x : 500,
+        y : 470,
+        width : 100,
+        height : 50,
+        color : 'black',
+        key : controlls.goshop
+    },{
+        text : '랭킹보기',
+        x : 500,
+        y : 550,
+        width : 100,
+        height : 50,
+        color : 'black',
+        key : controlls.ranking
+    },{
+        text : '재시작하기',
+        x : 500,
+        y : 630,
+        width : 100,
+        height : 50,
+        color : 'black',
+        key : controlls.retry
+    },
+]
+
+var catalog = [
     {
         name : '투척물 보충하기',
         x : 170,
@@ -555,24 +478,26 @@ var shoplist = [
         width : innerWidth / 3 - 140,
         height : innerHeight - 300,
         color : '#7bcdffb0',
+        src : 'images/game/weapons/brick.png',
+        sheight : innerWidth / 3 - 240,
         item : 3,
+        description : '투척물 +3',
+        price : 15,
         adjust(){
             this.width = innerWidth / 3 - 140;
             this.height = innerHeight - 300;
         },
-        draw(){
-            ctx.fillStyle = this.color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-            ctx.fillStyle = 'gray';
-            ctx.textBaseline = "top";
-            ctx.textAlign = "center";
-            ctx.font = '30px Sam3KRFont';
-            ctx.fillText(this.name, this.x + this.width / 2, this.y + 15);
-            ctx.fillText("투척물 +" + this.item, this.x + this.width / 2, this.y + this.height - 80);
-            ctx.fillText(this.item * 5 + "￦", this.x + this.width / 2, this.y + this.height - 40);
-            let image = new Image();
-            image.src = thrownweapon.present[3]
-            ctx.drawImage(image, this.x + 50, this.y + 55, this.width - 100, this.width - 100);
+        use(){
+            var alert = new Alert;
+            if(this.price <= money.value){
+                alert.text = '성공적으로 구매했습니다.';
+                thrownweapon.objects += this.item;
+                money.value -= this.price;
+            }else{
+                alert.color = 'red';
+                alert.text = '소지하신 금액이 부족합니다.';
+            }
+            alerts[1].unshift(alert);
         }
     },{
         name : '구조물 보충하기',
@@ -581,46 +506,40 @@ var shoplist = [
         width : innerWidth / 3 - 140,
         height : innerHeight - 300,
         color : '#7bcdffb0',
+        src : 'images/game/building.png',
+        sheight : innerWidth / 3 - 240,
         item : 3,
+        description : '구조물 +3',
+        price : 30,
         adjust(){
             this.x = innerWidth / 3 + 70;
             this.width = innerWidth / 3 - 140;
             this.height = innerHeight - 300;
         },
-        draw(){
-            ctx.fillStyle = this.color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-            ctx.fillStyle = 'gray';
-            ctx.textBaseline = "top";
-            ctx.textAlign = "center";
-            ctx.font = '30px Sam3KRFont';
-            ctx.fillText(this.name, this.x + this.width / 2, this.y + 15);
-            ctx.fillText("구조물 +" + this.item, this.x + this.width / 2, this.y + this.height - 80);
-            ctx.fillText(this.item * 10 + "￦", this.x + this.width / 2, this.y + this.height - 40);
-            let image = new Image();
-            image.src = 'images/game/building.png'
-            ctx.drawImage(image, this.x + 75, this.y + 105, this.width - 150, this.width - 150);
+        use(){
+            var alert = new Alert;
+            alert.color = 'red';
+            alert.text = '사지마';
+            alerts[1].unshift(alert);
         }
     },{
-        name : ' 구매하기',
+        name : 'STRV9 구매하기',
         x : innerWidth / 3 * 2 - 30,
         y : 200,
         width : innerWidth / 3 - 140,
         height : innerHeight - 300,
-        number : [0, 1],
         color : '#7bcdffb0',
+        src : 'images/game/weapons/STRV9left.png',
+        sheight : innerWidth / 4 - 180,
+        number : [0, 1],
+        description : '무기를 STRV9으로 교체',
+        price : 10,
         adjust(){
             this.x = innerWidth / 3 * 2 - 30;
             this.width = innerWidth / 3 - 140;
             this.height = innerHeight - 300;
         },
-        draw(){
-            ctx.fillStyle = this.color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
-            ctx.fillStyle = 'gray';
-            ctx.textBaseline = "top";
-            ctx.textAlign = "center";
-            ctx.font = '30px Sam3KRFont';
+        draw(){/*
             let image = new Image();
             if(ingametimer.type == 'sworder' && this.number[0] == 0){
                 ctx.fillText(sworder[sworder[0]].title, this.x + this.width / 2, this.y + 15);
@@ -629,9 +548,6 @@ var shoplist = [
                 image.src = gun[sworder[sworder[0]].n].src;
                 ctx.drawImage(image, this.x + 50, this.y + 70, this.width - 100, this.width / 5 * 4 - 80);
             }else{
-                ctx.fillText(itemlist[this.number[0]][this.number[1]][0] + this.name, this.x + this.width / 2, this.y + 15);
-                ctx.fillText(itemlist[this.number[0]][this.number[1]][2], this.x + this.width / 2, this.y + this.height - 80, this.width);
-                ctx.fillText(itemlist[this.number[0]][this.number[1]][1] + "￦", this.x + this.width / 2, this.y + this.height - 40);
                 if(this.number[0] == 0){
                     image.src = gun[itemlist[this.number[0]][this.number[1]][3]].src;
                     ctx.drawImage(image, this.x + 50, this.y + 70, this.width - 100, this.width / 5 * 4 - 80);
@@ -642,39 +558,72 @@ var shoplist = [
                     image.src = itemlist[this.number[0]][this.number[1]][3];
                     ctx.drawImage(image, this.x + 50, this.y + 55, this.width - 100, this.width - 100);
                 }
+            }*/
+        },
+        use(){
+            var alert = new Alert;
+            if(this.price <= money.value){
+                if(this.number[0] == 0){
+                    if(weapon.present[0] == itemlist[0][this.number[1]][0]){
+                        alert.color = 'red';
+                        alert.text = '이미 보유 중인 무기입니다.';
+                    }else{
+                        change(itemlist[0][this.number[1]][3], itemlist[0][this.number[1]][4]);
+                        money.value -= this.price;
+                        alert.text = '성공적으로 구매했습니다.';
+                    }
+                }else if(this.number[0] == 1){
+                    if(weapon.present[0] == itemlist[1][this.number[1]][0]){
+                        alert.color = 'red';
+                        alert.text = '이미 장착 중인 투척물입니다.';
+                    }else{
+                        itemlist[1][this.number[1]][3], itemlist[1][this.number[1]][4];//투척물 변경
+                        money.value -= this.price;
+                        alert.text = '성공적으로 구매했습니다.';
+                    }
+                }else if(this.number[0] == 2){
+                }
+            }else{
+                alert.color = 'red';
+                alert.text = '소지하신 금액이 부족합니다.';
             }
+            alerts[1].unshift(alert);
+/*
+            if(ingametimer.type == 'sworder'){
+                if(sworder[sworder[0]].value <= money.value){
+                    alert.text = '성공적으로 구매했습니다.';
+                    if(shoplist[2].number[0] == 0){
+                        gun[sworder[sworder[0]].n].level += 1;
+                        money.value -= sworder[sworder[0]].value;
+                        sworder[sworder[0]].use();
+                        sworder[0] += 1;
+                    }else if(shoplist[2].number[0] == 1){
+                        maincharacter.throwawaytype = itemlist[shoplist[2].number[0]][shoplist[2].number[1]][3];
+                        money.value -= itemlist[shoplist[2].number[0]][shoplist[2].number[1]][1];
+                    }else if(shoplist[2].number[0] == 2){
+                        if(shoplist[2].number[1] == 0){
+                            heart.value += 1;
+                        }
+                        money.value -= itemlist[shoplist[2].number[0]][shoplist[2].number[1]][1];
+                    }
+                }else{
+                    alert.color = 'red';
+                    alert.text = '구매에 실패했습니다.';
+                }
+            }else{
+                
+                alert.text = '성공적으로 구매했습니다.';
+                if(shoplist[2].number[0] == 2){
+                    if(shoplist[2].number[1] == 0){
+                        heart.value += 1;
+                    }
+                }
+            }*/
         }
     },
 ]
 
 //---------------------ingame---------------------------
-
-
-var time = {
-    x : innerWidth / 2,
-    y : 50,
-    m : 00,
-    s : 00,
-    adjust(){
-        this.x = innerWidth / 2;
-    },
-    draw(){
-        this.m = ingametimer.time[0];
-        this.s = ingametimer.time[1];
-        if(ingametimer.time[0] < 10){
-            this.m = '0' + ingametimer.time[0];
-        }
-        if(ingametimer.time[1] < 10){
-            this.s = '0' + ingametimer.time[1];
-        }
-        ctx.fillStyle = 'white';
-        ctx.textBaseline = "top";
-        ctx.textAlign = "center";
-        ctx.font = '40px Sam3KRFont';
-        ctx.fillText(this.m + ":" + this.s, this.x, this.y);
-    }
-}
-
 var waveshower = {
     x : innerWidth / 2,
     y : 10,
@@ -696,21 +645,6 @@ var waveshower = {
                 ctx.fillText(10 - Math.floor(ingametimer.dowave / 50) + "초 후에 다음 웨이브", this.x, this.y + 100);
             }
         }*/
-    }
-}
-
-var ground = {
-    x : 0,
-    y : innerHeight - 250,
-    width : innerWidth,
-    height : 250,
-    adjust(){
-        this.y = innerHeight - 250;
-        this.width = innerWidth;
-    },
-    draw(){
-        ctx.fillStyle = '#5b5b5b';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
 
@@ -739,7 +673,7 @@ var throwingbutton = {
         ctx.textAlign = 'start';
         ctx.fillStyle = 'black';
         ctx.textBaseline = 'top';
-        ctx.fillText('Z', this.x + 10, this.y + 5);
+        ctx.fillText(controlls.throwing.substring(3), this.x + 10, this.y + 5);
         
     }
 }
@@ -754,7 +688,7 @@ var buildingbutton = {
         this.y = innerHeight - 90;
     },
     draw(){
-        if(ingametimer.buildpress == true){
+        if(structure.building == true){
             this.color = '#00000050';
         }else{
             this.color = '#00000000';
@@ -768,11 +702,11 @@ var buildingbutton = {
         ctx.textAlign = 'start';
         ctx.fillStyle = 'black';
         ctx.textBaseline = 'top';
-        ctx.fillText('X', this.x + 10, this.y + 5);
+        ctx.fillText(controlls.building.substring(3), this.x + 10, this.y + 5);
         ctx.textAlign = 'end';
         ctx.fillStyle = 'white';
         ctx.textBaseline = 'bottom';
-        ctx.fillText(structure[0], this.x + this.width - 5, innerHeight - 10);
+        ctx.fillText(structure.buildings, this.x + this.width - 5, innerHeight - 10);
     }
 }
 
@@ -793,7 +727,7 @@ var loadingbutton = {
         }
         let image = new Image();
         if(maincharacter.weapontype == 'sword' || maincharacter.weapontype == 'shield'){
-            if(ingametimer.type == 'sworder'){
+            if(ingame.type == 'sworder'){
                 image.src = 'images/game/change.png';
             }else{
                 image.src = 'images/game/none.png';
@@ -808,7 +742,7 @@ var loadingbutton = {
         ctx.textAlign = 'start';
         ctx.fillStyle = 'black';
         ctx.textBaseline = 'top';
-        ctx.fillText('C', this.x + 10, this.y + 5);
+        ctx.fillText(controlls.loading.substring(3), this.x + 10, this.y + 5);
         if(weapon.load > 0 && maincharacter.weapontype != 'sword' && maincharacter.weapontype != 'shield'){
             ctx.fillStyle = 'white';
             ctx.textAlign = 'end';
@@ -818,12 +752,57 @@ var loadingbutton = {
     }
 }
 
-var structure = [
-    3,
+var keys = [
+    {
+        name : 'SpaceBar',
+        x : 330,
+        y : innerHeight - 80,
+        width : 480,
+        height : 70,
+        color : 'gray'
+    },{
+        name : '←',
+        x : 830,
+        y : innerHeight - 80,
+        width : 70,
+        height : 70,
+        color : 'gray'
+    },{
+        name : '↓',
+        x : 910,
+        y : innerHeight - 80,
+        width : 70,
+        height : 70,
+        color : 'gray'
+    },{
+        name : '→',
+        x : 990,
+        y : innerHeight - 80,
+        width : 70,
+        height : 70,
+        color : 'gray'
+    },{
+        name : '↑',
+        x : 910,
+        y : innerHeight - 160,
+        width : 70,
+        height : 70,
+        color : 'gray'
+    }
+]
+
+var structure = {
+    present : 0,
+    buildings : 3,
+    building : false,
+    build : 0,
+}
+
+var structures = [
     {
         name : '지지대'
     },{
-
+        name : '점프대'
     }
 ]
 
@@ -833,9 +812,11 @@ class Building {
         this.y = innerHeight - 350;
         this.width = 100;
         this.height = 100;
-        this.color = 'black';
         this.timer = 0;
+        this.type = structure.present;
         this.able = false;
+        this.walking = true;
+        this.hp = 100;
         this.src = 'images/game/building.png'
     }
     draw(){
@@ -846,27 +827,6 @@ class Building {
 }
 
 var buildings = [];
-
-function build(){
-    if(ingametimer.building == true){
-        if(structure[0] > 0){
-            if(ingametimer.buildingtimer == 0){
-                structure[0] -= 1;
-                var building = new Building;
-                buildings.unshift(building);
-            }
-            if(ingametimer.buildingtimer >= 50){
-                ingametimer.building = false;
-                ingametimer.buildingtimer = 0;
-            }else{
-                buildings[0].color = 'rgba(0, 0, 0, ' + ingametimer.buildingtimer / 50 + ')';
-                ingametimer.buildingtimer += 1;
-            }
-        }else{
-            ingametimer.building = false;
-        }
-    }
-}
 
 var tutorialscreen = {
     x : 250,
@@ -888,7 +848,7 @@ var tutorialscreen = {
 
     }
 }
-
+/*
 var tutorialexplainer = {
     x : 500,
     y : 250,
@@ -947,7 +907,7 @@ var tutorialexplainer = {
         ctx.strokeText(this.text[ingametimer.tutorial - 1][2], this.x, this.y + 100);
         ctx.strokeText(this.text[ingametimer.tutorial - 1][3], this.x, this.y + 150);
     }
-}
+}*/
 
 class Alert{
     constructor(){
@@ -980,197 +940,104 @@ var alerts = [[], []];
 
 //-----------------------------
 
-var gobackbutton = {
-    x : 250,
-    y : innerHeight / 2 - 245,
-    width : innerWidth - 500,
-    height : 100,
-    color : 'gray',
-    text : "게임으로 돌아가기",
-    adjust(){
-        this.y = innerHeight / 2 - 245;
-        this.width = innerWidth - 500;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
+var onpausebutton = [
+    {
+        x : 250,
+        y : innerHeight / 2 - 245,
+        width : innerWidth - 500,
+        height : 100,
+        color : 'gray',
+        text : "게임으로 돌아가기",
+        adjust(){
+            this.y = innerHeight / 2 - 245;
+            this.width = innerWidth - 500;
+        }
+    },{
+        x : 250,
+        y : innerHeight / 2 - 115,
+        width : innerWidth / 2 - 265,
+        height : 100,
+        color : 'gray',
+        text : "설정",
+        adjust(){
+            this.y = innerHeight / 2 - 115;
+            this.width = innerWidth / 2 - 265;
+        }
+    },{
+        x : innerWidth / 2 + 15,
+        y : innerHeight / 2 - 115,
+        width : innerWidth / 2 - 265,
+        height : 100,
+        color : 'gray',
+        text : "업적",
+        adjust(){
+            this.x = innerWidth / 2 + 15;
+            this.y = innerHeight / 2 - 115;
+            this.width = innerWidth / 2 - 265;
+        }
+    },{
+        x : 250,
+        y : innerHeight / 2 + 15,
+        width : innerWidth / 2 - 265,
+        height : 100,
+        color : 'gray',
+        text : "스킨",
+        adjust(){
+            this.y = innerHeight / 2 + 15;
+            this.width = innerWidth / 2 - 265;
+        }
+    },{
+        x : innerWidth / 2 + 15,
+        y : innerHeight / 2 + 15,
+        width : innerWidth / 2 - 265,
+        height : 100,
+        color : 'gray',
+        text : "상점",
+        adjust(){
+            this.x = innerWidth / 2 + 15;
+            this.y = innerHeight / 2 + 15;
+            this.width = innerWidth / 2 - 265;
+        }
+    },{
+        x : 250,
+        y : innerHeight / 2 + 145,
+        width : innerWidth - 500,
+        height : 100,
+        color : 'gray',
+        text : "메뉴로 가기",
+        adjust(){
+            this.y = innerHeight / 2 + 145;
+            this.width = innerWidth - 500;
+        }
     }
-}
+]
 
-var gamesettingbutton = {
-    x : 250,
-    y : innerHeight / 2 - 115,
-    width : innerWidth / 2 - 265,
-    height : 100,
-    color : 'gray',
-    text : "설정",
-    adjust(){
-        this.y = innerHeight / 2 - 115;
-        this.width = innerWidth / 2 - 265;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
+var reconfirmbutton = [
+    {
+        x : 250,
+        y : innerHeight / 2 + 25,
+        width : innerWidth - 500,
+        height : 100,
+        color : 'gray',
+        text : "메뉴로 가기",
+        adjust(){
+            this.y = innerHeight / 2 + 25;
+            this.width = innerWidth - 500;
+        }
+    },{
+        x : 250,
+        y : innerHeight / 2 + 145,
+        width : innerWidth - 500,
+        height : 100,
+        color : 'gray',
+        text : "취소",
+        adjust(){
+            this.y = innerHeight / 2 + 145;
+            this.width = innerWidth - 500;
+        }
     }
-}
+]
 
-var achievebutton = {
-    x : innerWidth / 2 + 15,
-    y : innerHeight / 2 - 115,
-    width : innerWidth / 2 - 265,
-    height : 100,
-    color : 'gray',
-    text : "업적",
-    adjust(){
-        this.x = innerWidth / 2 + 15;
-        this.y = innerHeight / 2 - 115;
-        this.width = innerWidth / 2 - 265;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
-var skinbutton = {
-    x : 250,
-    y : innerHeight / 2 + 15,
-    width : innerWidth / 2 - 265,
-    height : 100,
-    color : 'gray',
-    text : "스킨",
-    adjust(){
-        this.y = innerHeight / 2 + 15;
-        this.width = innerWidth / 2 - 265;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
-var shopbutton = {
-    x : innerWidth / 2 + 15,
-    y : innerHeight / 2 + 15,
-    width : innerWidth / 2 - 265,
-    height : 100,
-    color : 'gray',
-    text : "상점",
-    adjust(){
-        this.x = innerWidth / 2 + 15;
-        this.y = innerHeight / 2 + 15;
-        this.width = innerWidth / 2 - 265;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
-
-var menubutton = {
-    x : 250,
-    y : innerHeight / 2 + 145,
-    width : innerWidth - 500,
-    height : 100,
-    color : 'gray',
-    text : "메뉴로 가기",
-    adjust(){
-        this.y = innerHeight / 2 + 145;
-        this.width = innerWidth - 500;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
-
-var reconfirmbutton = {
-    x : 250,
-    y : innerHeight / 2 + 25,
-    width : innerWidth - 500,
-    height : 100,
-    color : 'gray',
-    text : "메뉴로 가기",
-    adjust(){
-        this.y = innerHeight / 2 + 25;
-        this.width = innerWidth - 500;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
-
-var cancelbutton = {
-    x : 250,
-    y : innerHeight / 2 + 145,
-    width : innerWidth - 500,
-    height : 100,
-    color : 'gray',
-    text : "취소",
-    adjust(){
-        this.y = innerHeight / 2 + 145;
-        this.width = innerWidth - 500;
-    },
-    draw(){
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + 5, this.y + 5, this.width - 10, this.height - 10);
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = '50px Sam3KRFont';
-        ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2, this.width);
-    }
-}
 
 var throwingkeybutton = {
     x : 250,
@@ -1233,18 +1100,98 @@ var scorebackbutton = {
 }
 
 var score = {
-    score : [['Max Heart', 'Last Heart', 'Time', 'Kills', 'Damage Done To', 'Damage Done By', 'Score'], [3, 3, '0:0.0', 0, 0, 0, 0]],
+    score : [['Max Heart', 'Last Heart', 'Time', 'Kills', 'Damage Done To', 'Damage Done By', 'Score'], [3, 3, '0:0.0', 0, 0, 0, 0], ['+0', '+0', '+0', '+0', '+0', '-0']],
+    color : ['#aed2ff','#ffaeae','#c4c4c4','#4b4b4b','#208fff','#ff4328','#ffcd20'],
+    survived : false,
     show(){
         ctx.fillStyle = 'white';
         ctx.textAlign = 'start';
         ctx.textBaseline = 'top';
         this.score.forEach((e, i)=>{
-            if(i){
+            if(i == 1){
                 ctx.textAlign = 'end';
+            }else if(i == 2){
+                ctx.textAlign = 'start';
             }
             e.forEach((b, n)=>{
-                ctx.fillText(b, 450 * i + 20, 50 * n + 20);
+                if(i == 1){
+                    ctx.fillStyle = this.color[n]
+                }else if(i == 2){
+                    if(+b > 0){
+                        ctx.fillStyle = 'blue';
+                    }else if(+b < 0){
+                        ctx.fillStyle = 'red';
+                    }else{
+                        ctx.fillStyle = 'white';
+                    }
+                }
+                ctx.fillText(b, 450 * i - Math.floor(i / 2) * 400 + 20, 50 * n + 20);
             })
         })
+        ctx.textAlign = 'end';
+        ctx.textBaseline = 'middle';
+        ctx.font = '100px Sam3KRFont';
+        if(this.survived){
+            ctx.fillStyle = 'green';
+            ctx.fillText('생존 ', innerWidth - 270, 145);
+        }else{
+            ctx.fillStyle = 'red';
+            ctx.fillText('실패 ', innerWidth - 270, 145);
+        }
+
+        ctx.fillStyle = 'black';
+        ctx.fillRect(innerWidth - 270, 20, 250, 250);
+        var image = new Image;
+        image.src = 'images/game/characters/maincharacter_0left.png';
+        ctx.drawImage(image, innerWidth - 270, 20, 250, 250);
+        var image = new Image;
+        image.src = weapon.present[3] + 'left.png';
+        ctx.drawImage(image, innerWidth - 250, 300);
+    }
+}
+
+var rank = {
+    type : 0,
+    page : 0,
+    draw(){
+        ctx.fillStyle = 'black';
+        ctx.textBaseline = 'top';
+        ctx.font = '50px Sam3KRFont';
+        ranking[this.type].forEach((e, i)=>{
+            if(i >= 0 + 10 * this.page && i < 10 + 10 * this.page){
+                ctx.textAlign = 'end';
+                ctx.fillText((i + 1) + "위", 140 + Math.floor(i / 5) * innerWidth / 2, i % 5 * 100 + 150);
+                e.forEach((a, j)=>{
+                    if(j){
+                        ctx.textAlign = 'end';
+                    }else{
+                        ctx.textAlign = 'start';
+                    }
+                    ctx.fillText(a, j * 450 + Math.floor(i / 5) * innerWidth / 2 + 150, i % 5 * 100 + 150, 200)
+                })
+            }
+        })
+    },
+    set(){
+        for(let a = 0; a < 7; a++){
+            let n = true;
+            ranking[a].forEach((e, i, o)=>{
+                if(e[1] <= score.score[1][[2, 3, 4, 1, 5, 6, 0].indexOf(a)] && n){
+                    o.splice(i, 0, [maincharacter.name, score.score[1][[2, 3, 4, 1, 5, 6, 0].indexOf(a)]])
+                    n = false;
+                }
+            })
+            ranking[a].forEach((e, i)=>{
+                localStorage.setItem(['score', 'kill', 'max', 'last', 'time', 'ddt', 'ddb'][a] + "name" + (i + 1), e[0]);
+                if(a == 4){
+                    localStorage.setItem('timem' + (i + 1), ingame.time[0]);
+                    localStorage.setItem('times' + (i + 1), ingame.time[1]);
+                    localStorage.setItem('timef' + (i + 1), ingame.time[2]);
+                }else{
+                    localStorage.setItem(['score', 'kill', 'max', 'last', 'time', 'ddt', 'ddb'][a] + (i + 1), e[1]);
+                }
+                localStorage.setItem("n", i + 1)
+            })
+        }
     }
 }
