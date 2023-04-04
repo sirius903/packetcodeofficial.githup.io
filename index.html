@@ -8,7 +8,7 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
-    <section id="input"></section>
+    <section id="input" style="padding: 0 0 0 500px;"><button onclick="add()"><p>add</p></button></section>
     <script src="main.js"></script>
     <style>
         * {
@@ -17,6 +17,11 @@
         }
         canvas {
             background: #1d1d25;
+            position: absolute;
+        }
+        input {
+            width: 100px;
+            padding: 0 0 0 500px;
         }
     </style>
 </body>
