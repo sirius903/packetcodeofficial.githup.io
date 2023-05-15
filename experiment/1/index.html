@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Physics Task</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <header>
+    <div id="playbar" style="background-color: gray;">
+        <button>pause</button>
+        <button>multiple</button>
+    </div>
+ </header>
+ <main style="display: table;">
+    <canvas id="canvas" style="float: left;"></canvas>
+    <section id="input" style="float: right;">
+        <section class="converts">
+            <h1>Gravity</h1>
+            <form onsubmit="return false;">
+             <label for="gravity" title="Gravitational force">G-force</label><input type="number" placeholder="9.8" value="9.8" id="gravity" min="-100" max="100" step="0.1" onchange="setgravity();" title="Converts G-force(Default : 9.8)"><input type="reset" value="reset" onclick="setgravity(true);" title="Resets G-force(Default : 9.8)"><input type="submit" value="submit" onclick="setgravity();" title="G-force Conversion Button">
+            </form>
+        </section>
+        <section class="converts">
+            <h1>Ground</h1>
+            <form onsubmit="return false;">
+             <label for="groundrgb" title="The Color of The Ground">Color</label><input type="color" id="groundrgb" value="#808080" onchange="groundctn();" title="Converts The Color of The Ground"><input type="number" placeholder="0" value="128" id="groundr" min="0" max="255" step="1" title="Converts The Color of The Ground with RGB" onkeyup="groundntc()"><input type="number" placeholder="0" value="128" id="groundg" min="0" max="255" step="1" title="Converts The Color of The Ground with RGB" onkeyup="groundntc()"><input type="number" placeholder="0" value="128" id="groundb" min="0" max="255" step="1" title="Converts The Color of The Ground with RGB" onkeyup="groundntc()"><input type="reset" value="reset" onclick="" title="Resets The Color"><input type="submit" value="submit" onclick="setgroundcolor();" title="The Color Conversion Button"><br>
+             <label for="height" title="The Height of The Ground">Height</label><input type="number" placeholder="0" value="0" id="height" min="0" max="100" step="0.1" onchange="setheight();" title="Converts The Height of The Ground(Default : 0)"><input type="reset" value="reset" onclick="setheight(true)" title="Resets The Height(Default : 0)"><input type="submit" value="submit" onclick="setheight()" title="The height Conversion Button"><br>
+             <label for="" title="Friction on The Ground">Friction</label><input type="number" placeholder="developing" value="" min="-100" max="100" step="0.1" onchange="" title="developing" disabled><input type="reset" value="reset" onclick="" title="developing" disabled><input type="submit" value="submit" onclick="" title="developing" disabled>
+            </form>
+        </section>
+        <section id="objects">
+            <div id="object_buttons">
+                <button onclick="add()" class="object_buttons"><p>+</p></button>
+            </div>
+            <div id="modify_objects">
+                <div class="objects" style="display: block;">
+                    <h3>Example</h3>
+                    <form>
+                     <label for="ex_name" title="This Object's Name">Name</label><input type="text" placeholder="New Object" value="New Object" id="ex_name" onchange="" title="Converts This Object's Name" disabled><input type="submit" value="submit" onclick="" title="The name Conversion Button" disabled>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </section>
+ </main>
+ <footer>
+ </footer>
+ <script src="main.js"></script>
+</body>
+</html>
