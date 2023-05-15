@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Task</title>
+ <meta charset="UTF-8">
+ <title>PhysicsLab</title>
+ <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div style="display: table;">
-        <canvas id="canvas" style="float: left;"></canvas>
-        <section id="input" style="float: right;">
-            <section>
-                <h1>Gravity</h1>
-                <form onsubmit="return false;">
-                    <label for="gravity" title="Gravitational force">G-force</label><input type="number" placeholder="9.8" value="9.8" id="gravity" min="-100" max="100" step="0.1" onchange="setgravity();" title="Converts G-force(Default : 9.8)"><input type="reset" value="reset" onclick="setgravity(true);" title="Resets G-force(Default : 9.8)"><input type="submit" value="submit" onclick="setgravity();" title="G-force Conversion Button">
-                </form>
-            </section>
-            <section>
-                <h1>Ground</h1>
-                <form onsubmit="return false;">
-                    <label for="groundrgb" title="The Color of The Ground">Color</label><input type="color" id="groundrgb" value="#808080" onchange="groundctn();" title="Converts The Color of The Ground"><input type="number" placeholder="0" value="128" id="groundr" min="0" max="255" step="1" title="Converts The Color of The Ground with RGB" onkeyup="groundntc()"><input type="number" placeholder="0" value="128" id="groundg" min="0" max="255" step="1" title="Converts The Color of The Ground with RGB" onkeyup="groundntc()"><input type="number" placeholder="0" value="128" id="groundb" min="0" max="255" step="1" title="Converts The Color of The Ground with RGB" onkeyup="groundntc()"><input type="reset" value="reset" onclick="" title="Resets The Color"><input type="submit" value="submit" onclick="setgroundcolor();" title="The Color Conversion Button"><br>
-                    <label for="height" title="The Height of The Ground">Height</label><input type="number" placeholder="0" value="0" id="height" min="0" max="100" step="0.1" onchange="setheight();" title="Converts The Height of The Ground(Default : 0)"><input type="reset" value="reset" onclick="setheight(true)" title="Resets The Height(Default : 0)"><input type="submit" value="submit" onclick="setheight()" title="The height Conversion Button"><br>
-                    <label for="" title="Friction on The Ground">Friction</label><input type="number" placeholder="개발중" value="" min="-100" max="100" step="0.1" onchange="" title="개발중" disabled><input type="reset" value="reset" onclick="" title="개발중" disabled><input type="submit" value="submit" onclick="" title="개발중" disabled>
-                </form>
-            </section>
-            <section id="objects">
-                <button onclick="add()"><p>+</p></button>
-            </section>
-        </section>
+ <header>
+    <div class="logo">
+        <h1><a href="#">PhysicsLab</a></h1>
     </div>
-    <script src="main.js"></script>
-    <style>
-        * {
-            margin: 0;
-            overflow: hidden;
-        }
-        canvas {
-            background: #1d1d25;
-            position: relative;
-            display: table-cell;
-        }
-        input {
-            display: table-cell;
-            position: relative;
-            width: 100px;
-        }
-    </style>
+    <div class="search">
+        <form action="#" method="get">
+         <input type="text" name="search" placeholder="검색어 입력">
+         <button type="submit">검색</button>
+        </form>
+    </div>
+    <div class="filters">
+        <select name="filter">
+         <option value="">전체</option>
+         <option value="1">필터1</option>
+         <option value="2">필터2</option>
+         <option value="3">필터3</option>
+        </select>
+    </div>
+ </header>
+ <ul id="contents">
+     <div class="row">
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산운동 에너지 계산운동 에너지 계산</p></button></li>
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+        </div>
+        <div class="row">
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+         <li><button class="" onclick="window.location.href='https://example.com/experiment1'"><img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY"><p>운동 에너지 계산</p></button></li>
+     </div>
+ </ul>
 </body>
 </html>
