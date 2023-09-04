@@ -50,7 +50,6 @@ function entry(x, y){
 function connect(){
   const user = getAuth().currentUser;
   document.getElementById('my-id').replaceChildren(user.displayName);
-  document.getElementById('my-level').replaceChildren('Lv. 1');
   onValue(ref(database, 'user'), (snapshot) => {
     const data = snapshot.val();
     const players = Object.keys(data).map(i => data[i]).filter(x => x.status != 'offline');
@@ -63,6 +62,7 @@ function connect(){
               <div class="player-status ${a.status}">●</div>`;
       document.getElementById('players-list').append(player);
     })
+    document.getElementById('my-level').replaceChildren(`Lv. ${players.filter(x => x.displayName == user.displayName)[0].level}`);
     document.getElementById('players-number').innerText = `(${players.length} / 100)`;
   })
   document.addEventListener("visibilitychange", () => {
@@ -141,6 +141,13 @@ document.getElementById('sign-up').addEventListener("click", function(){
       setDoc(doc(db, "Auths", user.user.uid), {
         id : id
       })
+      set(ref(database, 'user/' + user.user.uid), {
+        displayName : id,
+        email : email,
+        level : 1,
+        status : 'online'
+      });
+      onDisconnect(ref(database, 'user/' + user.user.uid + '/status')).set('offline');
       connect();
     }).catch((error) =>{
       console.log(error.code);
