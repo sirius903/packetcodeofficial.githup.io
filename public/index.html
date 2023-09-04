@@ -4,231 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-
-  <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore-compat.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
+
+
+
+
+  
+  <script defer src="/__/firebase/10.0.0/firebase-app-compat.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/10.0.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/10.0.0/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/10.0.0/firebase-storage-compat.js"></script>
+
   <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js';
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-    import { getFirestore, collection, getDocs, addDoc, setDoc, doc, onSnapshot, initializeFirestore, memoryLocalCache } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js';
+    // Import the functions you need from the SDKs you need
+
     
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+    import { firestore } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyCH19uFh4bPcFHJJxLNEnd6syxell55Sqw",
-        authDomain: "new-project-6f342.firebaseapp.com",
-        projectId: "new-project-6f342",
-        storageBucket: "new-project-6f342.appspot.com",
-        messagingSenderId: "117809923508",
-        appId: "1:117809923508:web:f5b688225998923ecc9ee1"
+      apiKey: "AIzaSyALmlxV0EcoXvAWveMUPvwzf03V7QVOots",
+      authDomain: "sirius903-13b04.firebaseapp.com",
+      projectId: "sirius903-13b04",
+      storageBucket: "sirius903-13b04.appspot.com",
+      messagingSenderId: "398696866452",
+      appId: "1:398696866452:web:047bb65bf7035f31214a81"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+
+    // Initialize Firebase
+    var app = initializeApp(firebaseConfig);
+
     const db = getFirestore(app);
 
-    document.getElementById('to_log_in').addEventListener("click", function(){
-      document.getElementById('start_btn').className = 'hidden';
-      document.getElementById('entry').className = '';
-      document.querySelector('.background').style.background = 'linear-gradient(to bottom,#040c12, #1c4a70)';
-    })
-
-    document.getElementById('log_in_btn').addEventListener("click", function(){
-      let email = document.getElementById('log_in_email').value;
-      let password = document.getElementById('log_in_password').value;
-      signInWithEmailAndPassword(auth, email, password)
-      .then((user) => {
-        console.log(user.user);
-        document.getElementById('start_btn').className = '';
-        document.getElementById('entry').className = 'hidden';
-        document.querySelector('.start').className += ' hidden';
-        document.querySelector('.list').className = 'list container';
-      }).catch((error) => {
-        console.log(error.code);
-        console.log(error.message);
-      })
-    })
-
-    document.getElementById('register').addEventListener("click", function(){
-      document.getElementById('sign_up').className = '';
-      document.getElementById('log_in').className = 'hidden';
-    })
-
-    // document.getElementById('sign_up_btn').addEventListener("click", function(){
-    //   console.log(1);
-    //   let email = document.getElementById('sign_up_email').value;
-    //   let password = document.getElementById('sign_up_password').value;
-    //   createUserWithEmailAndPassword(auth, email, password)
-    //   .then((user) => {
-    //     console.log(user.user);
-    //   }).catch((error) => {
-    //     console.log(error.code);
-    //     console.log(error.message);
-    //   })
-    // })
-
-    var rooms = [];
-    const roomLoad = onSnapshot(collection(db, "Rooms"), (doc) => {
-      rooms = [];
-      doc.forEach(a => rooms.push(a.data()));
-
-      var add_item = document.createElement('div');
-      add_item.className = 'rooms_item add_btn';
-      add_item.innerHTML = '<div id="text">New Room</div>';
-      add_item.addEventListener("click", ()=>{
-        // document.querySelector('.list_box').className = 'list_box container hidden';
-        // document.querySelector('.generate').className = 'generate container';
-        console.log('clicked!');
-      })
-      document.getElementById('rooms').append(add_item);
-      rooms.forEach(a => {
-        let item = document.createElement('div');
-        item.className = 'rooms_item';
-        item.innerHTML = `<div class="rooms-title">${a.name}</div><div class="rooms-limit">${'1 / ' + a.limit}</div>`;
-        document.getElementById('rooms').append(item);
-      })
-      for(let i = 3 - rooms.length % 3; i > 1; i--){
-        let item = document.createElement('div');
-        item.className = 'rooms_item';
-        document.getElementById('rooms').append(item);
-      }
-    });
-
-    const chatsLoad = onSnapshot(doc(db, "Chats", "Full-Chats"), (snapshot) => {
-      if(snapshot.data().message != ''){
-        let full_chat = document.getElementById('full-chat');
-        let scroll = true;
-        if(full_chat.scrollTop + full_chat.clientHeight + 5 < full_chat.scrollHeight) scroll = false;
-        full_chat.innerHTML += `
-          <div class="chat-message">
-            <h1 class="chat-tag">${snapshot.data().tag}</h1>
-            <p>${snapshot.data().message}</p>
-          </div>`;
-        if(scroll) full_chat.scrollTop = full_chat.scrollHeight;
-        setDoc(doc(db, "Chats", "Full-Chats"), {
-          message : ''
-        })
-      }
-    })
-    window.onload = function(){
-      document.getElementById('full-chat-input').addEventListener("keydown", function(e){
-        if(e.code === 'Enter'){
-          if (event.isComposing) return;
-          setDoc(doc(db, "Chats", "Full-Chats"), {
-            tag : auth.currentUser.displayName,
-            message : document.getElementById('full-chat-input').value
-          })
-          document.getElementById('full-chat-input').value = '';
-        }
-      })
-    }
   </script>
 
-  <div>
-    <div class="start container">
-      <div class="background">
-        <div id="title">
-          <div class="title" id="title1">Crash</div>
-          <div class="title" id="title2">Card</div>
-        </div>
-        <div id="start_btn">
-          <div id="to_log_in" class="start_btn">Log In</div>
-          <div id="to_sign_up" class="start_btn">Sign Up</div>
-        </div>
-        <div id="entry" class="hidden">
-          <div id="log_in">
-            <h1>Welcom!</h1>
-            <div class="entry_row">
-              <div class="entry_label">Email</div>
-              <input class="entry_item" id="log_in_email" type="email">
-            </div>
-            <div class="entry_row">
-              <div class="entry_label">Password</div>
-              <input class="entry_item" id="log_in_password" type="password">
-            </div>
-            <div id="log_in_btn" class="entry_btn">LOG IN</div>
-            <a id="register">Register</a>
-            <a id="guest">Play as a guest</a>
-          </div>
-          <div id="sign_up" class="hidden">
-            <h1>New Account</h1>
-            <div class="entry_row">
-              <div class="entry_label">Email</div>
-              <input class="entry_item" id="sign_up_email">
-            </div>
-            <div class="entry_row">
-              <div class="entry_label">Password</div>
-              <input class="entry_item" id="sign_up_password">
-            </div>
-            <div id="sign_up_btn" class="entry_btn">SIGN UP</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="entry container hidden"></div>
-    <div class="list container hidden">
-      <div class="players-list"></div>
-      <div id="rooms-list">
-        <h1 class="title">ROOMS</h1>
-        <input id="rooms-id" placeholder="enter room id and hit enter..." autocomplete="off" type="text">
-        <div id="rooms" class="scroller">
-          <!--
-            <div class="rooms_item">
-              <div class="rooms-title">방 이름</div>
-              <div class="rooms-limit">1 / 4</div>
-            </div>
-          -->
-        </div>
-      </div>
-      <div class="chat-box" id="full-chat-box">
-        <h1 class="title">CHAT</h1>
-        <div id="full-chat" class="chat scroller">
-          <div class="chat-message chat-banner">
-            <h1 class="chat-tag">[CMD]</h1>
-            <p>Welcome to chat! Please remember to be civil to your opponents.</p>
-          </div>
-          <!-- 
-            <div class="chat-message">
-              <h1 class="chat-tag">anonymous</h1>
-              <p>message</p>
-            </div> 
-          -->
-        </div>
-        <input id="full-chat-input" class="chat-input" placeholder="message..." autocomplete="off" type="text">
-      </div>
-    </div>
-    <div class="room container hidden">
-      <div class="players-list"></div>
-      <div id="room-content">
-        <!-- <h1 id="room_content_name">-</h1>
-        <p id="moreinfo">hover over a setting for more info</p>
-        <div style="display: flex;">
-            <div class="room_tabs flex-column">
-                <div class="room_tab active" onclick="tab(0)">Room</div>
-                <div class="room_tab" onclick="tab(1)">Match</div>
-                <div class="room_tab" onclick="tab(2)">Game</div>
-            </div>
-            <div class="scroller room_content">
-                <div>
-                    <div class="config_row">
-                        <div class="config_label flex-item">room name</div>
-                        <input id="name" class="config_item flex-item" value="-">
-                    </div>
-                    <div class="config_row">
-                        <div class="config_label flex-item">player limit</div>
-                        <input type="number" id="limit" class="config_item flex-item" max="4" min="2" value="2">
-                    </div>
-                </div>
-            </div>
-            <div class="scroller room_content hidden">2</div>
-            <div class="scroller room_content hidden">3</div>
-        </div>
-        <div id="create_button">CREATE</div> -->
-      </div>
-      <div class="chat-box"></div>
-    </div>
-    <div class="game container hidden"></div>
-  </div>
+
+<script>
+</script>
 </body>
 </html>
