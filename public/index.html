@@ -50,6 +50,9 @@ function entry(x, y){
 function connect(){
   const user = getAuth().currentUser;
   document.getElementById('my-id').replaceChildren(user.displayName);
+  onValue(ref(database, 'user/' + user.uid + '/level'), (level) => {
+    document.getElementById('my-level').replaceChildren(`Lv. ${level.val()}`);
+  })
   onValue(ref(database, 'user'), (snapshot) => {
     const data = snapshot.val();
     const players = Object.keys(data).map(i => data[i]).filter(x => x.status != 'offline');
@@ -59,10 +62,9 @@ function connect(){
       player.className = 'player';
       player.innerHTML = `<div class="player-level">Lv. ${a.level}</div>
               <div class="player-id">${a.displayName}</div>
-              <div class="player-status ${a.status}">●</div>`;
+              <div class="player-status ${a.status}" title="${a.status}">●</div>`;
       document.getElementById('players-list').append(player);
     })
-    document.getElementById('my-level').replaceChildren(`Lv. ${players.filter(x => x.displayName == user.displayName)[0].level}`);
     document.getElementById('players-number').innerText = `(${players.length} / 100)`;
   })
   document.addEventListener("visibilitychange", () => {
@@ -294,7 +296,7 @@ document.getElementById('change_to_login').addEventListener("click", function(){
             <!-- <div class="player">
               <div class="player-level">Lv. 1</div>
               <div class="player-id">dummy</div>
-              <div class="player-status online">●</div>
+              <div class="player-status online" title="online">●</div>
             </div> -->
           </div>
         </div>
