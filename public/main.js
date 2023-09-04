@@ -40,5 +40,3 @@ querySnapshot.forEach((doc) => {
 await setDoc(doc(db, "chat", document.querySelectorAll('p').length + 1 + ''), {
     text: "ㅅㅂ"
 });*/
-
-
