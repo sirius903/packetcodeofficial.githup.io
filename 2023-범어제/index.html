@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <header>
+        <div id="title" title="2023 범어제" onclick="window.location.href = '';">
+            <div id="title1" class="title">2</div>
+            <div id="title2" class="title">0</div>
+            <div id="title3" class="title">2</div>
+            <div id="title4" class="title">3</div>
+            <div id="title5" class="title">범어제</div>
+        </div>
+        <div id="entry">
+            <div class="entry" id="log-in" onclick="window.location.href = 'entry/?log-in';">로그인</div>
+            <div class="entry" id="sign-up" onclick="window.location.href = 'entry/?sign-up';">회원가입</div>
+        </div>
+    </header>
+    <main>
+        <h1 id="main-title">CODE 동아리</h1>
+        <div id="contents">
+            <div class="contents" id="CODE" onclick="window.location.href = 'CODE';">
+                <h1 id="CODE-title">CODE<div>¦</div></h1>
+                <img src="images/CODE.jpg">
+                <p>CODE는 텍스트로 만들어진 퍼즐 게임으로, 간단한 조작으로 플레이할 수 있습니다.</p>
+                <p>새로운 기록에 도전해 보세요!</p>
+            </div>
+            <div class="contents" id="Key-Down" onclick="window.location.href = 'Key-Down';">
+                <h1 id="Key-Down-title">Key-Down</h1>
+                <img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY">
+                <p>타자 게임</p>
+            </div>
+            <div class="contents">
+                <h1>Searcher!</h1>
+                <img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY">
+                <p>타자 게임</p>
+            </div>
+            <div class="contents">
+                <h1>MEMORY</h1>
+                <img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY">
+                <p>타자 게임</p>
+            </div>
+            <div class="contents" id="shorten">
+                <h1 id="shorten-title">Shooorten</h1>
+                <img src="images/1.png">
+                <p>타자 게임</p>
+            </div>
+            <div class="contents" id="BlackCyan">
+                <h1 id="BlackCyan-title"><div class="f">Black</div><div>Cyan</div></h1>
+                <img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY">
+                <p>타자 게임</p>
+            </div>
+            <div class="contents" id="seven">
+                <h1 id="seven-title"><div class="n1">7</div><div class="n2">7</div><div class="n3">7</div></h1>
+                <img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY">
+                <p>타자 게임</p>
+            </div>
+            <div class="contents">
+                <h1>Stock Market</h1>
+                <img src="https://fastly.picsum.photos/id/467/300/200.jpg?hmac=tJDRhyeGvz81FbRbg0aMhCZsHfJeh3PdgxS5xmYrrqY">
+                <p>타자 게임</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div id="info">
+            <h1 id="footer-title">Sirus903</h1>
+            <div id="contact">
+                <p>제작자 : 20621 염규원</p>
+                <p>전화 : 010-8680-4037</p>
+                <p>이메일 : sirius4037@gmail.com</p>
+            </div>
+        </div>
+        <select id="thema" onchange="darkmode();">
+            <option id="light-mode" selected>밝은 배경</option>
+            <option id="dark-mode">어두운 배경</option>
+            <option id="credit">크레딧</option>
+        </select>
+    </footer>
+    <script src="thema.js"></script>
+</body>
+</html>

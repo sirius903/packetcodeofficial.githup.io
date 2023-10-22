@@ -1,0 +1,66 @@
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#score {
+    display: flex;
+    width: 25em;
+    justify-content: space-between;
+}
+
+.objects_low {
+    display: flex;
+}
+
+.object {
+    height: calc(50vh / 25);
+    width: calc(50vh / 25);
+    font-size: calc(50vh / 25);
+    text-align: center;
+    /* font-size: 2.5em; */
+}
+
+.blank {
+    color: gray;
+}
+
+.wall {
+    color: black;
+}
+
+.able-goal {
+    color: green;
+}
+
+.disable-goal {
+    color: gray;
+}
+
+.trap {
+    color: red;
+}
+
+.button {
+    color: red;
+}
+
+.blue-potal {
+    color: blue;
+}
+
+.orange-potal {
+    color: orange;
+}
+
+.coin {
+    color: #ffc20a;
+}
+
+.key {
+    color: #ffc20a;
+}
+
+.box {
+    color: #874205;
+}
