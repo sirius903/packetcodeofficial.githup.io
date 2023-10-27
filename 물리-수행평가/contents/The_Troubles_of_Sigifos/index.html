@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
     <div id="lab">
         <div id="playing-bar">
+            <label id="fps" class="playing-labels">FPS</label>
+            <input placeholder="fps" id="fps" class="playing-inputs" min="1" max="1000" type="number" value="50">
+            <label id="meter" class="playing-labels">Size</label>
+            <input placeholder="Size" id="meter" class="playing-inputs" min="50" max="1000" type="number" value="150">
+            <!-- 미터 -->
             <button class="playing-btns">⏹️</button>
             <button class="playing-btns">▶</button>
             <button class="playing-btns">⏸</button>
@@ -39,11 +44,16 @@
                      <input type="submit" value="submit" onclick="v = document.getElementById('energy').value;" title="The height Conversion Button"><br>
                     </form>
                 </section>
+                <!-- 중력 : 중력 가속도(input)
+                선로 선택 : 1,2,3,... 직접 입력(selection, input)
+                스프링 제어 : 스프링 크기(input), 스프링의 힘(input)
+                구슬 제어 : 구슬 크기(input)
+                결괏값 : 좌표(disable input), 최대 높이(disable input), 현재 높이(...), 속도(...), 가속도(...) -->
             </div>
         </div>
     </div>
-    <script src="/config.js"></script>
-    <script src="/resizer.js"></script>
+    <script src="../../config.js"></script>
+    <script src="../../resizer.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

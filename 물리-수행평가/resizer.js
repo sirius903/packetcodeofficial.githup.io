@@ -83,3 +83,15 @@ const canvasUp = function(){
     document.removeEventListener("mousemove", canvasMove);
     document.removeEventListener("mouseup", canvasUp);
 }
+
+window.addEventListener("resize", function(){
+    configs.style.width = `${document.body.getBoundingClientRect().width - 10 - leftWidth}px`;
+})
+
+canvas.addEventListener("wheel", function(e){
+    if((meter > 50 || e.deltaY < 0) && (meter < 1000 || e.deltaY > 0)){
+        meter -= e.deltaY * 0.5;
+        if(meter < 50) meter = 50;
+        if(meter > 1000) meter = 1000;
+    }
+})

@@ -1,17 +1,28 @@
 var ctx = canvas.getContext('2d');
 
 setInterval(function(){
+    // console.log(line.start * meter + position[0])
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = 'white';
     ctx.fillStyle = 'white';
 
     ctx.beginPath();
-    ctx.moveTo(spring.x * meter + position[0], canvas.height - spring.y * meter / 2 + position[1]);
-    ctx.lineTo((spring.x + line.start) * meter + position[0], canvas.height - spring.y * meter / 2 + position[1]);
-    if((spring.x + line.start) * meter + position[0] >= 0){
-        for(let i = 0; i <= 100; i++){
-            if(line.start * meter + (canvas.width - line.start * meter + position[0]) * i / 100 > (spring.x + line.start) * meter + position[0]){
-                ctx.lineTo(line.start * meter + (canvas.width + position[0]) * i / 100,                 canvas.height - spring.y * meter / 2 + position[1] - line.list((canvas.width - line.start * meter) * (i + position[1] / canvas.width) / 100 / meter) * meter);
+    if(line.start * meter + position[0] < 0){
+        for(let i = 0; i <= canvas.width; i++){
+            if(canvas.height - spring.y * meter / 2 - line.list(-(line.start * meter + position[0] - i) / meter) * meter + position[1] >= 0){
+                ctx.lineTo(i, canvas.height - spring.y * meter / 2 - line.list(-(line.start * meter + position[0] - i) / meter) * meter + position[1]);
+            }
+        }
+    }else{
+        if(spring.x < 0){
+            ctx.moveTo(0, canvas.height - spring.y * meter / 2 + position[1]);
+        }else{
+            ctx.moveTo(spring.x * meter + position[0], canvas.height - spring.y * meter / 2 + position[1]);
+        }
+        ctx.lineTo(line.start * meter + position[0], canvas.height - spring.y * meter / 2 + position[1]);
+        for(let i = line.start * meter + position[0]; i <= canvas.width; i++){
+            if(canvas.height - spring.y * meter / 2 - line.list(-(line.start * meter + position[0] - i) / meter) * meter + position[1] >= 0){
+                ctx.lineTo(i, canvas.height - spring.y * meter / 2 - line.list(-(line.start * meter + position[0] - i) / meter) * meter + position[1]);
             }
         }
     }
@@ -27,18 +38,24 @@ setInterval(function(){
         if(marble.x - marble.radius <= spring.x + spring.width){
             marble.velocity = velocity;
         }
-        marble.x += marble.velocity * 0.02;
+        marble.x += marble.velocity / fps;
         if(marble.x > line.start){
-            marble.velocity -= gravity * 0.02 * Math.cos(Math.atan(line.derivative(marble.x - line.start)));
-            marble.x += Math.cos(Math.atan(line.derivative(marble.x - line.start))) * marble.velocity * 0.02;
+            marble.velocity -= gravity / fps * Math.sin(Math.atan(line.derivative(marble.x - line.start)));
+            marble.x += Math.cos(Math.atan(line.derivative(marble.x - line.start))) * marble.velocity / fps;
             marble.y = line.list(marble.x - line.start) + spring.height / 2;
         }
     }else{//속도를 50만큼 나눠야함
         //-g * t * sin(θ)
-        marble.velocity -= gravity * 0.02 * Math.cos(Math.atan(line.derivative(marble.x - line.start)));
-        marble.x += Math.cos(Math.atan(line.derivative(marble.x - line.start))) * marble.velocity * 0.02;
+        marble.velocity -= gravity / fps * Math.sin(Math.atan(line.derivative(marble.x - line.start)));
+        marble.x += Math.cos(Math.atan(line.derivative(marble.x - line.start))) * marble.velocity / fps;
         marble.y = line.list(marble.x - line.start) + spring.height / 2;
+        if(marble.x < line.start && marble.y != spring.y - spring.height / 2){
+            marble.y = spring.y - spring.height / 2;
+        }
     }
-}, 20);
-//0.02s
-
+    if(maximum < marble.y){
+        maximum = marble.y;
+        console.log(maximum);
+    }
+}, 1000 / fps);
+//(fps)ms
