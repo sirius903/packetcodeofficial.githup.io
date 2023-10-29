@@ -74,6 +74,9 @@ const canvasUp = function(){
     canvas.style.removeProperty('cursor');
     document.body.style.removeProperty('cursor');
 
+    playbar.style.removeProperty('user-select');
+    playbar.style.removeProperty('pointer-events');
+
     resizer.style.removeProperty('user-select');
     resizer.style.removeProperty('pointer-events');
 
@@ -91,7 +94,14 @@ window.addEventListener("resize", function(){
 canvas.addEventListener("wheel", function(e){
     if((meter > 50 || e.deltaY < 0) && (meter < 1000 || e.deltaY > 0)){
         meter -= e.deltaY * 0.5;
+        position[0] += e.deltaY
+        position[1] -= e.deltaY
+        if(e.deltaY > 0){
+            position[0] -= (e.offsetX - canvas.getBoundingClientRect().width / 2) / 2;
+            position[1] -= (e.offsetY - canvas.getBoundingClientRect().height / 2) / 2;
+        }
         if(meter < 50) meter = 50;
         if(meter > 1000) meter = 1000;
+        document.getElementById('meter').value = meter;
     }
 })

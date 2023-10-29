@@ -9,19 +9,21 @@
 <body>
     <div id="lab">
         <div id="playing-bar">
-            <label id="fps" class="playing-labels">FPS</label>
+            <label for="fps" class="playing-labels">FPS</label>
             <input placeholder="fps" id="fps" class="playing-inputs" min="1" max="1000" type="number" value="50">
-            <label id="meter" class="playing-labels">Size</label>
+            <label for="meter" class="playing-labels">Size</label>
             <input placeholder="Size" id="meter" class="playing-inputs" min="50" max="1000" type="number" value="150">
-            <!-- 미터 -->
-            <button class="playing-btns">⏹️</button>
-            <button class="playing-btns">▶</button>
-            <button class="playing-btns">⏸</button>
-            <button class="playing-btns">x1</button>
-            <button class="playing-btns">x2</button>
-            <button class="playing-btns">x5</button>
-            <button class="playing-btns">↻</button>
-            <button id="back-btn">back</button>
+            <div class="playing-btns" id="reset"><img src="../../reset.svg"></div>
+            <div class="playing-btns" id="play"><img src="../../play.svg"></div>
+            <div class="playing-btns" id="stop"><img src="../../stop.svg"></div>
+            <div class="playing-btns speed">x⅒</div>
+            <div class="playing-btns speed">x¼</div>
+            <div class="playing-btns speed">x½</div>
+            <div class="playing-btns speed">x1</div>
+            <div class="playing-btns speed">x2</div>
+            <div class="playing-btns speed">x5</div>
+            <div class="playing-btns">↻</div>
+            <div id="back-btn">Back</div>
         </div>
         <div id="content">
             <canvas id="canvas" width="1500px" height="1500px" style="width: 500px;"></canvas>
@@ -37,17 +39,63 @@
                     </form>
                 </section>
                 <section class="converts">
+                    <h1>Spring</h1>
                     <form onsubmit="return false;">
-                     <label for="height" title="The Height of The Ground">energy</label>
+                     <label for="height" title="The Height of The Ground">Width</label>
+                     <input type="number" placeholder="0" value="1" id="spring-height" min="0" max="100" step="0.1" onchange="v = document.getElementById('energy').value;" title="Converts The Height of The Ground(Default : 0)">
+                     <input type="reset" value="reset" onclick="v = 7; v = document.getElementById('energy').value;" title="Resets The Height(Default : 0)">
+                     <input type="submit" value="submit" onclick="v = document.getElementById('energy').value;" title="The height Conversion Button"><br>
+                    </form>
+                    <form onsubmit="return false;">
+                     <label for="height" title="The Height of The Ground">Height</label>
+                     <input type="number" placeholder="0" value="1" id="energy" min="0" max="100" step="0.1" onchange="v = document.getElementById('energy').value;" title="Converts The Height of The Ground(Default : 0)">
+                     <input type="reset" value="reset" onclick="v = 7; v = document.getElementById('energy').value;" title="Resets The Height(Default : 0)">
+                     <input type="submit" value="submit" onclick="v = document.getElementById('energy').value;" title="The height Conversion Button"><br>
+                    </form>
+                    <form onsubmit="return false;">
+                     <label for="height" title="The Height of The Ground">Elastic Energy</label>
+                     <input type="number" placeholder="0" value="7" id="energy" min="0" max="100" step="0.1" onchange="v = document.getElementById('energy').value;" title="Converts The Height of The Ground(Default : 0)">
+                     <input type="reset" value="reset" onclick="v = 7; v = document.getElementById('energy').value;" title="Resets The Height(Default : 0)">
+                     <input type="submit" value="submit" onclick="v = document.getElementById('energy').value;" title="The height Conversion Button"><br>
+                    </form>
+                </section>
+                <section class="converts">
+                    <h1>Marble</h1>
+                    <form onsubmit="return false;">
+                     <label for="height" title="The Height of The Ground">Radius</label>
+                     <input type="number" placeholder="0" value="7" id="energy" min="0" max="100" step="0.1" onchange="v = document.getElementById('energy').value;" title="Converts The Height of The Ground(Default : 0)">
+                     <input type="reset" value="reset" onclick="v = 7; v = document.getElementById('energy').value;" title="Resets The Height(Default : 0)">
+                     <input type="submit" value="submit" onclick="v = document.getElementById('energy').value;" title="The height Conversion Button"><br>
+                    </form>
+                    <form onsubmit="return false;">
+                     <label for="height" title="The Height of The Ground">Mass</label>
+                     <input type="number" placeholder="0" value="7" id="energy" min="0" max="100" step="0.1" onchange="v = document.getElementById('energy').value;" title="Converts The Height of The Ground(Default : 0)">
+                     <input type="reset" value="reset" onclick="v = 7; v = document.getElementById('energy').value;" title="Resets The Height(Default : 0)">
+                     <input type="submit" value="submit" onclick="v = document.getElementById('energy').value;" title="The height Conversion Button"><br>
+                    </form>
+                </section>
+                <section class="converts">
+                    <h1>Track</h1>
+                    <form onsubmit="return false;">
+                     <label for="height" title="The Height of The Ground">???</label>
+                     <input type="number" placeholder="0" value="7" id="energy" min="0" max="100" step="0.1" onchange="v = document.getElementById('energy').value;" title="Converts The Height of The Ground(Default : 0)">
+                     <input type="reset" value="reset" onclick="v = 7; v = document.getElementById('energy').value;" title="Resets The Height(Default : 0)">
+                     <input type="submit" value="submit" onclick="v = document.getElementById('energy').value;" title="The height Conversion Button"><br>
+                    </form>
+                </section>
+                <section class="converts">
+                    <h1>Results</h1>
+                    <form onsubmit="return false;">
+                     <label for="height" title="The Height of The Ground">X-coordinate</label>
                      <input type="number" placeholder="0" value="7" id="energy" min="0" max="100" step="0.1" onchange="v = document.getElementById('energy').value;" title="Converts The Height of The Ground(Default : 0)">
                      <input type="reset" value="reset" onclick="v = 7; v = document.getElementById('energy').value;" title="Resets The Height(Default : 0)">
                      <input type="submit" value="submit" onclick="v = document.getElementById('energy').value;" title="The height Conversion Button"><br>
                     </form>
                 </section>
                 <!-- 중력 : 중력 가속도(input)
+                    스프링 제어 : 스프링 크기(input), 스프링의 힘(input)
+                    구슬 제어 : 구슬 크기(input), 질량(input)
                 선로 선택 : 1,2,3,... 직접 입력(selection, input)
-                스프링 제어 : 스프링 크기(input), 스프링의 힘(input)
-                구슬 제어 : 구슬 크기(input)
                 결괏값 : 좌표(disable input), 최대 높이(disable input), 현재 높이(...), 속도(...), 가속도(...) -->
             </div>
         </div>
