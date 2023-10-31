@@ -371,10 +371,6 @@ footer {
     align-items: center;
 }
 
-.content.middle {
-    padding: 50px 0 80px;
-}
-
 #exam {
     width: calc(100% - 70px);
     font-size: 1.5em;
@@ -546,4 +542,14 @@ label {
 
 .D2Coding {
     font-family: 'D2Coding';
+}
+
+#code-scores {
+    display: flex;
+    width: 25em;
+    justify-content: space-between;
+}
+
+#made-by {
+    margin-top: 0.8em;
 }

@@ -1,12 +1,9 @@
-#content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+body[data-thema='light-mode'] {
+    --wall-color : black;
 }
-#score {
-    display: flex;
-    width: 25em;
-    justify-content: space-between;
+
+body[data-thema='dark-mode'] {
+    --wall-color : #c3c3c3;
 }
 
 .objects_low {
@@ -26,7 +23,7 @@
 }
 
 .wall {
-    color: black;
+    color: var(--wall-color);
 }
 
 .able-goal {

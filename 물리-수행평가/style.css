@@ -63,12 +63,12 @@ button[type="submit"] {
 }
 
 #contents {
-    display: flex;
+    display: grid;
     background-color: #fff;
-    margin: 0 10%;
+    margin: 0 50px;
     padding-top: 5em;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 10px;
 }
 
 .content.none {
@@ -90,7 +90,6 @@ button[type="submit"] {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 300px;
     padding: 10px;
     margin: 10px;
     font-size: 24px;
