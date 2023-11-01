@@ -1,151 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-    <div>
-        <div class="main-menu container">
-          <div class="background">
-            <div id="title">
-              <div class="title" id="title1">Crash</div>
-              <div class="title" id="title2">Card</div>
-            </div>
-            <div id="main-menu_btns">
-              <div id="to_log-in" class="main-menu_btn">Log In</div>
-              <div id="to_sign-up" class="main-menu_btn">Sign Up</div>
-            </div>
-            <div id="exit_section" class="hidden">Exit</div>
-            <div id="entry_section" class="hidden">
-              <div id="log-in_section">
-                <h1>Welcom!</h1>
-                <div class="entry_row">
-                  <div class="entry_label">Email</div>
-                  <input class="entry_item" id="log-in_email" type="email">
-                </div>
-                <div class="entry_row">
-                  <div class="entry_label">Password</div>
-                  <input class="entry_item" id="log-in_password" type="password">
-                </div>
-                <div id="log-in" class="entry">LOG IN</div>
-                <a class="text">Unless yet registered</a>
-                <a id="change_to_regist">Go to regist</a>
-                <a class="text">or</a>
-                <a id="guest">Play as a guest</a>
+  <script type="module" src="main.js"></script>
+  <div>
+      <div class="main-menu container">
+          <div class="background" id="main-background">
+          </div>
+          <div id="main-title">
+            <div class="main-title n1">Black</div>
+            <div class="main-title n2">Cyan</div>
+          </div>
+          <div id="main-menu_btns">
+            <div id="to_log-in" class="to_entry">Log In</div>
+            <div id="to_sign-up" class="to_entry">Sign Up</div>
+          </div>
+          <div class="background hidden" id="entry-background"></div>
+          <div id="exit_btn" class="hidden">Exit</div>
+          <div id="entry_section" class="hidden">
+            <div id="log-in_section" class="hidden">
+              <h1>Welcom!</h1>
+              <div class="entry_row">
+                <div class="entry_label">Email</div>
+                <input class="entry_item" id="log-in_email" type="email">
               </div>
-              <div id="sign-up_section" class="hidden">
-                <h1>New Account</h1>
-                <div class="entry_row">
-                  <div class="entry_label">Email</div>
-                  <input class="entry_item" id="sign-up_email">
-                </div>
-                <div class="entry_row">
-                  <div class="entry_label">Password</div>
-                  <input class="entry_item" id="sign-up_password">
-                </div>
-                <div class="entry_row">
-                  <div class="entry_label">GameId</div>
-                  <input class="entry_item" id="sign-up_id">
-                </div>
-                <div id="id-error"></div>
-                <div id="sign-up" class="entry">SIGN UP</div>
-                <a class="text">If already registered</a>
-                <a id="change_to_login">Go to login</a>
+              <div class="entry_row">
+                <div class="entry_label">Password</div>
+                <input class="entry_item" id="log-in_password" type="password">
               </div>
+              <div id="log-in" class="entry">LOG IN</div>
+              <a class="text">Unless yet registered</a>
+              <a id="change_to_regist">Go to regist</a>
+              <a class="text">or</a>
+              <a id="guest">Play as a guest</a>
+            </div>
+            <div id="sign-up_section" class="hidden">
+              <h1>New Account</h1>
+              <div class="entry_row">
+                <div class="entry_label">Email</div>
+                <input class="entry_item" id="sign-up_email" type="email">
+              </div>
+              <div class="entry_row">
+                <div class="entry_label">Password</div>
+                <input class="entry_item" id="sign-up_password" type="password">
+              </div>
+              <div class="entry_row">
+                <div class="entry_label">GameId</div>
+                <input class="entry_item" id="sign-up_id" type="text">
+              </div>
+              <div id="id-error" class="entry-error"></div>
+              <div id="sign-up" class="entry">SIGN UP</div>
+              <div id="signup-error" class="entry-error"></div>
+              <a class="text">If already registered</a>
+              <a id="change_to_login">Go to log-in</a>
+            </div>
+          </div>
+      </div>
+      <div class="list container hidden">
+        <div id="players">
+          <div id="my-profile">
+            <img id="my-avatar" src="https://fastly.picsum.photos/id/251/250/250.jpg?hmac=_NUJeiKDfHVqhYGCW_85ojnjvg9ZWfHfMGppohybKyE">
+            <div id="my-data">
+              <div id="my-id"></div>
+              <div id="my-level"></div>
+            </div>
+          </div>
+          <div id="other-players">
+            <div id="players-title">
+              <h1 class="title">Players</h1>
+              <div id="players-number">(0 / 100)</div>
+            </div>
+            <div id="players-list">
+              <!-- <div class="player">
+                <div class="player-level">Lv. 1</div>
+                <div class="player-id">dummy</div>
+                <div class="player-status online" title="online">●</div>
+              </div> -->
             </div>
           </div>
         </div>
-        <div class="entry container hidden"></div>
-        <div class="list container hidden">
-          <div id="players">
-            <div id="my-profile">
-              <img id="my-avatar" src="https://fastly.picsum.photos/id/251/250/250.jpg?hmac=_NUJeiKDfHVqhYGCW_85ojnjvg9ZWfHfMGppohybKyE">
-              <div id="my-data">
-                <div id="my-id"></div>
-                <div id="my-level"></div>
-              </div>
-            </div>
-            <div id="other-players">
-              <div id="players-title">
-                <h1 class="title">Players</h1>
-                <div id="players-number">(0 / 100)</div>
-              </div>
-              <div id="players-list">
-                <!-- <div class="player">
-                  <div class="player-level">Lv. 1</div>
-                  <div class="player-id">dummy</div>
-                  <div class="player-status online" title="online">●</div>
-                </div> -->
-              </div>
-            </div>
-          </div>
-          <div id="room">
-            <div class="rooms-list">
-              <h1 class="title">ROOMS</h1>
-              <input id="rooms-id" placeholder="enter room id and hit enter..." autocomplete="off" type="text">
-              <div id="rooms" class="scroller">
-                <!--
-                  <div class="rooms_item">
-                    <div class="rooms-title">방 이름</div>
-                    <div class="rooms-limit">1 / 4</div>
-                  </div>
-                -->
-              </div>
-            </div>
-            <div class="room hidden">
-              <h1 id="room-title">-</h1>
-              <p id="moreinfo">hover over a setting for more info</p>
-              <div id="room-configs">
-                  <div class="room_tabs flex-column">
-                      <div class="room_tab active" onclick="tab(0)">Room</div>
-                      <div class="room_tab" onclick="tab(1)">Match</div>
-                      <div class="room_tab" onclick="tab(2)">Game</div>
-                  </div>
-                  <div class="scroller room_content">
-                      <div>
-                          <div class="config_row">
-                              <div class="config_label flex-item">room name</div>
-                              <input id="room-name" class="config_item flex-item" value="-">
-                          </div>
-                          <div class="config_row">
-                              <div class="config_label flex-item">player limit</div>
-                              <input type="number" id="room-limit" class="config_item flex-item" max="4" min="2" value="2">
-                          </div>
-                      </div>
-                  </div>
-                  <div class="scroller room_content hidden">2</div>
-                  <div class="scroller room_content hidden">3</div>
-              </div>
-              <div id="create-button">CREATE</div>
-          </div>
-    
-          </div>
-          <div class="chat-box" id="full-chat-box">
-            <h1 class="title">CHAT</h1>
-            <div id="full-chat" class="chat scroller">
-              <div class="chat-message chat-banner">
-                <h1 class="chat-tag">[CMD]</h1>
-                <p>Welcome to chat! Please remember to be civil to your opponents.</p>
-              </div>
-              <!-- 
-                <div class="chat-message">
-                  <h1 class="chat-tag">anonymous</h1>
-                  <p>message</p>
-                </div> 
+        <div id="room">
+          <div class="rooms-list">
+            <h1 class="title">ROOMS</h1>
+            <input id="rooms-id" placeholder="enter room id and hit enter..." autocomplete="off" type="text">
+            <div id="rooms" class="scroller">
+              <!--
+                <div class="rooms_item">
+                  <div class="rooms-title">방 이름</div>
+                  <div class="rooms-limit">1 / 4</div>
+                </div>
               -->
             </div>
-            <input id="full-chat-input" class="chat-input" placeholder="message..." autocomplete="off" type="text">
           </div>
-        </div>
-        <div class="room container hidden">
-          <div class="players-list"></div>
-          <div id="room-content">
-            <!-- <h1 id="room_content_name">-</h1>
+          <div class="room hidden">
+            <h1 id="room-title">-</h1>
             <p id="moreinfo">hover over a setting for more info</p>
-            <div style="display: flex;">
+            <div id="room-configs">
                 <div class="room_tabs flex-column">
                     <div class="room_tab active" onclick="tab(0)">Room</div>
                     <div class="room_tab" onclick="tab(1)">Match</div>
@@ -155,23 +110,72 @@
                     <div>
                         <div class="config_row">
                             <div class="config_label flex-item">room name</div>
-                            <input id="name" class="config_item flex-item" value="-">
+                            <input id="room-name" class="config_item flex-item" value="-">
                         </div>
                         <div class="config_row">
                             <div class="config_label flex-item">player limit</div>
-                            <input type="number" id="limit" class="config_item flex-item" max="4" min="2" value="2">
+                            <input type="number" id="room-limit" class="config_item flex-item" max="4" min="2" value="2">
                         </div>
                     </div>
                 </div>
                 <div class="scroller room_content hidden">2</div>
                 <div class="scroller room_content hidden">3</div>
             </div>
-            <div id="create_button">CREATE</div> -->
-          </div>
-          <div class="chat-box"></div>
+            <div id="create-button">CREATE</div>
         </div>
-        <div class="game container hidden"></div>
-    </div>
-    <script type="module" src="main.js"></script>
+  
+        </div>
+        <div class="chat-box" id="full-chat-box">
+          <h1 class="title">CHAT</h1>
+          <div id="full-chat" class="chat scroller">
+            <div class="chat-message chat-banner">
+              <h1 class="chat-tag">[CMD]</h1>
+              <p>Welcome to chat! Please remember to be civil to your opponents.</p>
+            </div>
+            <!-- 
+              <div class="chat-message">
+                <h1 class="chat-tag">anonymous</h1>
+                <p>message</p>
+              </div> 
+            -->
+          </div>
+          <input id="full-chat-input" class="chat-input" placeholder="message..." autocomplete="off" type="text">
+        </div>
+      </div>
+      <div class="room container hidden">
+        <div class="players-list"></div>
+        <div id="room-content">
+          <!-- <h1 id="room_content_name">-</h1>
+          <p id="moreinfo">hover over a setting for more info</p>
+          <div style="display: flex;">
+              <div class="room_tabs flex-column">
+                  <div class="room_tab active" onclick="tab(0)">Room</div>
+                  <div class="room_tab" onclick="tab(1)">Match</div>
+                  <div class="room_tab" onclick="tab(2)">Game</div>
+              </div>
+              <div class="scroller room_content">
+                  <div>
+                      <div class="config_row">
+                          <div class="config_label flex-item">room name</div>
+                          <input id="name" class="config_item flex-item" value="-">
+                      </div>
+                      <div class="config_row">
+                          <div class="config_label flex-item">player limit</div>
+                          <input type="number" id="limit" class="config_item flex-item" max="4" min="2" value="2">
+                      </div>
+                  </div>
+              </div>
+              <div class="scroller room_content hidden">2</div>
+              <div class="scroller room_content hidden">3</div>
+          </div>
+          <div id="create_button">CREATE</div> -->
+        </div>
+        <div class="chat-box"></div>
+      </div>
+      <div class="game container hidden"></div>
+  </div>
+  <script type="module" src="entry.js"></script>
+  <script>
+  </script>
 </body>
 </html>
