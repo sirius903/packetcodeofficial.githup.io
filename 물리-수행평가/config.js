@@ -101,14 +101,60 @@ function change(n, i, j){
         case 12:
             apples[j].velocity[1] = v;
             break;
+        case 13:
+            planet.radius = v;
+            break;
+        case 14:
+            planet.mass = v;
+            break;
+        case 15:
+            satellite.radius = v;
+            break;
+        case 16:
+            satellite.mass = v;
+            break;
+        case 17:
+            satellite.x = v;
+            break;
+        case 18:
+            satellite.y = v;
+            break;
+        case 19:
+            satellite.velocity[0] = v;
+            break;
+        case 20:
+            satellite.velocity[1] = v;
+            break;
+        case 21:
+            pivot.x = v;
+            break;
+        case 22:
+            pivot.y = v;
+            break;
+        case 23:
+            pivot.radius = v;
+            break;
+        case 24:
+            pendulum.angle = v / 180 * Math.PI;
+            break;
+        case 25:
+            pendulum.radius = v;
+            break;
+        case 26:
+            pendulum.mass = v;
+            break;
+        case 27:
+            pendulum.velocity = v;
+            break;
     }
-    let id = ['gravity-input', 'spring-width', 'spring-height', 'spring-energy', 'marble-radius', 'marble-mass', 'track-start', false, 'ground-height', 'apple-radius-' + j, 'apple-mass-' + j, 'apple-hv-' + j, 'apple-vv-' + j][n];
+    let id = ['gravity-input', 'spring-width', 'spring-height', 'spring-energy', 'marble-radius', 'marble-mass', 'track-start', false, 'ground-height', 'apple-radius-' + j, 'apple-mass-' + j, 'apple-hv-' + j, 'apple-vv-' + j, 'planet-radius', 'planet-mass', 'satellite-radius', 'satellite-mass', 'satellite-ix', 'satellite-iy', 'satellite-hv', 'satellite-vv', 'pivot-x', 'pivot-y', 'string-length', 'pendulum-angle', 'pendulum-radius', 'pendulum-mass', 'pendulum-velocity'][n];
     if(id) document.getElementById(id).value = i;
 }
 
 var gravity = 9.8;// m/s^2
 var velocity = 10;// m/s
 var maximum = 0;//m
+var minimum = Infinity;//m
 
 var spring = {
     x : 0,
@@ -148,6 +194,28 @@ var apples = [{
 var ground = {
     height : 0.5
 };
+var planet = {
+    radius : 2,
+    mass : 100000000
+};
+var satellite = {
+    radius : 0.3,
+    mass : 100000,
+    x : 0,
+    y : 3,
+    velocity : [15, 0]
+}
+var pivot = {
+    x : 0,
+    y : 7,
+    radius : 2.5
+}
+var pendulum = {
+    angle : Math.PI / 4,
+    radius : 0.25,
+    mass : 1,
+    velocity : 0
+};
 function object(){
     marble.x = 1.25;
     marble.y = 0.5;
@@ -155,11 +223,21 @@ function object(){
     apples.forEach((a, i) => {
         a.x = 1;
         a.y = 8;
-        a.velocity = [document.getElementById('apple-hv-' + i).value, document.getElementById('apple-vv-' + i).value]
-    })
+        if(document.getElementById('apple-hv-0')) a.velocity = [parseFloat(document.getElementById('apple-hv-' + i).value), parseFloat(document.getElementById('apple-vv-' + i).value)]
+    });
+    if(document)
+    if(document.getElementById('satellite-ix')){
+        satellite.x = parseFloat(document.getElementById('satellite-ix').value);
+        satellite.y = parseFloat(document.getElementById('satellite-iy').value);
+        satellite.velocity = [parseFloat(document.getElementById('satellite-hv').value), parseFloat(document.getElementById('satellite-vv').value)];
+    }
+    if(document.getElementById('pendulum-angle')){
+        pendulum.angle = parseFloat(document.getElementById('pendulum-angle').value) / 180 * Math.PI;
+        pendulum.velocity = parseFloat(document.getElementById('pendulum-velocity').value);
+    }
 }
 
-const add_apple = function(){document.getElementById('add-apple').addEventListener("click", function(){
+const add_apple = function(){if(document.getElementById('add-apple')) document.getElementById('add-apple').addEventListener("click", function(){
     document.querySelectorAll('.converts')[document.querySelectorAll('.converts').length - 1].innerHTML = `
     <h1>${apples.length + 1 + ((apples.length >= 10 && apples.length <= 12) ? 'th' : apples.length % 10 == 0 ? 'st' : apples.length % 10 == 1 ? 'nd' : apples.length % 10 == 2 ? 'rd' : 'th')} Apple</h1>
     <form onsubmit="return false;">
