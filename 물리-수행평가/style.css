@@ -63,12 +63,15 @@ button[type="submit"] {
 }
 
 #contents {
+    min-height: 100vh;
     display: grid;
     background-color: #fff;
     margin: 0 50px;
     padding-top: 5em;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
     gap: 10px;
+    align-items: start;
 }
 
 .content.none {
@@ -86,6 +89,7 @@ button[type="submit"] {
 }
 
 .content {
+    min-height: 225px;
     display: flex;
     flex-direction: column;
     align-items: center;
