@@ -92,7 +92,7 @@ window.addEventListener("resize", function(){
 })
 
 canvas.addEventListener("wheel", function(e){
-    if((meter > 50 || e.deltaY < 0) && (meter < 1000 || e.deltaY > 0)){
+    if((meter > 50 || e.deltaY < 0) && (meter < 10000 || e.deltaY > 0)){
         meter -= e.deltaY * 0.5;
         position[0] += e.deltaY
         position[1] -= e.deltaY
@@ -101,7 +101,7 @@ canvas.addEventListener("wheel", function(e){
             position[1] -= (e.offsetY - canvas.getBoundingClientRect().height / 2) / 2;
         }
         if(meter < 50) meter = 50;
-        if(meter > 1000) meter = 1000;
+        if(meter > 10000) meter = 10000;
         document.getElementById('meter').value = meter;
     }
 })

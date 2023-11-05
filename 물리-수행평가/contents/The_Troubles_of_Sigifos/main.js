@@ -1,7 +1,6 @@
 var ctx = canvas.getContext('2d');
 
 function repeat(){
-    // console.log(line.start * meter + position[0])
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = 'white';
     ctx.fillStyle = 'white';
@@ -30,35 +29,43 @@ function repeat(){
 
     ctx.fillRect(spring.x * meter + position[0], canvas.height - spring.y * meter + position[1], spring.width * meter, spring.height * meter);
 
-    if(marble.x < tracks.start){
-        if(marble.x - marble.radius <= spring.x + spring.width){
-            marble.velocity = Math.pow(spring.energy * 2 / marble.mass, 1/2);
-            marble.x = marble.radius + spring.x + spring.width
-        }
-        marble.x += marble.velocity / fps * speed;
-        if(marble.x > tracks.start){
+    if(timer){
+        if(marble.x < tracks.start){
+            if(marble.x - marble.radius <= spring.x + spring.width){
+                marble.velocity = Math.pow(spring.energy * 2 / marble.mass, 1/2);
+                marble.x = marble.radius + spring.x + spring.width
+            }
+            marble.x += marble.velocity / fps * speed;
+            if(marble.x > tracks.start){
+                marble.velocity -= gravity / fps * Math.sin(Math.atan(tracks.derivative(marble.x - tracks.start))) * speed;
+                marble.x += Math.cos(Math.atan(tracks.derivative(marble.x - tracks.start))) * marble.velocity / fps * speed;
+                marble.y = tracks.list(marble.x - tracks.start) + spring.height / 2;
+            }
+        }else{//속도를 50만큼 나눠야함
+            //-g * t * sin(θ)
             marble.velocity -= gravity / fps * Math.sin(Math.atan(tracks.derivative(marble.x - tracks.start))) * speed;
             marble.x += Math.cos(Math.atan(tracks.derivative(marble.x - tracks.start))) * marble.velocity / fps * speed;
             marble.y = tracks.list(marble.x - tracks.start) + spring.height / 2;
-        }
-    }else{//속도를 50만큼 나눠야함
-        //-g * t * sin(θ)
-        marble.velocity -= gravity / fps * Math.sin(Math.atan(tracks.derivative(marble.x - tracks.start))) * speed;
-        marble.x += Math.cos(Math.atan(tracks.derivative(marble.x - tracks.start))) * marble.velocity / fps * speed;
-        marble.y = tracks.list(marble.x - tracks.start) + spring.height / 2;
-        if(marble.x < tracks.start){
-            tracks.start - marble.x
-            marble.y = spring.y - spring.height / 2;
-            if(marble.x - marble.radius <= spring.x + spring.width){
-                // marble.velocity = velocity;
-                marble.x = marble.radius + spring.x + spring.width
+            if(marble.x < tracks.start){
+                tracks.start - marble.x
+                marble.y = spring.y - spring.height / 2;
+                if(marble.x - marble.radius <= spring.x + spring.width){
+                    // marble.velocity = velocity;
+                    marble.x = marble.radius + spring.x + spring.width
+                }
             }
         }
     }
+    document.getElementById('x-coordinate').value = marble.x;
+    document.getElementById('y-coordinate').value = marble.y;
     if(maximum < marble.y){
         maximum = marble.y;
-        console.log(maximum);
+        document.getElementById('maximum-height').value = maximum;
     }
+    document.getElementById('velocity').value = marble.velocity;
+    document.getElementById('kinetic-energy').value = marble.mass * Math.pow(marble.velocity, 2) / 2;
+    document.getElementById('potential-energy').value = marble.mass * gravity * marble.y;
+    document.getElementById('dynamics-energy').value = marble.mass * (Math.pow(marble.velocity, 2) / 2 + gravity * marble.y);
     ctx.beginPath();
     ctx.arc(marble.x * meter + position[0], canvas.height - marble.y * meter + position[1], marble.radius * meter, 0, Math.PI * 2, true);
     ctx.fill();
