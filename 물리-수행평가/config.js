@@ -45,14 +45,7 @@ document.querySelectorAll('.speed').forEach((a, i) => {
     })
 })
 document.getElementById('initialize').addEventListener("click", function(){
-    timer = false;
-    object();
-    for(let i = 0; i < 8; i++){
-        change(i, [9.8, 1, 1, 50, 0.25, 1, 3, 0][i]);
-    }
-    document.querySelectorAll('.track-type').forEach((a, i) => {
-        a.checked = i == 0 ? true : false;
-    })
+    location.reload();
 })
 document.getElementById('back-btn').addEventListener("click", function(){
     window.location.href = "../../"
@@ -146,6 +139,15 @@ function change(n, i, j){
         case 27:
             pendulum.velocity = v;
             break;
+        case 28:
+            waves[j].amplitude = v;
+            break;
+        case 29:
+            waves[j].wavelength = v;
+            break;
+        case 30:
+            waves[j].period = v;
+            break;
     }
     let id = ['gravity-input', 'spring-width', 'spring-height', 'spring-energy', 'marble-radius', 'marble-mass', 'track-start', false, 'ground-height', 'apple-radius-' + j, 'apple-mass-' + j, 'apple-hv-' + j, 'apple-vv-' + j, 'planet-radius', 'planet-mass', 'satellite-radius', 'satellite-mass', 'satellite-ix', 'satellite-iy', 'satellite-hv', 'satellite-vv', 'pivot-x', 'pivot-y', 'string-length', 'pendulum-angle', 'pendulum-radius', 'pendulum-mass', 'pendulum-velocity'][n];
     if(id) document.getElementById(id).value = i;
@@ -204,18 +206,26 @@ var satellite = {
     x : 0,
     y : 3,
     velocity : [15, 0]
-}
+};
 var pivot = {
     x : 0,
     y : 7,
     radius : 2.5
-}
+};
 var pendulum = {
     angle : Math.PI / 4,
     radius : 0.25,
     mass : 1,
     velocity : 0
 };
+var waves = [{
+    amplitude : 1,//진폭
+    wavelength : 4,//파장(람다)
+    period : 1
+}];
+var floater = {
+    radius : 1
+}
 function object(){
     marble.x = 1.25;
     marble.y = 0.5;
@@ -235,6 +245,14 @@ function object(){
         pendulum.angle = parseFloat(document.getElementById('pendulum-angle').value) / 180 * Math.PI;
         pendulum.velocity = parseFloat(document.getElementById('pendulum-velocity').value);
     }
+    if(document.getElementById('amplitude-0')){
+        waves.forEach((a, i) => {
+            a.amplitude = parseFloat(document.getElementById('amplitude-' + i).value);
+            a.wavelength = parseFloat(document.getElementById('wavelength-' + i).value);
+            a.period = parseFloat(document.getElementById('period-' + i).value);
+        });
+        time = 0;
+    }
 }
 
 const add_apple = function(){if(document.getElementById('add-apple')) document.getElementById('add-apple').addEventListener("click", function(){
@@ -244,7 +262,7 @@ const add_apple = function(){if(document.getElementById('add-apple')) document.g
      <label for="apple-radius-${apples.length}" title="The Radius of The Apple">Radius</label>
      <input type="number" placeholder="0.25" value="0.25" id="apple-radius-${apples.length}" min="0.01" max="1" step="0.01" onchange="change(9, this.value, ${apples.length});" title="Converts The Radius of The Apple(Default : 0.25)">
      <input type="reset" value="reset" onclick="change(9, 0.25, ${apples.length});" title="Resets The Radius(Default : 0.25)">
-     <input type="submit" value="submit" onclick="change(9, document.getElementById('apple-radius-${apples.length});" title="The Radius Conversion Button"><br>
+     <input type="submit" value="submit" onclick="change(9, document.getElementById('apple-radius-${apples.length}').value, ${apples.length});" title="The Radius Conversion Button"><br>
     </form>
     <form onsubmit="return false;">
      <label for="apple-mass-${apples.length}" title="The Mass of The Apple">Mass</label>
@@ -312,3 +330,33 @@ const add_apple = function(){if(document.getElementById('add-apple')) document.g
     add_apple();
 })}
 add_apple();
+
+if(document.getElementById('add-wave')) document.getElementById('add-wave').addEventListener("click", function(){
+    let section = document.createElement('section');
+    section.innerHTML = `
+    <h1>${waves.length + 1 + ((waves.length >= 10 && waves.length <= 12) ? 'th' : waves.length % 10 == 0 ? 'st' : waves.length % 10 == 1 ? 'nd' : waves.length % 10 == 2 ? 'rd' : 'th')} Wave</h1>
+    <form onsubmit="return false;">
+     <label for="amplitude-${waves.length}" title="The Amplitude of The Wave">Amplitude</label>
+     <input type="number" placeholder="1" value="1" id="amplitude-${waves.length}" min="-100" max="100" step="0.1" onchange="change(28, this.value, ${waves.length});" title="Converts The Amplitude of The Wave(Default : 1)">
+     <input type="reset" value="reset" onclick="change(28, 1, ${waves.length})" title="Resets The Amplitude(Default : 1)">
+     <input type="submit" value="submit" onclick="change(28, document.getElementById('amplitude-${waves.length}').value, ${waves.length});" title="The Amplitude Conversion Button">
+    </form>
+    <form onsubmit="return false;">
+     <label for="wavelength-${waves.length}" title="The Wavelength of The Wave">Wavelength</label>
+     <input type="number" placeholder="4" value="4" id="wavelength-${waves.length}" min="-100" max="100" step="0.1" onchange="change(29, this.value, ${waves.length});" title="Converts The Wavelength of The Wave(Default : 4)">
+     <input type="reset" value="reset" onclick="change(29, 4, ${waves.length})" title="Resets The Wavelength(Default : 4)">
+     <input type="submit" value="submit" onclick="change(29, document.getElementById('wavelength-${waves.length}').value, ${waves.length});" title="The Wavelength Conversion Button">
+    </form>
+    <form onsubmit="return false;">
+     <label for="period-${waves.length}" title="The Period of The Wave">Period</label>
+     <input type="number" placeholder="1" value="1" id="period-${waves.length}" min="-100" max="100" step="0.1" onchange="change(30, this.value, ${waves.length});" title="Converts The Period of The Wave(Default : 1)">
+     <input type="reset" value="reset" onclick="change(30, 1, ${waves.length})" title="Resets The Period(Default : 1)">
+     <input type="submit" value="submit" onclick="change(30, document.getElementById('period-${waves.length}').value, ${waves.length});" title="The Period Conversion Button">
+    </form>`;
+    document.querySelectorAll('.converts')[document.querySelectorAll('.converts').length - 2].before(section);
+    waves.push({
+        amplitude : 1,
+        wavelength : 4,
+        period : 1
+    });
+})
