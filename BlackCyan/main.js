@@ -20,16 +20,17 @@ const database = getDatabase(app);
 
 const login = function(email, password){
   signInWithEmailAndPassword(auth, email, password).then((user) => {
-    const statusRef = ref(database, 'user/' + user.user.uid + '/status');
+    let uid = user.user.uid;
+    const statusRef = ref(database, 'Users/' + uid + '/status');
     set(statusRef, 'online');
     onValue(ref(database, '.info/connected'), (snapshot) => {
       if (snapshot.val() === true){
         onDisconnect(statusRef).set('offline');
         set(statusRef, 'online');
-        onDisconnect(ref(database, 'user/' + user.user.uid + '/lastOnine')).set(serverTimestamp());
+        onDisconnect(ref(database, 'user/' + uid + '/lastOnine')).set(serverTimestamp());
       }
     })
-    connect();
+    connect(uid);
   }).catch((error) => {
     console.log(error.code);
     console.log(error.message);
@@ -86,20 +87,22 @@ const guest = function(){
 
 const signup = function(email, password, id){
   createUserWithEmailAndPassword(auth, email, password).then((user) => {
+    let uid = user.user.uid;
     updateProfile(auth.currentUser, {
       displayName : id
     }).then(() => {
-      setDoc(doc(db, "Auths", user.user.uid), {
+      setDoc(doc(db, "Users", uid), {
+        email : email,
+        password : password,
         id : id
       })
-      set(ref(database, 'user/' + user.user.uid), {
-        displayName : id,
-        email : email,
+      set(ref(database, 'Users/' + uid), {
+        id : id,
         status : 'online',
-        level : 1
+        exp : 0
       });
-      onDisconnect(ref(database, 'user/' + user.user.uid + '/status')).set('offline');
-      connect();
+      onDisconnect(ref(database, 'Users/' + uid + '/status')).set('offline');
+      connect(uid);
     }).catch((error) =>{
       console.log(error.code);
       console.log(error.message);
@@ -121,21 +124,21 @@ async function getIds(){
   return id;
 }
 
-function connect(){
-  const user = getAuth().currentUser;
-  document.getElementById('my-id').replaceChildren(user.displayName);
-  onValue(ref(database, 'user/' + user.uid + '/level'), (level) => {
-    document.getElementById('my-level').replaceChildren(level.val() == 'guest' ? 'Guest' : 'Lv. ' + level.val());
+function connect(uid){
+  onValue(ref(database, 'Users/' + uid), (snapshot) => {
+    const data = snapshot.val();
+    document.getElementById('my-id').replaceChildren(data.id);
+    document.getElementById('my-level').replaceChildren(data.exp == 'guest' ? 'Guest' : 'Lv. ' + data.exp);
   })
-  onValue(ref(database, 'user'), (snapshot) => {
+  onValue(ref(database, 'Users'), (snapshot) => {
       const data = snapshot.val();
       const players = Object.keys(data).map(i => data[i]).filter(x => x.status != 'offline');
       document.getElementById('players-list').replaceChildren('');
       players.forEach(a => {
           let player = document.createElement('div');
-          player.className = 'player';//------레벨 파이어스토어 적용-------
-          player.innerHTML = `<div class="player-level">${a.level == 'guest' ? 'Guest' : 'Lv. ' + a.level}</div>
-          <div class="player-id">${a.displayName}</div>
+          player.className = 'player';
+          player.innerHTML = `<div class="player-level">${a.exp == 'guest' ? 'Guest' : 'Lv. ' + a.exp}</div>
+          <div class="player-id">${a.id}</div>
           <div class="player-status ${a.status}" title="${a.status}">●</div>`;
           document.getElementById('players-list').append(player);
       })
@@ -143,9 +146,9 @@ function connect(){
   })
   document.addEventListener("visibilitychange", () => {
       if(document.hidden){
-          set(ref(database, 'user/' + user.uid + '/status'), 'away');
+          set(ref(database, 'Users/' + uid + '/status'), 'away');
       }else{
-          set(ref(database, 'user/' + user.uid + '/status'), 'online');
+          set(ref(database, 'User/' + uid + '/status'), 'online');
       }
   });
   document.querySelector('.main-menu').className = 'main-menu container hidden';

@@ -1,4 +1,9 @@
 var ctx = canvas.getContext('2d');
+var graph = document.getElementById('graph');
+var context = graph.getContext('2d');
+
+let gs = [];
+let distances = [];
 
 function repeat(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -17,6 +22,8 @@ function repeat(){
             satellite.y = (planet.radius + satellite.radius) * Math.sin(Math.atan(satellite.y / satellite.x));
             satellite.velocity = [0, 0]
         }
+        gs.unshift(g);
+        distances.unshift(Math.sqrt(Math.pow(satellite.x, 2) + Math.pow(satellite.y, 2)) - planet.radius - satellite.radius);
     }
     document.getElementById('x-coordinate').value = satellite.x;
     document.getElementById('y-coordinate').value = satellite.y;
@@ -38,6 +45,27 @@ function repeat(){
     ctx.beginPath();
     ctx.arc(canvas.width / 2 + satellite.x * meter + position[0], canvas.height / 2 - satellite.y * meter + position[1], satellite.radius * meter, 0, Math.PI * 2, true);
     ctx.fill();
+
+    context.clearRect(0, 0, graph.width, graph.height);
+
+    context.strokeStyle = 'black';
+    context.beginPath();
+    context.moveTo(0, graph.height / 2);
+    context.lineTo(graph.width, graph.height / 2);
+    context.stroke();
+
+    context.strokeStyle = 'blue';
+    context.beginPath();
+    for(let i = 0; i < gs.length; i++){
+        context.lineTo(graph.width / 2 - i, graph.height / 2 - gs[i] / 2);
+    }
+    context.stroke();
+    context.strokeStyle = 'red';
+    context.beginPath();
+    for(let i = 0; i < distances.length; i++){
+        context.lineTo(graph.width / 2 - i, graph.height / 2 - distances[i] * 20);
+    }
+    context.stroke();
 }
 let repeater = setInterval(repeat, 1000 / fps);
 //(fps)ms

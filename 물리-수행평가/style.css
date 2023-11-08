@@ -207,7 +207,7 @@ footer {
     bottom: 0;
 }
 
-canvas {
+#canvas {
     background-color: #1d1d25;
     cursor: move;
 }
@@ -236,4 +236,8 @@ canvas {
     align-items: center;
     text-align: center;
     user-select: none;
+}
+
+#graph {
+    border: solid;
 }

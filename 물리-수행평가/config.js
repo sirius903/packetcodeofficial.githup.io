@@ -9,6 +9,7 @@ document.getElementById('meter').addEventListener("change", function(){
     meter = parseInt(this.value);
 });
 var timer = false;
+var time = 0;
 document.getElementById('reset').addEventListener("click", function(){
     timer = false;
     object();
@@ -148,6 +149,9 @@ function change(n, i, j){
         case 30:
             waves[j].period = v;
             break;
+        case 31:
+            floater.radius = v;
+            break;
     }
     let id = ['gravity-input', 'spring-width', 'spring-height', 'spring-energy', 'marble-radius', 'marble-mass', 'track-start', false, 'ground-height', 'apple-radius-' + j, 'apple-mass-' + j, 'apple-hv-' + j, 'apple-vv-' + j, 'planet-radius', 'planet-mass', 'satellite-radius', 'satellite-mass', 'satellite-ix', 'satellite-iy', 'satellite-hv', 'satellite-vv', 'pivot-x', 'pivot-y', 'string-length', 'pendulum-angle', 'pendulum-radius', 'pendulum-mass', 'pendulum-velocity'][n];
     if(id) document.getElementById(id).value = i;
@@ -224,7 +228,8 @@ var waves = [{
     period : 1
 }];
 var floater = {
-    radius : 1
+    y : 0,
+    radius : 0.25
 }
 function object(){
     marble.x = 1.25;
@@ -251,12 +256,14 @@ function object(){
             a.wavelength = parseFloat(document.getElementById('wavelength-' + i).value);
             a.period = parseFloat(document.getElementById('period-' + i).value);
         });
-        time = 0;
     }
+    time = 0;
+    floater.y = waves.map(x => x.amplitude * Math.sin(2 * Math.PI * (canvas.width / 2 / x.wavelength - (time) / x.period * meter) / meter)).reduce((a, b) => (a + b)) * meter;
 }
 
-const add_apple = function(){if(document.getElementById('add-apple')) document.getElementById('add-apple').addEventListener("click", function(){
-    document.querySelectorAll('.converts')[document.querySelectorAll('.converts').length - 1].innerHTML = `
+if(document.getElementById('add-apple')) document.getElementById('add-apple').addEventListener("click", function(){
+    let section = document.createElement('section');
+    section.innerHTML = `
     <h1>${apples.length + 1 + ((apples.length >= 10 && apples.length <= 12) ? 'th' : apples.length % 10 == 0 ? 'st' : apples.length % 10 == 1 ? 'nd' : apples.length % 10 == 2 ? 'rd' : 'th')} Apple</h1>
     <form onsubmit="return false;">
      <label for="apple-radius-${apples.length}" title="The Radius of The Apple">Radius</label>
@@ -315,10 +322,7 @@ const add_apple = function(){if(document.getElementById('add-apple')) document.g
      <label title="Dynamics Energy of The Apple">Dynamics Energy</label>
      <input type="number" value="0" id="apple-de-${apples.length}" title="Dynamics Energy of The Apple" disabled>
     </form>`;
-    let section = document.createElement('section');
-    section.innerHTML = '<button id="add-apple">Add Apple</button>';
-    section.className = 'converts';
-    document.getElementById('configs').append(section);
+    document.querySelectorAll('.converts')[document.querySelectorAll('.converts').length - 1].before(section);
     apples.push({
         x : 1,
         y : 8,
@@ -327,9 +331,8 @@ const add_apple = function(){if(document.getElementById('add-apple')) document.g
         mass : 1,
         maximum : 0
     });
-    add_apple();
-})}
-add_apple();
+    apples_y.push([]);
+});
 
 if(document.getElementById('add-wave')) document.getElementById('add-wave').addEventListener("click", function(){
     let section = document.createElement('section');

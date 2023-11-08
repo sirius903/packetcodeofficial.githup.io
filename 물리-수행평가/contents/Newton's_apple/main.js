@@ -1,4 +1,8 @@
 var ctx = canvas.getContext('2d');
+var graph = document.getElementById('graph');
+var context = graph.getContext('2d');
+
+let apples_y = [[]];
 
 function repeat(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -6,7 +10,7 @@ function repeat(){
     ctx.fillStyle = 'white';
 
     if(timer){
-        apples.forEach(a => {
+        apples.forEach((a, i) => {
             a.velocity[1] -= gravity / fps * speed;
             a.x += a.velocity[0] / fps * speed;
             a.y += a.velocity[1] / fps * speed;
@@ -14,6 +18,7 @@ function repeat(){
                 a.y = ground.height + a.radius;
                 a.velocity[1] = 0;
             }
+            apples_y[i].unshift(a.y);
         })
     }
     apples.forEach((a, i) => {
@@ -35,6 +40,23 @@ function repeat(){
         ctx.beginPath();
         ctx.arc(a.x * meter + position[0], canvas.height - a.y * meter + position[1], a.radius * meter, 0, Math.PI * 2, true);
         ctx.fill();
+    })
+    
+    context.clearRect(0, 0, graph.width, graph.height);
+    
+    context.strokeStyle = 'black';
+    context.beginPath();
+    context.moveTo(0, graph.height / 2);
+    context.lineTo(graph.width, graph.height / 2);
+    context.stroke();
+    
+    apples_y.forEach((a, i, o) => {
+        context.strokeStyle = 'black';
+        context.beginPath();
+        for(let j = 0; j < a.length; j++){
+            context.lineTo(graph.width / (o.length + 1) * (i + 1) - j, graph.height / 2 - a[j] * 10);
+        }
+        context.stroke();
     })
 }
 let repeater = setInterval(repeat, 1000 / fps);
