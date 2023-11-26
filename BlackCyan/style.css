@@ -250,14 +250,18 @@ html {
 /* entry */
 
 /* rooms */
+
+.list {
+    display: grid;
+    grid-template-columns: 20vw calc(60vw - 4em) 20vw;
+    grid-template-rows: 40vw;
+    gap: 1em;
+    padding: 1em;
+}
+
 #players {
     background-color: #232323;
     border-radius: 5px;
-    position: fixed;
-    right: calc(50% + 425px);
-    left: 10px;
-    top: 20px;
-    bottom: 250px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -268,7 +272,6 @@ html {
     background-color: #060606AA;
     border-bottom: 3px solid #2228;
     border-right: 3px solid #1116;
-    width: calc(100% - 10px);
     padding: 5px;
     display: flex;
     box-shadow: 0 0 8px #000;
@@ -294,6 +297,7 @@ html {
 #players-title {
     display: flex;
     align-items: baseline;
+    margin-bottom: 0.5em;
 }
 
 #players-number {
@@ -339,12 +343,6 @@ html {
 #room {
     background-color: #232323;
     border-radius: 5px;
-    position: fixed;
-    left: 50%;
-    top: 20px;
-    bottom: 250px;
-    transform: translate(-50%);
-    width: 800px;
     padding: 10px 10px;
     display: flex;
 }
@@ -373,15 +371,15 @@ html {
     border-radius: 3px;
     text-align: left;
     font-size: 1.4em;
-    padding: 0.5em 0.7em 0.3em;
+    padding: 0.3rem 0.6rem 0.2rem;
 }
 
 #rooms {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: space-between;
-    /* 조정 필요 */
+    margin-top: 0.5em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* align-content: flex-start;
+    justify-content: space-between; */
 }
 
 .rooms_item.add_btn {
@@ -410,12 +408,12 @@ html {
     padding: 5px;
     border-radius: 10px;
     margin: 3px;
-    width: 245px;
-    height: 128px;
+    height: 7em;
     box-shadow: 0px 1px 1px #777777;
     cursor: pointer;
     transition: all 300ms ease;
     float: left;
+    user-select: none;
 }
 
 .rooms-title {
@@ -438,6 +436,7 @@ html {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin: 0.6rem 0 0.1rem;
 }
 
 #moreinfo {
@@ -445,7 +444,13 @@ html {
     font-size: 0.9em;
     text-align: center;
     pointer-events: none;
-    margin: 0.25em 0;
+    margin: 0.25em 0 2em;
+}
+
+.room_tabs {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 #room-configs {
@@ -460,13 +465,12 @@ html {
 
 .room_tab {
     width: 4em;
-    height: 33%;
     border-radius: 3px 3px 0 0;
     background: linear-gradient(to bottom,#aaa2 0,transparent 100%);
     text-align: center;
     color: #aaa;
-    padding: 0.9em 0;
-    font-size: 2em;
+    padding: 1rem 0;
+    font-size: 2rem;
     cursor: pointer;
     filter: brightness(1);
     transition: .3s filter;
@@ -518,6 +522,11 @@ html {
     width: 20em;
 }
 
+#create-button.active {
+    color: #99ceff;
+    background: linear-gradient(to bottom,transparent 0,#0091ff50 100%);
+}
+
 #create-button {
     border-radius: 0 0 8px 8px;
     background: linear-gradient(to bottom,transparent 0,#aaa2 100%);
@@ -539,15 +548,6 @@ html {
     flex-grow: 1;
 }
 
-.flex-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-
-
-
 
 
 
@@ -555,7 +555,7 @@ html {
 #full-chat-box {
     background-color: #232323;
     border-radius: 5px;
-    position: fixed;
+    /* position: fixed; */
     left: calc(50% + 425px);
     right: 10px;
     top: 20px;
@@ -568,7 +568,7 @@ html {
 }
 
 .chat {
-    height: calc(100vh - 300px - 3.8em);
+    height: calc(40vw - 3.8em);
 }
 
 .chat-message {

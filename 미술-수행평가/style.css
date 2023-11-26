@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'intelone-mono-font-family-regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/intelone-mono-font-family-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+}
+
+body[data-type = 'title1'] {
+    --title-top: 50%;
+    --title-content: center;
+    --title-margin: 0;
+    --title1-margin: 0.5em;
+    --title1-color: #41a9ff
+}
+
+body[data-type = 'title2'] {
+    --title-top: 0;
+    --title-content: center;
+    --title-margin: 30vw;
+    --title1-margin: 0em;
+    --title1-color: #41a9ff
+    /* --title : #ffffff;
+    --title-transform: translate(-50%, 0%);
+    --title-flex: column;
+    --title-bottom: 10em; */
+}
+
+body[data-type = 'title3'] {
+    --title-top: 0;
+    --title-content: space-between;
+    --title-margin: '';
+    --title1-color: #41a9ff00
+}
+
+body {
+    background-color: #00040f;
+}
+
+#title {
+    position: fixed;
+    top: var(--title-top);
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: var(--title-content);
+    cursor: pointer;
+    user-select: none;
+    transition: 1s all;
+}
+
+.title {
+    color: #41a9ff;
+    font-family: 'intelone-mono-font-family-regular';
+    font-weight: 700;
+    font-size: 5.5em;
+    transition: 1s all;
+    margin-bottom: var(--title-bottom);
+}
+
+#title1 {
+    color: var(--title1-color);
+    margin-left: 0.4em;
+    margin-right: var(--title-margin);
+}
+
+#title2 {
+    margin-left: var(--title-margin);
+    margin-right: 0.4em;
+}
+
+#title:hover #title1 {
+    margin-right: var(--title1-margin);
+}
+
+
+header {
+    display: flex;
+}
+
+header .title {
+    margin-left: 0.4em;
+}
+
+#logo {
+    position: fixed;
+    right: 50%;
+    translate: 50% 0;
+}
+
+.hidden {
+    display: none;
+}

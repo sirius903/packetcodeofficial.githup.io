@@ -139,6 +139,12 @@ header {
     cursor: pointer;
 }
 
+#exit:hover {
+    border-color: #000000;
+    color: #f8f8f8;
+    background-color: #000000;
+}
+
 #log-in {
     border-color: #0088ff;
     color: #f8f8f8;

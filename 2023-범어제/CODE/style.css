@@ -1,9 +1,37 @@
 body[data-thema='light-mode'] {
-    --wall-color : black;
+    --wall : #000000;
+    --goal : #009800;
+    --blue : #0000ff;
+    --orange : #ffa500;
 }
 
 body[data-thema='dark-mode'] {
-    --wall-color : #c3c3c3;
+    --wall : #c3c3c3;
+    --goal : #008000;
+    --blue : #006eff;
+    --orange : #ffc863;
+}
+
+body[data-chapter='1']{
+    --size : calc(60vh / 10);
+}
+body[data-chapter='2']{
+    --size : calc(60vh / 16);
+}
+body[data-chapter='3']{
+    --size : calc(60vh / 31);
+}
+body[data-chapter='4']{
+    --size : calc(60vh / 10);
+}
+body[data-chapter='5']{
+    --size : calc(60vh / 14);
+}
+body[data-chapter='6']{
+    --size : calc(60vh / 25);
+}
+body[data-chapter='7']{
+    --size : calc(60vh / 50);
 }
 
 .objects_low {
@@ -11,9 +39,9 @@ body[data-thema='dark-mode'] {
 }
 
 .object {
-    height: calc(50vh / 25);
-    width: calc(50vh / 25);
-    font-size: calc(50vh / 25);
+    height: var(--size);
+    width: var(--size);
+    font-size: var(--size);
     text-align: center;
     /* font-size: 2.5em; */
 }
@@ -23,31 +51,31 @@ body[data-thema='dark-mode'] {
 }
 
 .wall {
-    color: var(--wall-color);
+    color: var(--wall);
 }
 
 .able-goal {
-    color: green;
+    color: var(--goal);
 }
 
 .disable-goal {
-    color: gray;
+    color: #808080;
 }
 
 .trap {
-    color: red;
+    color: #ff0000;
 }
 
 .button {
-    color: red;
+    color: #ff0000;
 }
 
 .blue-potal {
-    color: blue;
+    color: var(--blue);
 }
 
 .orange-potal {
-    color: orange;
+    color: var(--orange);
 }
 
 .coin {

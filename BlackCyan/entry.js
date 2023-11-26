@@ -11,18 +11,20 @@ document.querySelectorAll('.to_entry').forEach((a, i) => {
         document.getElementById('sign-up_section').className = ['hidden', ''][i];
         document.getElementById(['log-in_email', 'sign-up_email'][i]).focus();
     })
-})
+});
+//로그인 화면 숨기기
 const hide_login = function(){
     document.getElementById('log-in_section').className = 'hidden';
     document.getElementById('log-in_email').value = '';
     document.getElementById('log-in_password').value = '';
-}
+};
+//회원가입 화면 숨기기
 const hide_signup = function(){
     document.getElementById('sign-up_section').className = 'hidden';
     document.getElementById('sign-up_email').value = '';
     document.getElementById('sign-up_password').value = '';
     document.getElementById('sign-up_id').value = '';
-}
+};
 //Exit 버튼
 document.getElementById('exit_btn').addEventListener("click", function(){
     document.getElementById('main-menu_btns').className = '';
@@ -59,7 +61,7 @@ document.getElementById('log-in').addEventListener("click", function(){
     login(document.getElementById('log-in_email').value, document.getElementById('log-in_password').value);
 })
 document.getElementById('guest').addEventListener("click", function(){
-    guest();
+    // guest();
 })
 
 //회원가입 기능

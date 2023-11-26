@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sirius903</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+    <header class="hidden">
+        <h1 class="title">&lt;sirius&gt;</h1>
+        <h1 id="logo" style="color: red;">1</h1>
+    </header>
+    <div id="title">
+        <h1 class="title" id="title1">&lt;sirius&gt;</h1>
+        <h1 class="title" id="title2">&lt;/903&gt;</h1>
+    </div>
+    <script>
+        document.body.dataset.type = 'title1';
+        document.getElementById('title').addEventListener("click", function(){
+            if(document.body.dataset.type == 'title1'){
+                document.body.dataset.type = 'title2';
+                setTimeout(function(){
+                    document.body.dataset.type = 'title3';
+                    setTimeout(function(){
+                        document.querySelector('header').className = '';
+                    }, 500);
+                }, 500);
+            }
+
+            // this.style.top = 0;
+            // this.style.bottom = '';
+            // this.style.translate = '-10% -30%';
+            // const titles = document.querySelectorAll('.title');
+            // titles[0].style.position = 'fixed';
+            // titles[0].style.top = '0';
+        })
+    </script>
+</body>
+</html>
