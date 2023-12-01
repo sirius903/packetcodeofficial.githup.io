@@ -2,38 +2,78 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta property="og:title" content="sirius903">
+    <meta property="og:description" content="미술 수행평가">
+    <meta property="og:image" content="desktop.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sirius903</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-    <header class="hidden">
+    <header class="move">
         <h1 class="title">&lt;sirius&gt;</h1>
-        <h1 id="logo" style="color: red;">1</h1>
     </header>
-    <div id="title">
+    <div id="title" class="">
         <h1 class="title" id="title1">&lt;sirius&gt;</h1>
         <h1 class="title" id="title2">&lt;/903&gt;</h1>
     </div>
+    <div>
+        <img src="logo.png" id="logo" class="move">
+    </div>
+    <div id="web" class="move">
+        <div id="WEB">WEB</div>
+        <div id="group" class="">
+            <div id="site">site</div>
+            <div id="js">JS</div>
+        </div>
+        <div id="beomeo" class="move">
+            <img id="img" src="web.png">
+            <a href="https://sirius903.github.io/2023-%EB%B2%94%EC%96%B4%EC%A0%9C/"> ★☆여기 클릭☆★</a>
+        </div>
+        <div id="game" class="hidden move">
+            <div id="GAME">GAME</div>
+            <div id="g-group">
+                <div id="game1">🎮</div>
+                <div id="card">🂡</div>
+            </div>
+        </div>
+    </div>
+    <footer class="hidden move">
+        <p id="icon">&nbsp;&nbsp;&nbsp;( ◔‸◔)<br>＿(__つ/￣￣￣/＿</p>
+        <p id="desktop">┌───────────────┐<br>　　　　　Only Desktop<br>   └───────────────┘<br>   　　ᕱ ᕱ ||<br>   　 ( ･ω･ ||<br>   　 /　つΦ<br></p>
+        <h1 class="title">&lt;/903&gt;</h1>
+    </footer>
     <script>
-        document.body.dataset.type = 'title1';
         document.getElementById('title').addEventListener("click", function(){
-            if(document.body.dataset.type == 'title1'){
-                document.body.dataset.type = 'title2';
+            this.className = 'move';
+            setTimeout(function(){
+                document.querySelector('header').className = '';
                 setTimeout(function(){
-                    document.body.dataset.type = 'title3';
-                    setTimeout(function(){
-                        document.querySelector('header').className = '';
-                    }, 500);
-                }, 500);
-            }
-
-            // this.style.top = 0;
-            // this.style.bottom = '';
-            // this.style.translate = '-10% -30%';
-            // const titles = document.querySelectorAll('.title');
-            // titles[0].style.position = 'fixed';
-            // titles[0].style.top = '0';
+                    document.getElementById('title').className = 'hidden';
+                    document.getElementById('logo').className = '';
+                    document.getElementById('logo').addEventListener("click", function(){
+                        this.className = 'fixed';
+                        document.getElementById('web').className = '';
+                        setTimeout(() => {
+                            document.getElementById('web').className = 'fixed';
+                            document.getElementById('group').className = 'fixed';
+                            setTimeout(() => {
+                                document.getElementById('beomeo').className = '';
+                                document.getElementById('game').className = 'move';
+                                setTimeout(() => {
+                                    document.getElementById('game').className = '';
+                                    setTimeout(() => {
+                                        document.querySelector('footer').className = 'move';
+                                        setTimeout(() => {
+                                            document.querySelector('footer').className = '';
+                                        }, 10);
+                                    }, 1000)
+                                }, 1000)
+                            }, 500);
+                        }, 1500);
+                    })
+                }, 50);
+            }, 650);
         })
     </script>
 </body>

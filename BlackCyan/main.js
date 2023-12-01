@@ -17,31 +17,51 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const database = getDatabase(app);
-let chat_type = ['Main', '', ''];
 
-/**로그인 함수
+/**
+ * @name 로그인 함수
  * @param {String} email 이메일
  * @param {string} password 비밀번호
+ * @description 이메일과 비밀번호로 로그인하는 함수
  */
 const login = function(email, password){
+  //firebase 로그인 함수
   signInWithEmailAndPassword(auth, email, password).then((user) => {
+    /**
+     * @type {String}
+     * @description 유저 uid를 불러오는 변수
+     */
     const uid = user.user.uid;
+    /**
+     * @description 유저의 상태를 저장하는 레퍼런스
+     */
     const statusRef = ref(database, 'Users/' + uid + '/status');
+    //유저 상태를 온라인으로 지정
     set(statusRef, 'online');
+    //유저 상태가 바뀔 때마다 작동하는 함수
     onValue(ref(database, '.info/connected'), (snapshot) => {
-      if (snapshot.val() === true){
-        onDisconnect(statusRef).set('offline');
+      //온라인이면
+      if(snapshot.val() === true){
+        //저장된 상태를 온라인으로 전환
         set(statusRef, 'online');
+        //오프라인으로 바뀔 시 저장된 상태를 오프라인으로 전환
+        onDisconnect(statusRef).set('offline');
+        //오프라인으로 바뀔 시 마지막 접속 시간을 저장
         onDisconnect(ref(database, 'Users/' + uid + '/lastOnine')).set(serverTimestamp());
-      }
-    })
+      };
+    });
     load(uid);
+    //오류 발견 시
   }).catch((error) => {
     console.log(error.code);
     console.log(error.message);
   });
 }
 
+/**
+ * @description 무작위 글자 하나를 뽑는 함수
+ * @returns 무작위 글자
+ */
 function randomStr(){
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
   const rnum = Math.floor(Math.random() * chars.length);
@@ -49,69 +69,66 @@ function randomStr(){
   return randomstring
 }
 
-const guest = function(){
-  signInAnonymously(auth).then((user) => {
-    let id = 'Guest-000000';
-    getIds().then(ids => {
-      while(true){
-        id = 'Guest-';
-        for(let i = 0; i < 6; i++){
-          id += randomStr();
-        }
-        if(!ids.includes(id)) break;
-      }
-      updateProfile(auth.currentUser, {
-        displayName : id
-      }).then(() => {
-        setDoc(doc(db, "Auths", user.user.uid), {
-          id : id
-        })
-        set(ref(database, 'Users/' + user.user.uid), {
-          displayName : id,
-          email : 'guest',
-          status : 'online',
-          level : 'guest'
-        });
-        onValue(ref(database, '.info/connected'), (snapshot) => {
-          if (snapshot.val() === true){
-            onDisconnect(statusRef).set('offline');
-            set(statusRef, 'online');
-            onDisconnect(ref(database, 'Users/' + user.user.uid + '/lastOnine')).set(serverTimestamp());
-          }
-        });
-        connect();
-      }).catch((error) =>{
-        console.log(error.code);
-        console.log(error.message);
-      })
-    })
-  }).catch((error) => {
-    console.log(error.message);
-  })
-}
+// const guest = function(){
+//   signInAnonymously(auth).then((user) => {
+//     let id = 'Guest-000000';
+//     getIds().then(ids => {
+//       while(true){
+//         id = 'Guest-';
+//         for(let i = 0; i < 6; i++){
+//           id += randomStr();
+//         }
+//         if(!ids.includes(id)) break;
+//       }
+//       updateProfile(auth.currentUser, {
+//         displayName : id
+//       }).then(() => {
+//         setDoc(doc(db, "Auths", user.user.uid), {
+//           id : id
+//         })
+//         set(ref(database, 'Users/' + user.user.uid), {
+//           displayName : id,
+//           email : 'guest',
+//           status : 'online',
+//           level : 'guest'
+//         });
+//         onValue(ref(database, '.info/connected'), (snapshot) => {
+//           if (snapshot.val() === true){
+//             onDisconnect(statusRef).set('offline');
+//             set(statusRef, 'online');
+//             onDisconnect(ref(database, 'Users/' + user.user.uid + '/lastOnine')).set(serverTimestamp());
+//           }
+//         });
+//         connect();
+//       }).catch((error) =>{
+//         console.log(error.code);
+//         console.log(error.message);
+//       })
+//     })
+//   }).catch((error) => {
+//     console.log(error.message);
+//   })
+// }
 
 const signup = function(email, password, id){
+  //글자 20제한 특수 기호 제한
   createUserWithEmailAndPassword(auth, email, password).then((user) => {
-    let uid = user.user.uid;
-    updateProfile(auth.currentUser, {
-      displayName : id
-    }).then(() => {
-      setDoc(doc(db, "Users", uid), {
-        email : email,
-        password : password,
-        id : id
-      })
-      set(ref(database, 'Users/' + uid), {
-        id : id,
-        status : 'online',
-        exp : 0
-      });
-      onDisconnect(ref(database, 'Users/' + uid + '/status')).set('offline');
-      connect(uid);
-    }).catch((error) =>{
-      console.log(error.code);
-      console.log(error.message);
+    const uid = user.user.uid;
+    setDoc(doc(db, "Users", uid), {
+      email : email,
+      password : password,
+      id : id
     })
+    addDoc(doc(db, "Users", id), {});
+    set(ref(database, 'Users/' + uid), {
+      id : id,
+      status : 'online',
+      exp : 0,
+      lastOnline : 0,
+      room : ""
+    });
+    onDisconnect(ref(database, 'Users/' + uid + '/status')).set('offline');
+    load(uid);
   }).catch((error) => {
     console.log(error.code);
     console.log(error.message);
@@ -121,165 +138,163 @@ const signup = function(email, password, id){
 }
 
 async function getIds(){
-  let id = [];
-  const ids = await getDocs(collection(db, "Auths"));
-  ids.forEach((doc)=>{
-    id.push(doc.data().id);
-  });
-  return id;
+  const ids = await getDocs(collection(db, "Ids"));
+  return ids.docs.map((doc) => doc.id);
 }
 
 /**
+ * @name 데이터를 불러오는 함수
  * @param {String} uid 유저의 uid
  */
 function load(uid){
+  //자신의 프로필 가져오기
   onValue(ref(database, 'Users/' + uid), (snapshot) => {
     const data = snapshot.val();
+    //유저 아이디 표시
     document.getElementById('my-id').replaceChildren(data.id);
+    //게스트인지 확인 및 유저 레벨 표시
     document.getElementById('my-level').replaceChildren(data.exp == 'guest' ? 'Guest' : 'Lv. ' + data.exp);
   });
+  //모든 유저 데이터 불러오기
   onValue(ref(database, 'Users'), (snapshot) => {
     const data = snapshot.val();
+    /**
+     * @type {Array}
+     * @description 오프라인인 유저들을 제외하고 저장하는 변수
+     */
     const players = Object.keys(data).map(i => data[i]).filter(x => x.status != 'offline');
+    //표시 중인 유저 리스트 초기화
     document.getElementById('players-list').replaceChildren('');
+    //표시할 유저 수 만큼 반복
     players.forEach(a => {
       let player = document.createElement('div');
       player.className = 'player';
       player.innerHTML = `<div class="player-level">${a.exp == 'guest' ? 'Guest' : 'Lv. ' + a.exp}</div>
       <div class="player-id">${a.id}</div>
       <div class="player-status ${a.status}" title="${a.status}">●</div>`;
+      //유저 표시
       document.getElementById('players-list').append(player);
-    })
+    });
+    //유저 수 표시
     document.getElementById('players-number').innerText = `(${players.length} / 100)`;
-  })
+  });
+  //'자리 비움'인지 확인
   document.addEventListener("visibilitychange", () => {
+    //'자리 비움'일 시
     if(document.hidden){
+      //저장 중인 상태를 자리 비움으로 전환
       set(ref(database, 'Users/' + uid + '/status'), 'away');
     }else{
+      //저장 중인 상태를 온라인으로 전환
       set(ref(database, 'Users/' + uid + '/status'), 'online');
-    }
+    };
   });
+  //메인 메뉴를 숨기고 대기 화면을 불러옴
   document.querySelector('.main-menu').className = 'main-menu container hidden';
   document.querySelector('.list').className = 'list container scroller';
+  //공개중인 방 목록을 불러옴
   onValue(ref(database, 'Rooms/Public'), (snapshot) => {
+    /**
+     * @type {Array}
+     * @description 불러온 데이터를 배열로 변환하여 저장하는 변수
+     */
     let rooms = Object.keys(snapshot.val()).map(i => snapshot.val()[i]);
+    //표시 중인 방 목록을 초기화
     document.getElementById('rooms').innerHTML = '';
+    //New Room 버튼 제작
     var add_item = document.createElement('div');
     add_item.className = 'rooms_item add_btn';
     add_item.innerHTML = '<div id="text">New Room</div>';
+    //New Room 버튼 클릭시 작동
     add_item.addEventListener("click", ()=>{
+      //방 생성
       create(uid);
-    })
+    });
+    //New Room 버튼 추가
     document.getElementById('rooms').append(add_item);
+    //방 갯수 만큼 반복
     rooms.forEach(a => {
       let item = document.createElement('div');
       item.className = 'rooms_item';
       item.innerHTML = `<div class="rooms-title">${a.title}</div><div class="rooms-limit">${a.players + ' / ' + a.limit}</div>`;
       item.addEventListener("click", () => {enter(uid, a.id);});
+      //방 표시
       document.getElementById('rooms').append(item);
-    })
-  })
-
-  chat_change(0);
-}
-
-const chat_change = function(type, id){
+    });
+  });
+  //채팅 불러옴
+  onValue(ref(database, 'Chats/Main'), (snapshot) => {
+    let chat = snapshot.val();
+    if(chat.message != ''){
+      let room_chat = document.getElementById('full-chat');
+      //스크롤 하단으로 내릴 지 여부
+      let scroll = true;
+      if(room_chat.scrollTop + room_chat.clientHeight + 5 < room_chat.scrollHeight) scroll = false;
+      let div = document.createElement('div');
+      let h1 = document.createElement('h1');
+      let p = document.createElement('p');
+      h1.innerText = chat.id;
+      p.innerText = chat.message;
+      div.className = 'chat-message';
+      h1.className = 'chat-tag';
+      div.append(h1);
+      div.append(p);
+      room_chat.append(div);
+      //스크롤 최하단으로 내림
+      if(scroll) room_chat.scrollTop = room_chat.scrollHeight;
+      set(ref(database, 'Chats/Main/message'), '');
+    };
+  });
+  //채팅 입력 시
   document.getElementById('full-chat-input').addEventListener("keypress", function(e){
-    console.log(1)
     if(e.code === 'Enter'){
-      console.log(2)
-      let chatRef;
-      if(type == 0){
-        chatRef = 'Chats/Main';
-      }else{
-        chatRef = 'Chats/Public/' + sha224(id);
-      }
-      // let chatRef = 'Chats/' + (type == 0 ? 'Main' : ('Public/' + sha224(id)));
-      console.log(chatRef);
-      set(ref(database, chatRef), {
+      //데이터베이스에 채팅 정보 저장
+      set(ref(database, 'Chats/Main'), {
         id : auth.currentUser.displayName,
         message : document.getElementById('full-chat-input').value
-      })
-      //firestore에 메시지 저장
-      document.getElementById('full-chat-input').value = '';
-    }
-  })
-  // console.log(1)
-  // function chat_enter(e){
-  //   if(e.code === 'Enter'){
-  //   }
-  // }
-  // document.getElementById('full-chat-input').removeEventListener("keypress", chat_enter);
-  // document.getElementById('full-chat-input').addEventListener("keypress", chat_enter);
-  //메인 + 룸 (방 참가시)1
-  //메인만 (기본)0
-  //룸(설정 시)2
-  off(ref(database, 'Chats/Main'));
-  // if(id) off(ref(database));
-  switch (type) {
-    case 1:
-      onValue(ref(database, 'Chats/Public/' + sha224(id)), (snapshot) => {
-        let chat = snapshot.val();
-        if(chat.message != ''){
-          let full_chat = document.getElementById('full-chat');
-          let scroll = true;
-          if(full_chat.scrollTop + full_chat.clientHeight + 5 < full_chat.scrollHeight) scroll = false;
-          let div = document.createElement('div');
-          let h1 = document.createElement('h1');
-          let p = document.createElement('p');
-          h1.innerText = 'In-Room' + chat.id;
-          p.innerText = chat.message;
-          div.className = 'chat-message';
-          h1.className = 'chat-tag';
-          div.append(h1);
-          div.append(p);
-          full_chat.append(div);
-          if(scroll) full_chat.scrollTop = full_chat.scrollHeight;
-          set(ref(database, 'Chats/Public /message'), '');
-        }
-      })
-    case 0:
-      onValue(ref(database, 'Chats/Main'), (snapshot) => {
-        let chat = snapshot.val();
-        if(chat.message != ''){
-          let full_chat = document.getElementById('full-chat');
-          let scroll = true;
-          if(full_chat.scrollTop + full_chat.clientHeight + 5 < full_chat.scrollHeight) scroll = false;
-          let div = document.createElement('div');
-          let h1 = document.createElement('h1');
-          let p = document.createElement('p');
-          h1.innerText = chat.id;
-          p.innerText = chat.message;
-          div.className = 'chat-message';
-          h1.className = 'chat-tag';
-          div.append(h1);
-          div.append(p);
-          full_chat.append(div);
-          if(scroll) full_chat.scrollTop = full_chat.scrollHeight;
-          set(ref(database, 'Chats/Main/message'), '');
-        };
       });
-      break;
-    default:
-      //뭐요
-      break;
-  }
-}
 
+      //todo firestore에 메시지 저장
+      
+      document.getElementById('full-chat-input').value = '';
+    };
+  });
+};
+
+/**
+ * @name 방 제작 함수
+ * @param {String} uid 유저의 uid
+ * @description 방을 제작하는 화면을 보여주고 방을 제작한다.
+ */
 const create = function(uid){
-  document.getElementById('room_title').innerText = auth.currentUser.displayName + "'s Room";
-  document.getElementById('room-title').value = auth.currentUser.displayName + "'s Room";
+  //유저 id를 불러옴
+  get(child(ref(database), 'Users/' + uid + '/id')).then((snapshot) => {
+    let id = snapshot.val();
+    //방 기본 이름을 설정함
+    document.getElementById('room_title').innerText = id + "'s Room";
+    document.getElementById('room-title').value = id + "'s Room";
+  });
+  //방 목록을 숨기고 방 제작 화면을 보여줌
   document.querySelector('.rooms-list').className = 'rooms-list hidden';
   document.querySelector('.room').className = 'room';
+  //방 제작 버튼 클릭 시
   document.getElementById('create-button').addEventListener("click", async function(){
+    //기존 방 목록을 불러옴
     get(child(ref(database), 'Rooms/Public')).then((snapshot) => {
+      /**
+       * @type {Array}
+       * @description 모든 방 id들을 배열로 저장함
+       */
       let ids = Object.keys(snapshot.val()).map(i => snapshot.val()[i].id);
       var id = '';
-      const alph = "ABCDEFGHIJKLMNOPQRSTUVWXYNZ"
+      const alph = "ABCDEFGHIJKLMNOPQRSTUVWXYNZ";
       while(true){
+        //임시 id 제작
         id = alph[Math.floor(Math.random() * alph.length)] + alph[Math.floor(Math.random() * alph.length)] + alph[Math.floor(Math.random() * alph.length)] + alph[Math.floor(Math.random() * alph.length)]
+        //id가 겹칠 시 다시 반복
         if(!ids.includes(id)) break;
-      }
+      };
+      //id에 맞춰 방을 제작
       set(ref(database, 'Rooms/Public/' + sha224(id)), {
         id : id,
         limit : parseInt(document.getElementById('room-limit').value),
@@ -290,26 +305,48 @@ const create = function(uid){
         player3 : false,
         player4 : false,
         players : 0
+      });
+      set(ref(database, 'Chats/Public/' + sha224(id)), {
+        id : '',
+        message : ''
       })
+      //방에 입장
       enter(uid, id);
-      // onDisconnect(ref(database, 'Rooms/Public/' + sha224(id))).remove();
-    })
-  })
-}
+    });
+  });
+};
 
+/**
+ * @name 방 참여 함수
+ * @param {String} uid 유저 uid
+ * @param {String} id 방 id
+ * @description 방 id에 맞는 방에 유저를 참가 시킴
+ */
 const enter = function(uid, id){
+  //방 데이터를 불러옴
   get(child(ref(database), 'Rooms/Public/' + sha224(id))).then((snapshot)=>{
     const data = snapshot.val();
+    /**
+     * @param {String} text 추가 레퍼런스 정보 기입
+     * @returns 방에 대한 레퍼런스
+     */
     function roomRef(text){return ref(database, 'Rooms/Public/' + sha224(id) + text);};
+    //빈 자리가 있는 지 확인
     if(data.limit > data.players){
       let number;
+      /**
+       * @param {Number} n 어느 방에 들어갈지 정하는 변수
+       * @description 자리에 유저를 넣는 함수
+       */
       function change(n){
         set(roomRef('/player' + n), uid);
         number = n;
+        //방장이 없을 시 유저를 방장으로 설정
         if(!data.manager){
           set(roomRef('/manager'), uid);
         }
       }
+      //빈 자리에 들어감
       if(!data.player1){
         change(1);
       }else if(!data.player2){
@@ -319,18 +356,21 @@ const enter = function(uid, id){
       }else if(!data.player4){
         change(4);
       }
-      set(ref(database, 'Users/' + uid + '/room'), sha224(id));
+      //방 인원수 조정
       set(roomRef('/players'), data.players + 1);
-      // console.log(data);
-      // alert(id + ', ' + uid);
+
+      //
+      set(ref(database, 'Users/' + uid + '/room'), sha224(id));
+      onDisconnect(ref(database, 'Users/' + uid + '/room')).set('');
+
+      //방에 표시되는 내용들 적용
       document.getElementById('room-players-title').className = '';
       document.getElementById('room_title').innerText = data.title;
       document.getElementById('room-title').value = data.title;
       document.getElementById('create-button').className = 'room-btn hidden';
       document.querySelector('.rooms-list').className = 'rooms-list hidden';
       document.querySelector('.room').className = 'room';
-      onDisconnect(ref(database, 'Users/' + uid + '/room')).set('');
-      // chat_change(1, id);
+
       document.getElementById('room-chat-box').className = 'settings';
       document.getElementById('room-chat-input').addEventListener("keypress", function(e){
         if(e.code === 'Enter'){
@@ -359,9 +399,10 @@ const enter = function(uid, id){
           div.append(p);
           room_chat.append(div);
           if(scroll) room_chat.scrollTop = room_chat.scrollHeight;
-          set(ref(database, 'Chats/Public/' + sha224(id)) + '/message', '');
+          set(ref(database, 'Chats/Public/' + sha224(id) + '/message'), '');
         }
       })
+
       onValue(roomRef(''), (snapshot) => {
         const room = snapshot.val();
         onDisconnect(roomRef('')).cancel();
@@ -400,6 +441,35 @@ const enter = function(uid, id){
               set(roomRef('/' + a), document.getElementById('room-' + a).value);
             })
           })
+          if(room.players > 1){
+            document.getElementById('start-button').addEventListener("click", async function(){
+              set(roomRef('/start'), true);
+              let item = new Array(52);
+              item.fill(1);
+              item = item.map((x, i) => i + 1);
+              item.sort(() => Math.random() - 0.5);
+              let action = new Array(52);
+              action.fill(1);
+              action = action.map((x, i) => i + 1);
+              action.sort(() => Math.random() - 0.5);
+              await setDoc(doc(db, "Games", sha224(id)), {
+                item : item,
+                item1 : [],
+                item2 : [],
+                item3 : [],
+                item4 : [],
+                action : action,
+                action1 : [],
+                action2 : [],
+                action3 : [],
+                action4 : [],
+                graveyard1 : [],
+                graveyard2 : [],
+                graveyard3 : [],
+                graveyard4 : [],
+              })
+            })
+          }
         }
         onDisconnect(roomRef('/players')).set(room.players - 1);
         onDisconnect(roomRef('/player' + number)).set(false);
@@ -418,13 +488,50 @@ const enter = function(uid, id){
             onDisconnect(roomRef('')).remove();
           }
         }
-        // alert(room.manager + ', ' + room.players);
+        if(room.start){
+          start(id, uid);
+          off(roomRef(''));
+        }
       });
     }else{
       alert('방 꽉 참');
     }
   })
   // set(ref(database, 'Rooms/Public/' + sha224(id) + '/players'))
+}
+
+const start = function(id, uid){
+  onValue(ref(database, 'Rooms/Public/' + sha224(id)), (snapshot) => {
+    const room = snapshot.val();
+    document.querySelector('.list').className = 'list container scroller hidden';
+    document.querySelector('.game').className = 'game container';
+    let others = [room.player1, room.player2, room.player3, room.player4].filter(x => x != uid && x != false);
+    if(others.length == 1){
+      others.push(false);
+      others.unshift(false);
+    }else if(others.length == 2){
+      others.splice(1, 0, false);
+    }
+    others.forEach((a, i) => {
+      if(a){
+        get(child(ref(database), 'Users/' + a)).then((data) => {
+          let user = data.val();
+          let player = document.getElementById('player' + (i + 1));
+          player.querySelector('.profile-id').innerText = user.id;
+        })
+      }
+    })
+    get(child(ref(database), 'Users/' + uid)).then((data) => {
+      let user = data.val();
+      let my = document.getElementById('my-section');
+      my.querySelector('.profile-id').innerText = user.id;
+    })
+  })
+  onSnapshot(doc(db, "Games", sha224(id)), (doc) => {
+    let data = doc.data();
+    
+    console.log(data);
+  })
 }
 
 // function enter(id){
@@ -464,4 +571,7 @@ const enter = function(uid, id){
 //   })
 // }
 
-export { login, signup, getIds, guest };
+
+
+
+export { login, signup, getIds };

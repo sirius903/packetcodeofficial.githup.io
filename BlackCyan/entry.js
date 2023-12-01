@@ -1,4 +1,4 @@
-import { login, signup, getIds, guest } from './main.js';
+import { login, signup, getIds } from './main.js';
 
 //Log In, Sign Up 버튼
 document.querySelectorAll('.to_entry').forEach((a, i) => {
@@ -82,8 +82,10 @@ document.getElementById('sign-up_id').addEventListener("change", function(){
           message = 'Is blank!';
         }else if(doc.includes(this.value)){
           message = 'Duplicates!';
-        }else{
-            //특수 문자 제외해야 함
+        }else if(this.value.length > 20){
+            // 길어
+        }else if(/*특수 문자*/false){
+            //특수 문자 제외
         }
         if(message == 'Is available!'){
           document.getElementById('id-error').className = 'entry-error';
@@ -95,9 +97,13 @@ document.getElementById('sign-up_id').addEventListener("change", function(){
 })
 document.getElementById('sign-up_id').addEventListener("keydown", function(e){
     if(e.code === 'Enter'){
-        signup(document.getElementById('sign-up_email').value, document.getElementById('sign-up_password').value, document.getElementById('sign-up_id').value);
+        if(document.getElementById('id-error').innerText == 'Is available!'){
+            signup(document.getElementById('sign-up_email').value, document.getElementById('sign-up_password').value, document.getElementById('sign-up_id').value);
+        }
     }
 })
 document.getElementById('sign-up').addEventListener("click", function(){
-    signup(document.getElementById('sign-up_email').value, document.getElementById('sign-up_password').value, document.getElementById('sign-up_id').value);
+    if(document.getElementById('id-error').innerText == 'Is available!'){
+        signup(document.getElementById('sign-up_email').value, document.getElementById('sign-up_password').value, document.getElementById('sign-up_id').value);
+    }
 })
