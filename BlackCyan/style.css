@@ -143,6 +143,22 @@ html {
     user-select: none;
 }
 
+#escape {
+    position: absolute;
+    top: 1em;
+    right: calc(20vw + 2em);
+}
+
+#escape-icon {
+    width: 4em;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+#escape-icon:hover {
+    background-color: white;
+}
+
 #exit_btn:hover {
     background: linear-gradient(to left, #0091ff 4px,transparent 0,#0091ff76 100%);
     color: #99ceff;
@@ -874,6 +890,9 @@ html {
     box-shadow: 0 0 1em #00000088;
     transition: transform 300ms;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #player2 .item-card, #player2 .action-card {
