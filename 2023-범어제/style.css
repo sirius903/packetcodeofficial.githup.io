@@ -19,6 +19,20 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'EliceDigitalBaeum_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_220508@1.0/EliceDigitalBaeum_Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JalnanGothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     margin: 0;
 }
@@ -123,6 +137,10 @@ header {
     display: flex;
 }
 
+#entry.hidden {
+    display: none;
+}
+
 .entry {
     width: 5em;
     padding: 0.3em 0.3em 0.2em;
@@ -137,6 +155,7 @@ header {
     transition: background-color 0.5s;
     transition: color 0.5s;
     cursor: pointer;
+    user-select: none;
 }
 
 #exit:hover {
@@ -173,7 +192,7 @@ main {
     background-color: var(--main-background-color);
 }
 
-#main-title {
+.main-title {
     font-family: 'RixYeoljeongdo_Regular';
     font-weight: 100;
     font-size: 2.5rem;
@@ -254,17 +273,8 @@ main {
     color: #2baaff;
 }
 
-@keyframes Key-Down {
-    to {transform: scaleX(-1);}
-    from {transform: scaleX(1);}
-}
-
 #Key-Down:hover #Key-Down-title {
-    animation-name: Key-Down;
-    animation-iteration-count: infinite;
-    animation-duration: 0.5s;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
+    transform: scaleX(-1);
 }
 
 #BlackCyan-title {
@@ -339,10 +349,10 @@ footer {
 }
 
 #footer-title {
-    font-family: 'RixYeoljeongdo_Regular';
-    font-weight: 100;
-    font-size: 2.5rem;
-    margin: 0.5em 0.5em 0.3em;
+    font-family: 'EliceDigitalBaeum_Bold';
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 0.2em 0.3em 0.3em;
 }
 
 #contact {
@@ -558,4 +568,135 @@ label {
 
 #made-by {
     margin-top: 0.8em;
+}
+
+#rankings {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.ranks {
+    background-color: #00aeff;
+    color: white;
+    display: grid;
+    grid-template-columns: 2em 1fr 12em;
+    align-items: center;
+    font-size: 2.5em;
+    padding: 0.3em 0.4em 0.2em;
+    margin: 0.1em;
+    font-family: 'RixYeoljeongdo_Regular';
+    border-radius: 3px;
+}
+
+.rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #0b92d1;
+    font-size: 0.6em;
+    font-family: 'JalnanGothic';
+    width: 2em;
+    height: 2em;
+    border-style: outset;
+    border-width: 0.1em;
+    user-select: none;
+    padding: 0.2em 0.1em 0em;
+}
+
+.name {
+    text-align: start;
+}
+
+.point {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    font-size: 0.9em;
+    background-color: #0b92d1;
+    border-radius: 5px;
+    padding: 0.2em 0.5em 0.1em;
+}
+
+.ranks:nth-child(1) {
+    background-color: #ffaa00;
+}
+.ranks:nth-child(1) .rank {
+    background-color: #cf8a00;
+}
+.ranks:nth-child(1) .point {
+    background-color: #cf8a00;
+}
+
+.ranks:nth-child(2) {
+    background-color: #d1d1d1;
+}
+.ranks:nth-child(2) .rank {
+    background-color: #a2a2a2;
+}
+.ranks:nth-child(2) .point {
+    background-color: #a2a2a2;
+}
+
+.ranks:nth-child(3) {
+    background-color: #f66b2b;
+}
+.ranks:nth-child(3) .rank {
+    background-color: #ba4f1d;
+}
+.ranks:nth-child(3) .point {
+    background-color: #ba4f1d;
+}
+
+hr {
+    margin: 1.5em;
+}
+
+#profile {
+    display: flex;
+    font-family: 'Pretendard-Regular';
+    font-size: 1.7em;
+    font-weight: 700;
+    align-items: center;
+}
+
+#profile.hidden {
+    display: none;
+}
+
+#name {
+    color: #969696;
+    margin-right: 0.5em;
+    padding: 0.2em 0.1em 0.1em;
+}
+
+#point {
+    color: #3b3b3b;
+    margin-right: 0.5em;
+    padding: 0.2em 0.1em 0.1em;
+}
+
+#rank {
+    background-color: #444444;
+    color: var(--white-color);
+    font-size: 0.55em;
+    padding: 0.2em 0.4em 0.1em;
+    border-radius: 0.5em;
+    height: 1.35em;
+    margin-top: 0.3em;
+    user-select: none;
+    margin-right: 0.2em;
+}
+
+#log-out {
+    border-color: #7e7e7e;
+    color: #f8f8f8;
+    background-color: #7e7e7e;
+}
+
+#log-out:hover {
+    color: #7e7e7e;
+    background-color: #f8f8f800;
 }

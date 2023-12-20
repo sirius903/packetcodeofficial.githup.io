@@ -150,13 +150,26 @@ html {
 }
 
 #escape-icon {
-    width: 4em;
-    margin: 0.5em;
+    color: #7b7b7b;
+    width: 0.7em;
+    height: 0.7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border-color: #7b7b7b;
+    border-style: solid;
+    border-width: 0.03em;
+    font-size: 4em;
+    margin: 1rem 0.2rem;
     cursor: pointer;
+    user-select: none;
+    transition: all 300ms;
 }
 
 #escape-icon:hover {
-    background-color: white;
+    color: white;
+    border-color: white;
 }
 
 #exit_btn:hover {

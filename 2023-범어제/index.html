@@ -19,9 +19,15 @@
             <div class="entry" id="log-in" onclick="window.location.href = './entry/?log-in?';">로그인</div>
             <div class="entry" id="sign-up" onclick="window.location.href = './entry/?sign-up?';">회원가입</div>
         </div>
+        <div id="profile" class="hidden">
+            <div id="name"><!-- 설마 이거 뜯어 본 놈 없지? --></div>
+            <div id="rank"><!-- ...설마 --></div>
+            <div id="point"><!-- 진짜 뜯다가 걸리면... --></div>
+            <div class="entry" id="log-out">로그아웃</div>
+        </div>
     </header>
     <main>
-        <h1 id="main-title">CODE 동아리</h1>
+        <h1 class="main-title">CODE 동아리</h1>
         <div id="contents">
             <div class="contents" id="CODE" onclick="window.location.href = 'CODE';">
                 <h1 id="CODE-title">CODE<div>¦</div></h1>
@@ -65,14 +71,21 @@
                 <p>타자 게임</p>
             </div>
         </div>
+        <hr>
+        <h1 class="main-title">랭킹</h1>
+        <div class="content">
+            <div id="rankings">
+                <!-- <div class="ranks"></div> -->
+            </div>
+            <!--  -->
+        </div>
     </main>
     <footer>
         <div id="info">
-            <h1 id="footer-title">Sirus903</h1>
+            <h1 id="footer-title">CODE</h1>
             <div id="contact">
-                <p>제작자 : 20621 염규원</p>
+                <p>부장 : 20621 염규원</p>
                 <p>전화 : 010-8680-4037</p>
-                <p>이메일 : sirius4037@gmail.com</p>
             </div>
         </div>
         <select id="thema" onchange="darkmode();">
@@ -82,5 +95,23 @@
         </select>
     </footer>
     <script src="thema.js"></script>
+    <script type="module" src="main.js"></script>
+    <script type="module">
+        import { rank } from './main.js';
+
+        function ranking(array){
+            document.getElementById('rankings').innerHTML = '';
+            array.sort((a, b) => b.point - a.point).forEach((a, i) => {
+                document.getElementById('rankings').innerHTML += `
+                <div class="ranks">
+                    <div class="rank">${i + 1 + '위'}</div>
+                    <div class="name">${a.id}</div>
+                    <div class="point">${a.point} pt</div>
+                </div>`;
+            });
+        }
+        rank(ranking);
+    </script>
+    <script src="sha256.js"></script>
 </body>
 </html>

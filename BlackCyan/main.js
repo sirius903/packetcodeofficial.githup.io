@@ -59,57 +59,62 @@ const login = function(email, password){
 }
 
 /**
- * @description 무작위 글자 하나를 뽑는 함수
- * @returns 무작위 글자
+ * @description 무작위 문자열을 뽑는 함수
+ * @param {Number} n 문자열의 길이
+ * @returns {String} 무작위 문자열
  */
-function randomStr(){
+function randomStr(n){
   const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
-  const rnum = Math.floor(Math.random() * chars.length);
-  const randomstring = chars.substring(rnum, rnum + 1);
-  return randomstring
+  let answer = '';
+  for(let i = 0; i < n; i++){
+    answer += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return answer;
 }
 
-// const guest = function(){
-//   signInAnonymously(auth).then((user) => {
-//     let id = 'Guest-000000';
-//     getIds().then(ids => {
-//       while(true){
-//         id = 'Guest-';
-//         for(let i = 0; i < 6; i++){
-//           id += randomStr();
-//         }
-//         if(!ids.includes(id)) break;
-//       }
-//       updateProfile(auth.currentUser, {
-//         displayName : id
-//       }).then(() => {
-//         setDoc(doc(db, "Auths", user.user.uid), {
-//           id : id
-//         })
-//         set(ref(database, 'Users/' + user.user.uid), {
-//           displayName : id,
-//           email : 'guest',
-//           status : 'online',
-//           level : 'guest'
-//         });
-//         onValue(ref(database, '.info/connected'), (snapshot) => {
-//           if (snapshot.val() === true){
-//             onDisconnect(statusRef).set('offline');
-//             set(statusRef, 'online');
-//             onDisconnect(ref(database, 'Users/' + user.user.uid + '/lastOnine')).set(serverTimestamp());
-//           }
-//         });
-//         connect();
-//       }).catch((error) =>{
-//         console.log(error.code);
-//         console.log(error.message);
-//       })
-//     })
-//   }).catch((error) => {
-//     console.log(error.message);
-//   })
-// }
+const guest = function(){
+  signInAnonymously(auth).then((user) => {
+    let id = 'Guest-000000';
+    getIds().then(ids => {
+      while(true){
+        id = 'Guest-';
+        id += randomStr(6);
+        if(!ids.includes(id)) break;
+      }
+      setDoc(doc(db, "Users", user.user.uid), {
+        id : id,
+        email : 'guest'
+      })
+      set(ref(database, 'Users/' + user.user.uid), {
+        displayName : id,
+        email : 'guest',
+        status : 'online',
+        exp : 'guest',
+        lastOnline : 0
+      });
+      onValue(ref(database, '.info/connected'), (snapshot) => {
+        if (snapshot.val() === true){
+          onDisconnect(statusRef).set('offline');
+          set(statusRef, 'online');
+          onDisconnect(ref(database, 'Users/' + user.user.uid + '/lastOnine')).set(serverTimestamp());
+        }
+      });
+      connect();
+    }).catch((error) =>{
+      console.log(error.code);
+      console.log(error.message);
+    })  
+}).catch((error) => {
+    console.log(error.message);
+  })
+}
 
+/**
+ * @name 회원가입 함수
+ * @param {String} email 이메일
+ * @param {String} password 비밀번호
+ * @param {String} id 아이디
+ */
 const signup = function(email, password, id){
   //글자 20제한 특수 기호 제한
   createUserWithEmailAndPassword(auth, email, password).then((user) => {
@@ -117,15 +122,20 @@ const signup = function(email, password, id){
     setDoc(doc(db, "Users", uid), {
       email : email,
       password : password,
-      id : id
-    })
-    addDoc(doc(db, "Users", id), {});
+      id : id,
+      message : []
+    });
+    addDoc(doc(db, "Ids", id), {});
     set(ref(database, 'Users/' + uid), {
       id : id,
       status : 'online',
       exp : 0,
       lastOnline : 0,
-      room : ""
+      room : "",
+    });
+    set(ref(database, 'Users/' + uid + '/whisper'), {
+      id : "",
+      message : ""
     });
     onDisconnect(ref(database, 'Users/' + uid + '/status')).set('offline');
     load(uid);

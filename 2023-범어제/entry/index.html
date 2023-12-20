@@ -20,19 +20,25 @@
             <div class="entry hidden" id="sign-up" onclick="location.replace('?sign-up?' + window.location.search.split('?')[2]);">회원가입</div>
             <div class="entry" id="exit" onclick="window.location.href = '../' + window.location.search.split('?')[2];">나가기</div>
         </div>
+        <div id="profile" class="hidden">
+            <div id="name"><!-- 설마 이거 뜯어 본 놈 없지? --></div>
+            <div id="rank"><!-- ...설마 --></div>
+            <div id="point"><!-- 진짜 뜯다가 걸리면... --></div>
+            <div class="entry" id="log-out">로그아웃</div>
+        </div>
     </header>
     <main>
-        <h1 id="main-title" class="hidden">로그인</h1>
+        <h1 class="main-title hidden">로그인</h1>
         <div class="content hidden">
             <input class="item" placeholder="학번" id="log-in-cn">
-            <input class="item" placeholder="비밀번호" id="log-in-pw">
+            <input class="item" placeholder="비밀번호" id="log-in-pw" type="password">
             <div class="entry-btn" id="log-in-btn">로그인</div>
         </div>
-        <h1 id="main-title" class="hidden">회원가입</h1>
+        <h1 class="main-title hidden">회원가입</h1>
         <div class="content hidden">
             <input class="item" placeholder="아이디" id="sign-up-id">
             <input class="item" placeholder="학번" id="sign-up-cn">
-            <input class="item" placeholder="비밀번호" id="sign-up-pw">
+            <input class="item" placeholder="비밀번호" id="sign-up-pw" type="password">
             <fieldset id="how_to_receive">
                 <label class="how_to_receive">
                     <input type="radio" name="how_to_receive">
@@ -76,15 +82,32 @@
     <script>
         window.onload = function(){
             if(window.location.search.split('?')[1] == 'log-in'){
-                document.querySelectorAll('#main-title')[0].className = '';
+                document.querySelectorAll('.main-title')[0].className = 'main-title';
                 document.querySelectorAll('.content')[0].className = 'content';
                 document.getElementById('sign-up').className = 'entry';
+                document.getElementById('log-in-cn').focus();
             }else if(window.location.search.split('?')[1] == 'sign-up'){
-                document.querySelectorAll('#main-title')[1].className = '';
+                document.querySelectorAll('.main-title')[1].className = 'main-title';
                 document.querySelectorAll('.content')[1].className = 'content';
                 document.getElementById('log-in').className = 'entry';
+                document.getElementById('sign-up-id').focus();
             }
         }
+        document.getElementById('log-in-cn').addEventListener("keydown", function(e){
+            if(e.code === 'Enter'){
+                document.getElementById('log-in-pw').focus();
+            }
+        })
+        document.getElementById('sign-up-id').addEventListener("keydown", function(e){
+            if(e.code === 'Enter'){
+                document.getElementById('sign-up-cn').focus();
+            }
+        })
+        document.getElementById('sign-up-cn').addEventListener("keydown", function(e){
+            if(e.code === 'Enter'){
+                document.getElementById('sign-up-pw').focus();
+            }
+        })
         document.querySelectorAll('.how_to_receive').forEach((a, i) => {
             a.addEventListener("click", function(){
                 document.querySelectorAll('.hwr').forEach((e, j) => {
@@ -98,26 +121,24 @@
         })
     </script>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-        import { getFirestore, collection, getDocs, addDoc, setDoc, doc, deleteDoc , onSnapshot, initializeFirestore, memoryLocalCache } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyC8KWzgj6ZFloLDc5AMrbIWvZjAdXaWQTo",
-            authDomain: "beomeo-festival-2023.firebaseapp.com",
-            projectId: "beomeo-festival-2023",
-            storageBucket: "beomeo-festival-2023.appspot.com",
-            messagingSenderId: "592620541818",
-            appId: "1:592620541818:web:98424edb6e12503bd7a8c3"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
+        import { login, signup } from '../main.js';
         document.getElementById('log-in-btn').addEventListener("click", function(){
-            alert(document.getElementById(''));
+            login(document.getElementById('log-in-cn').value, document.getElementById('log-in-pw').value, window.origin + '/' + window.location.pathname.split('/')[1] + '/' + window.location.search.split('?')[2]);
+        });
+        document.getElementById('log-in-pw').addEventListener("keydown", function(e){
+            if(e.code === 'Enter'){
+                login(document.getElementById('log-in-cn').value, document.getElementById('log-in-pw').value, window.origin + '/' + window.location.pathname.split('/')[1] + '/' + window.location.search.split('?')[2]);
+            }
+        });
+        document.getElementById('sign-up-btn').addEventListener("click", function(){
+            signup(document.getElementById('sign-up-cn').value, document.getElementById('sign-up-id').value, document.getElementById('sign-up-pw').value, window.origin + '/' + window.location.pathname.split('/')[1] + '/' + window.location.search.split('?')[2]);
+        })
+        document.getElementById('sign-up-pw').addEventListener("keydown", function(e){
+            if(e.code === 'Enter'){
+                signup(document.getElementById('sign-up-cn').value, document.getElementById('sign-up-id').value, document.getElementById('sign-up-pw').value, window.origin + '/' + window.location.pathname.split('/')[1] + '/' + window.location.search.split('?')[2]);
+            }
         })
     </script>
+    <script src="../sha256.js"></script>
 </body>
 </html>
