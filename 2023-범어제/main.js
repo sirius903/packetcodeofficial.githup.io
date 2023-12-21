@@ -75,8 +75,8 @@ const updateAuth = function(classnumber, href){
 const load = function(){
     signInAnonymously(auth).then(async function(user){
         const name = auth.currentUser.displayName;
-        console.log(name)
-        if(name != 0){
+        // console.log(name)
+        if(name != 0 && name != null){
             get(child(ref(database), 'Users/' + name)).then((snapshot) => {
                 const data = snapshot.val();
                 document.getElementById('name').innerText = data.id;
