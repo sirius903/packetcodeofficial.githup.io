@@ -116,6 +116,7 @@ const object = [
 ];
 
 let chapter = 0;
+let speedrun = 0;
 
 function new_map(width, height){
     let map = new Array(height);
@@ -3368,6 +3369,7 @@ const map_load = function(chapter){
             fill(88, 97, 88, 97, 1);
             fill(92, 97, 92, 97, 1);
             fill(0, 98, 96, 98, 1);
+            fill(98, 97, 98, 97, 2);
             spawn(1, 1, 1);
             break;
     }
@@ -3393,6 +3395,14 @@ document.getElementById('hell').addEventListener("click", function(){
     chapter = 6;
     map_load(chapter);
     display();
+    window.scrollTo(0, 0);
+})
+document.getElementById('hell').addEventListener("click", function(){
+    speedrun = 1;
+    // document.body.dataset.chapter = 6;
+    // chapter = 6;
+    // map_load(chapter);
+    // display();
     window.scrollTo(0, 0);
 })
 document.querySelectorAll('.contents').forEach(a => {
@@ -3432,18 +3442,19 @@ function move(x, y, dx, dy, disable){
     if(goal){
         goal = false;
         document.getElementById('chapter').innerText = 'Chapter ' + String(chapter % 3 + 1).padStart(2, '0');
-        if(chapter % 3 == 0){
+        if(chapter % 3 == 0 || chapter == 7){
             let times = timer(time)
             alert(`클리어하셨습니다!
-기록 : ${times[0]}:${times[1]}.${times[2]}`);
+기록 : ${times[0]}:${times[1]}.${times[2]}
+
+첫 화면으로 돌아갑니다.`);
             if(chapter == 3){
-                add(200);
+                add(200 + speedrun * (1 - time));
             }else if(chapter == 6){
                 add(500);
             }else{
                 add(1000);
             }
-            window.location.href = './';
         }else{
             map_load(chapter);
         }

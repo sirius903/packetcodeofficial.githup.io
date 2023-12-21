@@ -111,10 +111,14 @@ const logout = function(){
 }
 document.getElementById('log-out').addEventListener("click", logout);
 const add = function(n){
-    const name = auth.currentUser.displayName
+    const name = auth.currentUser.displayName;
+    if(name == 0 || name == null){
+        window.href.location = window.origin + '/' + window.location.pathname.split('/')[1];
+    }
     get(child(ref(database), 'Users/' + name + '/point')).then((snapshot) => {
         set(ref(database, 'Users/' + name + '/point'), snapshot.val() + n)
     })
+    window.location.href = '../';
 }
 
 const rank = function(A){
