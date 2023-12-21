@@ -192,6 +192,10 @@ main {
     background-color: var(--main-background-color);
 }
 
+main.hidden {
+    display: none;
+}
+
 .main-title {
     font-family: 'RixYeoljeongdo_Regular';
     font-weight: 100;
@@ -395,6 +399,28 @@ footer {
     border: solid;
 }
 
+.shorten {
+    height: 10em;
+    color: var(--neon-color);
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+}
+
+.shorten::selection {
+    background-color: transparent;
+}
+
+#area {
+    width: calc(100% - 70px);
+    resize: none;
+}
+
 #Key-Down-input {
     width: calc(100% - 70px);
     font-size: 1.3em;
@@ -596,10 +622,10 @@ label {
     justify-content: center;
     border-radius: 50%;
     background-color: #0b92d1;
-    font-size: 0.6em;
+    font-size: 0.5em;
     font-family: 'JalnanGothic';
-    width: 2em;
-    height: 2em;
+    width: 2.85em;
+    height: 2.85em;
     border-style: outset;
     border-width: 0.1em;
     user-select: none;
@@ -620,34 +646,45 @@ label {
     padding: 0.2em 0.5em 0.1em;
 }
 
-.ranks:nth-child(1) {
+.rankings:nth-child(1) .ranks:nth-child(1) {
     background-color: #ffaa00;
 }
-.ranks:nth-child(1) .rank {
+.rankings:nth-child(1) .ranks:nth-child(1) .rank {
     background-color: #cf8a00;
 }
-.ranks:nth-child(1) .point {
+.rankings:nth-child(1) .ranks:nth-child(1) .point {
     background-color: #cf8a00;
 }
 
-.ranks:nth-child(2) {
+.rankings:nth-child(1) .ranks:nth-child(2) {
     background-color: #d1d1d1;
 }
-.ranks:nth-child(2) .rank {
+.rankings:nth-child(1) .ranks:nth-child(2) .rank {
     background-color: #a2a2a2;
 }
-.ranks:nth-child(2) .point {
+.rankings:nth-child(1) .ranks:nth-child(2) .point {
     background-color: #a2a2a2;
 }
 
-.ranks:nth-child(3) {
+.rankings:nth-child(1) .ranks:nth-child(3) {
     background-color: #f66b2b;
 }
-.ranks:nth-child(3) .rank {
+.rankings:nth-child(1) .ranks:nth-child(3) .rank {
     background-color: #ba4f1d;
 }
-.ranks:nth-child(3) .point {
+.rankings:nth-child(1) .ranks:nth-child(3) .point {
     background-color: #ba4f1d;
+}
+
+#rank_btn {
+    display: flex;
+}
+
+.rank_btn {
+    font-size: 1.2em;
+    margin: 0.3em;
+    padding: 0.2em 0.3em 0.1em;
+    cursor: pointer;
 }
 
 hr {

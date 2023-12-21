@@ -1,0 +1,6 @@
+[
+    [
+        "fetch('words.json').then(response => {\n    if(!response.ok){\n        throw new Error('오류다!!!');\n    }\n    return response.json();\n})",
+        "fetch('words.json').then(response => {\n    if(!response.ok){\n        throw new Error('오류다!!!');\n    }\n    return response.json();\n})"
+    ]
+]

@@ -12,25 +12,25 @@ body[data-thema='dark-mode'] {
     --orange : #ffc863;
 }
 
-body[data-chapter='1']{
+body[data-chapter='0']{
     --size : calc(60vh / 10);
 }
-body[data-chapter='2']{
+body[data-chapter='1']{
     --size : calc(60vh / 16);
 }
-body[data-chapter='3']{
-    --size : calc(60vh / 31);
-}
-body[data-chapter='4']{
+body[data-chapter='2']{
     --size : calc(60vh / 10);
 }
-body[data-chapter='5']{
+body[data-chapter='3']{
     --size : calc(60vh / 14);
 }
-body[data-chapter='6']{
-    --size : calc(60vh / 25);
+body[data-chapter='4']{
+    --size : calc(60vh / 31);
 }
-body[data-chapter='7']{
+body[data-chapter='5']{
+    --size : calc(60vh / 30);
+}
+body[data-chapter='6']{
     --size : calc(60vh / 50);
 }
 

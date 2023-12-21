@@ -3,6 +3,8 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, on
 import { getFirestore, collection, getDocs, getDoc, addDoc, setDoc, doc, deleteDoc , onSnapshot, initializeFirestore, memoryLocalCache } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js';
 import { getDatabase, ref, child, set, get, onValue, onDisconnect, serverTimestamp, off } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js';
 
+alert('축제 기간 외 사용은 대부분의 기능이 제한됩니다.')
+
 const firebaseConfig = {
     apiKey: "AIzaSyC8KWzgj6ZFloLDc5AMrbIWvZjAdXaWQTo",
     authDomain: "beomeo-festival-2023.firebaseapp.com",
@@ -27,8 +29,7 @@ const login = function(classnumber, password, href){
         if(nums.includes(classnumber)){
             const data = await getDoc(doc(db, "Users", classnumber));
             if(data.data().password == sha256(password)){
-                updateAuth(classnumber);
-                window.location.href = href;
+                updateAuth(classnumber, href);
             }else{
                 //
             }
@@ -50,8 +51,8 @@ const signup = async function(classnumber, id, password, href){
                     Key_Down : 0,
                     point : 0
                 }).then(() => {
-                    updateAuth(classnumber);
-                    window.location.href = href;
+                    updateAuth(classnumber, href);
+                    // window.location.href = href;
 
                 })
             })
@@ -60,11 +61,13 @@ const signup = async function(classnumber, id, password, href){
     })
 }
 // signup('205', 'zㅣ존 미누스', '123456')
-const updateAuth = function(classnumber){
+const updateAuth = function(classnumber, href){
     signInAnonymously(auth).then((user) => {
         // console.log(user.user)
         updateProfile(user.user, {
             displayName : classnumber
+        }).then(() => {
+            window.location.href = href;
         })
         load();
     })
@@ -82,12 +85,19 @@ const load = function(){
                     document.getElementById('rank').innerText = array.sort((a, b) => b.point - a.point).findIndex(x => x.id == data.id) + 1 + '위';
                 }
                 rank(rank_load)
-                
-                // console.log(data);
             });
             document.getElementById('entry').className = 'hidden';
             document.getElementById('profile').className = '';
+            if(document.getElementById('seven') != null){
+                document.getElementById('seven').className = 'contents';
+            }else{
+                if(true){}//
+            }
         }else{
+            if(!window.location.href.includes('log-in')){
+                document.querySelector('main').className = 'hidden';
+            }
+            //
             document.getElementById('entry').className = '';
             document.getElementById('profile').className = 'hidden';
         }
@@ -100,6 +110,13 @@ const logout = function(){
     window.location.href = window.origin + '/' + window.location.pathname.split('/')[1];
 }
 document.getElementById('log-out').addEventListener("click", logout);
+const add = function(n){
+    const name = auth.currentUser.displayName
+    get(child(ref(database), 'Users/' + name + '/point')).then((snapshot) => {
+        set(ref(database, 'Users/' + name + '/point'), snapshot.val() + n)
+    })
+}
+
 const rank = function(A){
     onValue(ref(database, 'Users'), (snapshot) => {
         const data = snapshot.val();
@@ -108,4 +125,4 @@ const rank = function(A){
 }
 window.addEventListener("load", load);
 
-export { login, signup, logout, load, rank }
+export { login, signup, logout, load, rank, add }
