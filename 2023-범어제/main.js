@@ -3,8 +3,6 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, on
 import { getFirestore, collection, getDocs, getDoc, addDoc, setDoc, doc, deleteDoc , onSnapshot, initializeFirestore, memoryLocalCache } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js';
 import { getDatabase, ref, child, set, get, onValue, onDisconnect, serverTimestamp, off } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js';
 
-alert('축제 기간 외 사용은 대부분의 기능이 제한됩니다.')
-
 const firebaseConfig = {
     apiKey: "AIzaSyC8KWzgj6ZFloLDc5AMrbIWvZjAdXaWQTo",
     authDomain: "beomeo-festival-2023.firebaseapp.com",
@@ -60,6 +58,8 @@ const signup = async function(classnumber, id, password, href){
                 })
             })
             // console.log('signup')
+        }else{
+            alert("이미 가입된 학번입니다.")
         }
     })
 }
