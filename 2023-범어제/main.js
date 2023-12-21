@@ -30,9 +30,12 @@ const login = function(classnumber, password, href){
             const data = await getDoc(doc(db, "Users", classnumber));
             if(data.data().password == sha256(password)){
                 updateAuth(classnumber, href);
+                alert('환영합니다!')
             }else{
-                //
+                alert("비밀번호가 일치하지 않습니다.")
             }
+        }else{
+            alert("회원가입된 학번이 아닙니다.")
         }
     })
 }

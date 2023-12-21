@@ -3397,12 +3397,12 @@ document.getElementById('hell').addEventListener("click", function(){
     display();
     window.scrollTo(0, 0);
 })
-document.getElementById('hell').addEventListener("click", function(){
+document.getElementById('speedrun').addEventListener("click", function(){
     speedrun = 1;
-    // document.body.dataset.chapter = 6;
-    // chapter = 6;
-    // map_load(chapter);
-    // display();
+    chapter = Math.floor(Math.random() * 3) * 3;
+    document.body.dataset.chapter = chapter;
+    map_load(chapter);
+    display();
     window.scrollTo(0, 0);
 })
 document.querySelectorAll('.contents').forEach(a => {
@@ -3448,13 +3448,16 @@ function move(x, y, dx, dy, disable){
 기록 : ${times[0]}:${times[1]}.${times[2]}
 
 첫 화면으로 돌아갑니다.`);
+            let point = 0;
             if(chapter == 3){
-                add(200 + speedrun * (1 - time));
+                point = Math.floor(200 + speedrun * (400 - time) / 2);
             }else if(chapter == 6){
-                add(500);
+                point = 500 + speedrun * (600 - time);
             }else{
-                add(1000);
-            }
+                point = 1000 + speedrun * (1200 - time) * 2;
+            }//400, 600, 1200
+            alert("지급된 포인트 : " + point + " pt");
+            add(point);
         }else{
             map_load(chapter);
         }

@@ -51,6 +51,8 @@ body[data-thema='light-mode'] {
     --item-left : #0003;
     --item-bottom : #2224;
     --item-right : #1113;
+    --rank-color : #3b3b3b;
+    --point-color : #444444;
 }
 
 body[data-thema='dark-mode'] {
@@ -67,6 +69,8 @@ body[data-thema='dark-mode'] {
     --item-left: #0006;
     --item-bottom: #2228;
     --item-right: #1116;
+    --rank-color : #afafaf;
+    --point-color : #a1a1a1;
 }
 
 header {
@@ -158,10 +162,14 @@ header {
     user-select: none;
 }
 
+#exit {
+    border-color: var(--color);
+    color: var(--color);
+}
+
 #exit:hover {
-    border-color: #000000;
-    color: #f8f8f8;
-    background-color: #000000;
+    color: var(--item-background-color);
+    background-color: var(--color);
 }
 
 #log-in {
@@ -410,7 +418,7 @@ footer {
     text-align: center;
     ime-mode: disabled;
     resize: none;
-    background-color: lightslategrey;
+    background-color: #d0d0d0;
 }
 
 #Key-Down-input {
@@ -702,13 +710,13 @@ hr {
 }
 
 #point {
-    color: #3b3b3b;
+    color: var(--point-color);
     margin-right: 0.5em;
     padding: 0.2em 0.1em 0.1em;
 }
 
 #rank {
-    background-color: #444444;
+    background-color: var(--rank-color);
     color: var(--white-color);
     font-size: 0.55em;
     padding: 0.2em 0.4em 0.1em;
@@ -728,4 +736,60 @@ hr {
 #log-out:hover {
     color: #7e7e7e;
     background-color: #f8f8f800;
+}
+
+#numbers {
+    display: flex;
+    background-color: #808080;
+    font-size: 5em;
+    font-family: 'Pretendard-Regular';
+    padding: 0.11em 0.2em;
+    margin: 0.5em 0 0.2em;
+    border-radius: 8px;
+}
+
+.number {
+    color: white;
+    background-color: #2d2d2d;
+    margin: 0.1em;
+    padding: 0.2em 0.3em 0.15em;
+    border-radius: 10px;
+    user-select: none;
+}
+
+#slot-btns {
+    display: flex;
+}
+
+.slot-btn {
+    background-color: #00aeff;
+    font-family: 'Pretendard-Regular';
+    padding: 0.4em 0.5em 0.3em;
+    width: 5.5em;
+    font-size: 1.5em;
+    margin: 0.5em 1em;
+    border-radius: 5px;
+    color: white;
+    user-select: none;
+    cursor: pointer;
+    border-style: solid;
+    border-color: #00aeff;
+    border-width: 0.1em;
+    transition: all 300ms;
+    font-weight: 600;
+}
+
+#spin {
+    background-color: #7e7e7e;
+    border-color: #7e7e7e;
+}
+
+.slot-btn:hover {
+    background-color: transparent;
+    color: #00aeff;
+}
+
+#spin:hover {
+    background-color: transparent;
+    color: #7e7e7e;
 }

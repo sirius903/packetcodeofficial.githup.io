@@ -20,10 +20,16 @@
             <div class="entry" id="log-in">로그인</div>
             <div class="entry" id="sign-up">회원가입</div>
         </div>
+        <div id="profile" class="hidden">
+            <div id="name"><!-- 설마 이거 뜯어 본 놈 없지? --></div>
+            <div id="rank"><!-- ...설마 --></div>
+            <div id="point"><!-- 진짜 뜯다가 걸리면... --></div>
+            <div class="entry" id="log-out">로그아웃</div>
+        </div>
     </header>
     <main>
-        <h1 class="main-title">Key-Down</h1>
-        <div class="content">
+        <h1 class="main-title hidden">Key-Down</h1>
+        <div class="content hidden">
             <h1 class="neon">위의 문구를 반대로 입력해주세요.</h1>
             <div id="exam" class="inverse unselectable neon D2Coding"></div>
             <input id="Key-Down-input" type="text" class="neon D2Coding" disabled>
@@ -39,6 +45,22 @@
                 <div class="status-box"><div></div></div>
             </div>
         </div>
+        <h1 class="main-title">목록</h1>
+        <div id="contents">
+            <div class="contents" id="word">
+                <h1>단어</h1>
+                <img src="../images/CODE.jpg">
+                <p>CODE는 텍스트로 만들어진 퍼즐 게임으로, 간단한 조작으로 플레이할 수 있습니다.</p>
+                <p>새로운 기록에 도전해 보세요!</p>
+            </div>
+            <div class="contents" id="command">
+                <h1>명령어</h1>
+                <img src="../images/CODE.jpg">
+                <p>CODE는 텍스트로 만들어진 퍼즐 게임으로, 간단한 조작으로 플레이할 수 있습니다.</p>
+                <p>새로운 기록에 도전해 보세요!</p>
+            </div>  
+        </div>
+
     </main>
     <footer>
         <div id="info">
@@ -82,6 +104,8 @@
             }
         }
     </script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="../main.js"></script>
+    <script src="../sha256.js"></script>
 </body>
 </html>
