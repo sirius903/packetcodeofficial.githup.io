@@ -97,9 +97,9 @@ const load = function(){
                 if(true){}//
             }
         }else{
-            if(!window.location.href.includes('log-in')){
-                document.querySelector('main').className = 'hidden';
-            }
+            // if(!window.location.href.includes('log-in')){
+            //     document.querySelector('main').className = 'hidden';
+            // }
             //
             document.getElementById('entry').className = '';
             document.getElementById('profile').className = 'hidden';
