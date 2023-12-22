@@ -793,3 +793,46 @@ hr {
     background-color: transparent;
     color: #7e7e7e;
 }
+
+#chat-insert {
+    display: flex;
+}
+
+#chat-input {
+    font-size: 1.5em;
+    width: 15em;
+    padding: 0.2em 0.3em 0.1em;
+}
+#chat-btn {
+    background-color: #00aeff;
+    font-size: 1.5em;
+    margin-left: 0.5em;
+    padding: 0.2em 0.5em 0.1em;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #00aeff;
+    border-width: 0.15em;
+    transition: all 300ms;
+    cursor: pointer;
+    user-select: none;
+}
+#chat-btn:hover {
+    background-color: transparent;
+    color: #00aeff;
+}
+
+.chatting {
+    font-size: 2em;
+    display: flex;
+    width: 100%;
+}
+.id {
+    color: #9d9d9d;
+    margin-right: 0.3em;
+}
+
+#chats {
+    display: flex;
+    flex-direction: column;
+    width: 30em;
+}

@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, getDoc, addDoc, setDoc, doc, deleteDoc , onSnapshot, initializeFirestore, memoryLocalCache } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js';
+import { getFirestore, query, collection, getDocs, getDoc, addDoc, setDoc, doc, deleteDoc , onSnapshot, initializeFirestore, memoryLocalCache } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js';
 import { getDatabase, ref, child, set, get, onValue, onDisconnect, serverTimestamp, off } from 'https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js';
 
 const firebaseConfig = {
@@ -130,6 +130,36 @@ const rank = function(A){
         A(Object.values(data).map((x, i) => {x.numbers = Object.keys(data)[i]; return x}));
     })
 }
+
+const chat_load = function(A){
+    onSnapshot(collection(db, "Chats"), (snapshot) => {
+        let chats = [];
+        snapshot.forEach(a => {
+            chats.push(a.data());
+        })
+        chats.sort(function(a, b) {
+            return new Date(a.date).getTime() - new Date(b.date).getTime();
+        })
+        // chats.sort()
+        A(chats);
+    })
+}
+
+const chat = function(x, date){
+    const name = auth.currentUser.displayName;
+    if(name == 0 || name == null){
+        alert("로그인되어 있지 않습니다.");
+    }else{
+        get(child(ref(database), 'Users/' + name + '/id')).then(async function(snapshot){
+            const data = snapshot.val();
+            await addDoc(collection(db, 'Chats'), {
+                id : data,
+                chat : x,
+                date : date
+            })
+        })
+    }
+}
 window.addEventListener("load", load);
 
-export { login, signup, logout, load, rank, add }
+export { login, signup, logout, load, rank, add, chat, chat_load }
