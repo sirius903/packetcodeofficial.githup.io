@@ -9,6 +9,7 @@
     margin: 0;
     font-family: 'DungGeunMo';
     user-select: none;
+    overflow: hidden;
 }
 
 .screen {
@@ -69,7 +70,15 @@
     background: radial-gradient(#0088ff55 10px, rgba(0, 0, 0, 0) 100px);
 }
 
-
+#canvas {
+    background-color: black;
+    image-rendering: optimizeSpeed;             /* Older versions of FF          */
+    image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+    image-rendering: -webkit-optimize-contrast; /* Safari                        */
+    image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+    image-rendering: pixelated;                 /* Awesome future-browsers       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+}
 
 /*  */
 
