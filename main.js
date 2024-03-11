@@ -21,3 +21,9 @@ function banner(x){
     })
 }
 banner(1);
+
+function bannerTo(){
+    if(banners[1] == 0){
+        window.location.href = "#app";
+    }
+}
