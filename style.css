@@ -216,3 +216,90 @@ footer {
     box-shadow: 0 5px 5px inset #5c5c5c;
     padding: 1em;
 }
+
+/* 기존 CSS */
+
+/* 모바일 감지 */
+@media only screen and (max-width: 600px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    header {
+        height: 4rem;
+    }
+
+    #logo {
+        height: 3rem;
+        margin: 15px;
+    }
+
+    #titles {
+        font-size: 2rem;
+    }
+
+    #title {
+        font-size: 3.2rem;
+    }
+
+    #titles p {
+        font-size: 1rem;
+    }
+
+    #dev-btn {
+        font-size: 1.2em;
+        margin: 8px;
+        padding: 0.2em 0.4em 0.3em;
+    }
+
+    #contents {
+        padding-top: 4rem;
+    }
+
+    #blank {
+        height: 4rem;
+    }
+
+    #banner {
+        padding-top: 10px;
+        width: calc(100% - 40px);
+    }
+
+    #banner-btns {
+        height: 8rem;
+    }
+
+    .banner-btn {
+        margin: 0 2em;
+    }
+
+    .banner {
+        height: 8rem;
+    }
+
+    #app {
+        margin: 10px 30px;
+        padding: 5px 15px;
+    }
+
+    #app-title {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .app-no {
+        font-size: 1.2rem;
+    }
+
+    .app-text {
+        font-size: 1.5rem;
+    }
+
+    .app-ul {
+        font-size: 1rem;
+    }
+
+    footer {
+        padding: 0.5em;
+    }
+}
