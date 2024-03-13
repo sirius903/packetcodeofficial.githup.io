@@ -46,3 +46,9 @@ function to_qna(){
     document.getElementById("add-faq").style.display = 'flex';
     document.getElementById("faq-input").focus();
 }
+
+window.onload = function(){
+    if(window.location.hash == '#faq'){
+        to_qna();
+    }
+}
