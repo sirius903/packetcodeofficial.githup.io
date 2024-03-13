@@ -32,3 +32,12 @@ function operater(x){
 //         window.location.href = "#app";
 //     }
 // }
+
+document.getElementById("add-faq-btn").addEventListener("click", function(){
+    this.style.display = 'none';
+    document.getElementById("add-faq").style.display = 'flex';
+})
+document.getElementById("faq-cancel").addEventListener("click", function(){
+    document.getElementById("add-faq-btn").style.display = '';
+    document.getElementById("add-faq").style.display = '';
+})
