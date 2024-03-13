@@ -41,3 +41,8 @@ document.getElementById("faq-cancel").addEventListener("click", function(){
     document.getElementById("add-faq-btn").style.display = '';
     document.getElementById("add-faq").style.display = '';
 })
+function to_qna(){
+    document.getElementById("add-faq-btn").style.display = 'none';
+    document.getElementById("add-faq").style.display = 'flex';
+    document.getElementById("faq-input").focus();
+}
