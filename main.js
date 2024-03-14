@@ -7,6 +7,17 @@ function operater(x){
         alert("옳바르지 않은 비밀번호입니다.");
     }
 }
+// function bannerTo(){
+//     ban = true;
+//     if(banners[1] == 0){
+//         window.location.href = "#app";
+        
+//         window.scrollBy({
+//             top: -150,
+//             behavior: "smooth",
+//         });
+//     }
+// }
 
 // let banners = new Array(document.querySelectorAll('.banner').length).fill().map((x, i) => i);
 
@@ -27,12 +38,6 @@ function operater(x){
 // }
 // banner(1);
 
-// function bannerTo(){
-//     if(banners[1] == 0){
-//         window.location.href = "#app";
-//     }
-// }
-
 document.getElementById("add-faq-btn").addEventListener("click", function(){
     this.style.display = 'none';
     document.getElementById("add-faq").style.display = 'flex';
@@ -48,7 +53,10 @@ function to_qna(){
 }
 
 window.onload = function(){
-    if(window.location.hash == '#faq'){
-        to_qna();
+    if(window.location.hash == ''){
+    }else{
+        if(window.location.hash == '#faq'){
+            to_qna();
+        }
     }
 }

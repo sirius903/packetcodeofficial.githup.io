@@ -18,34 +18,46 @@
   </header>
   <div id="contents">
     <div id="blank"></div>
-    <!-- <div id="banner" onclick="bannerTo();">
+    <!-- <div id="banner">
+      <div class="banner-btn left" onclick="banner(1);">
+        <svg id='Arrow_Button_Left_3_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+          <g transform="matrix(0.89 0 0 0.89 12 12)" >
+            <path style="stroke: #575757; stroke-width: 1.5; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;" transform=" translate(-11.74, -12)" d="M 19.315 1.969 L 11.29 12 L 19.314999999999998 22.031 C 19.49543807272656 22.256169626072502 19.530699509844997 22.56488688447546 19.40568378238019 22.82494519809253 C 19.28066805491538 23.085003511709594 19.017546667439202 23.250281610791433 18.729 23.25 L 13.51 23.25 C 13.054423564420029 23.24989755595244 12.623583409102482 23.042755790415484 12.339 22.687 L 4.164 12.469 C 3.9451054090458237 12.194644774124107 3.9451054090458237 11.805355225875891 4.164 11.530999999999999 L 12.339 1.313 C 12.623583409102482 0.957244209584518 13.054423564420029 0.7501024440475594 13.51 0.7499999999999999 L 18.729 0.75 C 19.017546667439202 0.7497183892085658 19.28066805491538 0.914996488290404 19.40568378238019 1.1750548019074714 C 19.530699509845 1.4351131155245387 19.495438072726564 1.743830373927496 19.315 1.9690000000000003 Z" stroke-linecap="round" />
+          </g>
+        </svg>
+      </div>
+      <div class="banner-btn right" onclick="banner(-1);">
+        <svg id='Arrow_Button_Right_3_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+          <g transform="matrix(0.89 0 0 0.89 12 12)" >
+            <path style="stroke: #575757; stroke-width: 1.5; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;" transform=" translate(-12.74, -12)" d="M 5.166 22.031 L 13.191 12 L 5.166 1.969 C 4.985675013221209 1.7439712508524792 4.9503358247991605 1.4354844711303827 5.075100017823421 1.1755057509653002 C 5.199864210847681 0.9155270308002177 5.4626338644016 0.7501031489911161 5.751000000000001 0.75 L 10.97 0.75 C 11.425576435579972 0.7501024440475593 11.856416590897519 0.957244209584518 12.141 1.313 L 20.316000000000003 11.531 C 20.534894590954178 11.805355225875893 20.534894590954178 12.194644774124109 20.316000000000003 12.469000000000001 L 12.141 22.687 C 11.856416590897519 23.042755790415484 11.425576435579972 23.24989755595244 10.97 23.25 L 5.751 23.25 C 5.4626338644016 23.249896851008884 5.1998642108476805 23.084472969199783 5.07510001782342 22.8244942490347 C 4.95033582479916 22.564515528869617 4.985675013221208 22.25602874914752 5.166 22.031 Z" stroke-linecap="round" />
+          </g>
+        </svg>        
+      </div>
       <div id="banner-btns">
-        <div class="banner-btn" onclick="banner(1);">
-          <svg id='Arrow_Button_Left_3_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
-            <g transform="matrix(0.89 0 0 0.89 12 12)" >
-              <path style="stroke: #575757; stroke-width: 1.5; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;" transform=" translate(-11.74, -12)" d="M 19.315 1.969 L 11.29 12 L 19.314999999999998 22.031 C 19.49543807272656 22.256169626072502 19.530699509844997 22.56488688447546 19.40568378238019 22.82494519809253 C 19.28066805491538 23.085003511709594 19.017546667439202 23.250281610791433 18.729 23.25 L 13.51 23.25 C 13.054423564420029 23.24989755595244 12.623583409102482 23.042755790415484 12.339 22.687 L 4.164 12.469 C 3.9451054090458237 12.194644774124107 3.9451054090458237 11.805355225875891 4.164 11.530999999999999 L 12.339 1.313 C 12.623583409102482 0.957244209584518 13.054423564420029 0.7501024440475594 13.51 0.7499999999999999 L 18.729 0.75 C 19.017546667439202 0.7497183892085658 19.28066805491538 0.914996488290404 19.40568378238019 1.1750548019074714 C 19.530699509845 1.4351131155245387 19.495438072726564 1.743830373927496 19.315 1.9690000000000003 Z" stroke-linecap="round" />
-            </g>
-          </svg>
-        </div>
-        <div class="banner-btn" onclick="banner(-1);">
-          <svg id='Arrow_Button_Right_3_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
-            <g transform="matrix(0.89 0 0 0.89 12 12)" >
-              <path style="stroke: #575757; stroke-width: 1.5; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;" transform=" translate(-12.74, -12)" d="M 5.166 22.031 L 13.191 12 L 5.166 1.969 C 4.985675013221209 1.7439712508524792 4.9503358247991605 1.4354844711303827 5.075100017823421 1.1755057509653002 C 5.199864210847681 0.9155270308002177 5.4626338644016 0.7501031489911161 5.751000000000001 0.75 L 10.97 0.75 C 11.425576435579972 0.7501024440475593 11.856416590897519 0.957244209584518 12.141 1.313 L 20.316000000000003 11.531 C 20.534894590954178 11.805355225875893 20.534894590954178 12.194644774124109 20.316000000000003 12.469000000000001 L 12.141 22.687 C 11.856416590897519 23.042755790415484 11.425576435579972 23.24989755595244 10.97 23.25 L 5.751 23.25 C 5.4626338644016 23.249896851008884 5.1998642108476805 23.084472969199783 5.07510001782342 22.8244942490347 C 4.95033582479916 22.564515528869617 4.985675013221208 22.25602874914752 5.166 22.031 Z" stroke-linecap="round" />
-            </g>
-          </svg>        
-        </div>
       </div>
       <div id="banners">
-        <div id="app-banner" class="banner">
-          <h1>지금 신청하러 가기</h1>
+        <div id="app-banner" class="banner" onclick="bannerTo();">
+          <h1>가입 조건 보러 가기</h1>
         </div>
         <div id="helloworld" class="banner">
-          <h1>Hello, World!</h1>
+          <h1>문의 하러 가기</h1>
         </div>
       </div>
     </div> -->
     <!-- <div>one path drawing</div> -->
-    <!-- <div id="interviews"></div> -->
+    <div id="interview">
+      <h1>작년 동아리 부원들의 한마디</h1>
+      <div id="interviews">
+        <div class="interview">
+          <div class="int-text">튼실한남자만 오시오</div>
+          <div class="int-name">-30402 공수권-</div>
+        </div>
+        <div class="interview">
+          <div class="int-text">동아리 있으면서 은아리, 금아리는 없네</div>
+          <div class="int-name">-30409 문재웅-</div>
+        </div>
+      </div>
+    </div>
     <div id="app">
       <h1 id="app-title">동아리 가입</h1>
       <div class="app-ol">
