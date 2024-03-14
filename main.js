@@ -51,12 +51,17 @@ function to_qna(){
     document.getElementById("add-faq").style.display = 'flex';
     document.getElementById("faq-input").focus();
 }
+function to_app(){
+    document.getElementById("app-class").focus();
+}
 
 window.onload = function(){
     if(window.location.hash == ''){
     }else{
         if(window.location.hash == '#faq'){
             to_qna();
+        }else if(window.location.hash == '#application'){
+            to_app();
         }
     }
 }
