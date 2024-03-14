@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getFirestore, query, collection, doc, onSnapshot, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { getFirestore, query, collection, doc, onSnapshot, addDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -48,10 +48,34 @@ onSnapshot(collection(db, "FAQ"), (qas) => {
 
 document.getElementById("faq-submit").addEventListener("click", async function(){
     const input = document.getElementById("faq-input");
-    console.log(input.value);
+    // console.log(input.value);
     await addDoc(collection(db, "FAQ"), {
         q : input.value,
         a : ''
     })
     input.value = '';
+    alert("문의 완료");
+})
+
+document.getElementById("app-btn").addEventListener("click", async function(){
+    const classNumber = document.getElementById("app-class");
+    const name = document.getElementById("app-name");
+    const text = document.getElementById("app-text");
+    const date = new Date;
+    if(classNumber.value == '' || name.value == '' || text.value == ''){
+        alert("이름이나 학번이 모두 기입되지 않았습니다.");
+    }else{
+        await setDoc(doc(db, "Application", classNumber.value), {
+            class : classNumber.value,
+            name : name.value,
+            text : text.value,
+            date : date
+        });
+    
+        classNumber.value = '';
+        name.value = '';
+        text.value = '';
+        alert("신청 완료");
+    }
+
 })

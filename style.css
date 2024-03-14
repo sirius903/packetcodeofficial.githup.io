@@ -509,10 +509,6 @@ footer {
 }
 
 
-
-/* 기존 CSS */
-
-/* 모바일 감지 */
 @media only screen and (max-width: 600px) {
     body {
         overflow-x: hidden;
@@ -570,6 +566,16 @@ footer {
         height: 8rem;
     }
 
+    #interview-h1 {
+        font-size: 1.6em;
+        padding-left: 0.3em;
+    }
+
+
+/* 111111111111111111111111111111111111111111111111111111111111 */
+
+
+
     #app {
         margin: 10px 30px;
         padding: 5px 15px;
@@ -591,6 +597,28 @@ footer {
     .app-ul {
         font-size: 0.9rem;
     }
+
+    #application-h1 {
+        font-size: 1.6em;
+    }
+    
+    .app-input {
+        width: 100%;
+        margin-left: 0.3em;
+        padding: 0.2em 0.3em 0.1em;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+        font-family: 'Nanum Gothic', sans-serif;
+    }
+
+    #app-info {
+        font-size: 1.1em;
+    }
+
+
+    /* 1111111111 */
+
 
     footer {
         padding: 0.5em;
