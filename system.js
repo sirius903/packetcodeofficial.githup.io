@@ -134,5 +134,5 @@ onSnapshot(collection(db, "Application"), (app) => {
     app.forEach((doc) => {
         list.push(1);
     })
-    document.getElementById("퍼큐").innerText = `(${list.length}/40)`;
+    document.getElementById("퍼큐").innerText = `(${list.length}/35)`;
 })
