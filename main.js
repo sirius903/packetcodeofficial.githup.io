@@ -1,5 +1,22 @@
 document.getElementById("app-text").value = `[코드 가입 신청]
 `;
+let hidden = 0;
+document.getElementById('hidden-btn').addEventListener("click", function(){
+    hidden++;
+    if(hidden == 1){
+        alert('날 찾았구나!');
+    }else if(hidden == 10){
+        alert('그만 좀 눌러줄래?');
+    }else if(hidden == 20){
+        alert('이거 생각보다 아프거든?');
+    }else if(hidden == 30){
+        alert('그만 하라니깐?');
+    }else if(hidden == 31){
+        alert('죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.죽여버릴꺼야.');
+    }else if(hidden == 32){
+        window.location.href = 'https://m.site.naver.com/1k2Dh';
+    }
+})
 // function bannerTo(){
 //     ban = true;
 //     if(banners[1] == 0){

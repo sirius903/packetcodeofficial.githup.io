@@ -517,6 +517,9 @@ footer {
     color: #d1d1d1;
     box-shadow: 0 5px 5px inset #5c5c5c;
     padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #info {
@@ -538,6 +541,18 @@ footer {
     align-items: flex-start;
 }
 
+#hidden-btn {
+    color: #808080;
+    cursor: pointer;
+    transition: all 300ms;
+    padding: 0.2em 0.5em 0.2em;
+    border-radius: 7px;
+    user-select: none;
+}
+
+#hidden-btn:hover {
+    background-color: #6e6e6e;
+}
 
 @media only screen and (max-width: 600px) {
     body {
