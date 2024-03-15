@@ -1,12 +1,4 @@
-const password = '95582e1021cd7ebc39cc552519680686084b3bfea5dbfa15c05503150004d9cd';
 
-function operater(x){
-    if(sha256(x) == password){
-        alert("관리자 전환 완료.");
-    }else{
-        alert("옳바르지 않은 비밀번호입니다.");
-    }
-}
 // function bannerTo(){
 //     ban = true;
 //     if(banners[1] == 0){

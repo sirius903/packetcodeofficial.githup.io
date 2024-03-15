@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getFirestore, query, collection, doc, onSnapshot, addDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { getFirestore, query, collection, doc, onSnapshot, addDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -69,7 +69,8 @@ document.getElementById("app-btn").addEventListener("click", async function(){
             class : classNumber.value,
             name : name.value,
             text : text.value,
-            date : date
+            date : date,
+            boolean : false
         });
     
         classNumber.value = '';
@@ -78,4 +79,59 @@ document.getElementById("app-btn").addEventListener("click", async function(){
         alert("신청 완료");
     }
 
+})
+
+const password = '95582e1021cd7ebc39cc552519680686084b3bfea5dbfa15c05503150004d9cd';
+
+document.getElementById("dev-btn").addEventListener("click", function(){
+    operater(prompt('비밀번호'));
+});
+
+function operater(x){
+    if(sha256(x ?? '') == password){
+        onSnapshot(collection(db, "Application"), (app) => {
+            let list = [];
+            app.forEach((doc) => {
+                if(doc.data().a != ''){
+                    list.push([doc.data().class, doc.data().name, doc.data().text, doc.data().date, doc.data().boolean]);
+                }
+            })
+            document.getElementById("op").innerHTML = '';
+            list.sort((a, b) => a[3].seconds - b[3].seconds);
+            list.forEach(a => {
+                document.getElementById("op").innerHTML += `
+                <div class="apper">
+                 <div class="학번">${a[0]} ${a[1]}</div>
+                 <div>${a[2].split('[코드 가입 신청]').join('')}</div>
+                 <div>${a[3].seconds}.${a[3].nanoseconds}</div>
+                 <div class="boolean ${a[4]}">${a[4]}</div>
+                </div>`;
+            })
+
+            document.querySelectorAll('.boolean').forEach((a, i) => {
+                a.addEventListener("click", async function(){
+                    if(a.innerText == 'true' || a.innerText == 'false'){
+                        await updateDoc(doc(db, "Application", document.querySelectorAll(".학번")[i].innerText.split(' ')[0]), {
+                            boolean : !JSON.parse(a.innerText)
+                        });
+                    }else{
+                        await updateDoc(doc(db, "Application", document.querySelectorAll(".학번")[i].innerText.split(' ')[0]), {
+                            boolean : false
+                        });
+                    }
+                })
+            })
+        })
+        alert("관리자 전환 완료.");
+    }else{
+        alert("옳바르지 않은 비밀번호입니다.");
+    }
+}
+
+onSnapshot(collection(db, "Application"), (app) => {
+    let list = [];
+    app.forEach((doc) => {
+        list.push(1);
+    })
+    document.getElementById("퍼큐").innerText = `(${list.length}/40)`;
 })
