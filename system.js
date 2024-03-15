@@ -76,7 +76,7 @@ document.getElementById("app-btn").addEventListener("click", async function(){
         classNumber.value = '';
         name.value = '';
         text.value = `[코드 가입 신청]
-        `;
+`;
         alert("신청 완료");
     }
 
