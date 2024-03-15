@@ -1,4 +1,5 @@
-
+document.getElementById("app-text").value = `[코드 가입 신청]
+`;
 // function bannerTo(){
 //     ban = true;
 //     if(banners[1] == 0){
