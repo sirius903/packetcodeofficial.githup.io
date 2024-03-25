@@ -37,6 +37,28 @@ body {
     width: 100%;
 }
 
+#a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2em 0.2em 0.1em;
+    font-family: 'Nanum Gothic';
+}
+
+#a a {
+    text-decoration: none;
+    color: #2ecc71;
+    font-size: 1.3em;
+    padding: 0.2em 0.2em 0.1em;
+    margin: 10px 10px 0;
+    transition: color 300ms;
+    border-radius: 5px;
+    border: 3px solid;
+}
+#a a:hover {
+    color: #219a53;
+}
+
 #code {
     min-width: 50vw;
     margin: 20px 60px;
