@@ -13,6 +13,10 @@ function zero(str, n){
     return String(str).padStart(n, "0")
 }
 
+document.getElementById('img-btn').addEventListener("click", function(){
+    document.getElementById('bg').classList.remove("hidden");
+})
+
 document.getElementById('submit').addEventListener("click", function(){
     let text = document.getElementById('message');
     message(text.value, true);
@@ -36,6 +40,10 @@ document.querySelectorAll('.image').forEach((x, y, z) => {
             submit.classList.remove("active");
         }
     })
+})
+
+document.getElementById('bg').addEventListener("touchend", function(){
+    alert(1)
 })
 
 window.onload = function(){
