@@ -42,8 +42,11 @@ document.querySelectorAll('.image').forEach((x, y, z) => {
     })
 })
 
-document.getElementById('bg').addEventListener("touchend", function(){
-    alert(1)
+document.getElementById('bg').addEventListener("click", function(e){
+    let image = document.getElementById('image');
+    if(!image.contains(e.target)){
+        this.classList.add("hidden");
+    }
 })
 
 window.onload = function(){
