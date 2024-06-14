@@ -49,6 +49,16 @@ document.getElementById('bg').addEventListener("click", function(e){
     }
 })
 
+document.getElementById('img-submit').addEventListener("click", function(){
+    if(this.classList.contains("active")){
+        if(prompt("정말로 전송하시겠습니까?\n되돌릴 수 없습니다.(y/n)") == 'y'){
+            alert('...');
+        }else{
+            // alert(false)
+        }
+    }
+})
+
 window.onload = function(){
     message('안녕하세요');
     message('혹시 사진 좀 보내주실수 있으신가요?');
