@@ -23,13 +23,8 @@ document.getElementById('submit').addEventListener("click", function(){
     text.value = '';
 })
 
-document.getElementById('message').addEventListener("submit", function(){
-    message(this.value, true);
-    this.value = '';
-})
-
 document.getElementById('message').addEventListener("keypress", function(e){
-    if(e.code === 'Enter'){
+    if(e.code === 'Enter' || e.code === 'Enter'){
         message(this.value, true);
         this.value = '';
     }
