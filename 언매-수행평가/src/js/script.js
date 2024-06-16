@@ -24,7 +24,7 @@ document.getElementById('submit').addEventListener("click", function(){
 })
 
 document.getElementById('message').addEventListener("keypress", function(e){
-    if(e.code === 'Enter' || e.code === 'Enter'){
+    if(e.code === 'Enter' || e.key === 'Enter'){
         message(this.value, true);
         this.value = '';
     }
