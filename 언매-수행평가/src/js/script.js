@@ -60,6 +60,10 @@ document.getElementById('img-submit').addEventListener("click", function(){
 })
 
 window.onload = function(){
-    message('안녕하세요');
-    message('혹시 사진 좀 보내주실수 있으신가요?');
+    setTimeout(() => {
+        message("안녕하세요");
+        setTimeout(() => {
+            message("혹시 사진 좀 보내주실수 있으신가요?");
+        }, 1000);
+    }, 1000);
 }

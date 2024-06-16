@@ -5,16 +5,20 @@
     font-family: 'Nanumgothic';
 }
 
+html {
+    font-size: 3rem;
+}
+
 #header {
     display: flex;
-    box-shadow: 0 1px 5px #111;
+    box-shadow: 0 2px 10px #111;
     user-select: none;
     z-index: 10;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 80px;
+    height: 4.3em;
     background-color: #fff;
 }
 
@@ -26,8 +30,8 @@
 }
 
 #profile-img {
-    width: 60px;
-    height: 60px;
+    width: 3em;
+    height: 3em;
     object-fit: cover;
     border-radius: 50%;
 }
@@ -35,7 +39,7 @@
 #status {
     color: #0ddb0d;
     position: relative;
-    right: 15px;
+    right: 30px;
     font-size: 1.2em;
     border-radius: 50%;
     background-color: #fff;
@@ -52,11 +56,11 @@
 }
 
 #profile-text {
-    margin-top: 1.3rem;
+    margin-top: 1.3em;
 }
 
 #profile-h1 {
-    font-size: 1.4rem;
+    font-size: 1.5em;
 }
 
 #profile-h1 strong {
@@ -69,9 +73,9 @@
 }
 
 #content {
-    padding: 10px 10px;
-    margin: 80px 0 60px;
-    min-height: calc(100vh - 170px);
+    padding: 20px 20px;
+    margin: 4.6em 0 120px;
+    min-height: calc(100vh - 8em);
 }
 
 .chat {
@@ -89,7 +93,7 @@
     width: auto;
     padding: 0.3em 0.5em 0.4em;
     border-radius: 10px 10px 10px 3px;
-    margin: 10px;
+    margin: 20px;
 }
 
 .my .chat-text {
@@ -105,16 +109,16 @@
 }
 
 #inputs {
-    height: 50px;
+    height: 100px;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 20px;
     white-space: nowrap;
-    gap: 10px;
+    gap: 20px;
     background-color: #fff;
 }
 
