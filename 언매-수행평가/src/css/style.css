@@ -81,6 +81,7 @@ html {
 .chat {
     display: flex;
     align-items: flex-end;
+    font-weight: bold;
 }
 
 .my.chat {
@@ -109,7 +110,7 @@ html {
 }
 
 #inputs {
-    height: 100px;
+    height: 2em;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -123,9 +124,9 @@ html {
 }
 
 .btn {
-    min-width: 40px;
-    height: 40px;
-    font-size: 0.5rem;
+    min-width: 6em;
+    height: 6em;
+    /* font-size: 0.5rem; */
     border: none;
     display: flex;
     align-items: center;
@@ -133,15 +134,15 @@ html {
 }
 
 .input-btn {
-    width: 30px;
-    height: 30px;
+    width: 5em;
+    height: 5em;
 }
 
 input {
-    height: 30px;
+    height: 1.2em;
     border: none;
     background-color: #e3e3e3;
-    border-radius: 20px;
+    border-radius: 0.9em;
     width: 100%;
     padding: 0.3em 0.8em 0.2em;
     font-size: 1em;
