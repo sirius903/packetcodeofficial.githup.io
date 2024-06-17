@@ -57,7 +57,7 @@ document.getElementById('img-submit').addEventListener("click", function(){
             setTimeout(() => {
                 message("ㅋ");
                 setTimeout(() => {
-                    message("<a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>링크</a>");
+                    message("<a href='https://www.joongang.co.kr/article/25253346'>링크</a>");
                 }, 1000);
             }, 500);
         }else{
