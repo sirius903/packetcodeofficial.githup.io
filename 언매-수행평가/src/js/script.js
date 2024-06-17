@@ -53,6 +53,13 @@ document.getElementById('img-submit').addEventListener("click", function(){
     if(this.classList.contains("active")){
         if(prompt("정말로 전송하시겠습니까?\n되돌릴 수 없습니다.(y/n)") == 'y'){
             alert('...');
+            document.getElementById('bg').classList.add("hidden");
+            setTimeout(() => {
+                message("ㅋ");
+                setTimeout(() => {
+                    message("<a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>링크</a>");
+                }, 1000);
+            }, 500);
         }else{
             // alert(false)
         }
