@@ -155,6 +155,11 @@ body {
     box-sizing: border-box;
 }
 
+.data {
+    font-size: 0.8em;
+    color: #727679;
+}
+
 #code {
     font-family: 'D2Coding';
     font-weight: 100;
