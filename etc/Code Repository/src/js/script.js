@@ -80,25 +80,19 @@ function changeCodes(n){
     document.querySelector("#codes").innerHTML = '';
     list.slice(15 * (n - 1), 15 * n).forEach(a => {
         
-        let byte = a[1] == '' ? 0 : a[1].split('').map(x => [127, 2047, 65535].filter(y => y <= x.charCodeAt()).length + 1).reduce((a,b) => (a+b));
-
-        function formatBytes(bytes, decimals = 2) {
-            if (bytes === 0) return '0 Bytes';
-        
-            const k = 1024;
-            const dm = decimals < 0 ? 0 : decimals;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-        
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-        
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        let bytes = a[1] == '' ? 0 : a[1].split('').map(x => [127, 2047, 65535].filter(y => y <= x.charCodeAt()).length + 1).reduce((a,b) => (a+b));
+        if(bytes == 0){
+            bytes = '0 Bytes';
+        }else{
+            const i = Math.floor(Math.log(bytes) / Math.log(1024));
+            bytes = parseFloat((bytes / Math.pow(1024, i)).toFixed(3)) + ' ' + ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][i];
         }
         
 
         document.querySelector("#codes").innerHTML += `
         <div class="code">
-          <h3 class="code-title">${a[0] + '(' + a[2].getFullYear() + '.' + String(a[2].getMonth() + 1).padStart(2, "0") + '.' + String(a[2].getDate()).padStart(2, "0") + ') - '}<strong class="data">${formatBytes(byte, 3)}</strong></h3>
-          <textarea class="code-text" onclick="this.select();document.execCommand('copy');alert('클립보드에 복사 되었습니다.');return false;" autocapitalize="off" autocomplete="off">${decodeURIComponent(atob(a[1]))}</textarea>
+          <h3 class="code-title">${a[0] + '(' + a[2].getFullYear() + '.' + String(a[2].getMonth() + 1).padStart(2, "0") + '.' + String(a[2].getDate()).padStart(2, "0") + ') - '}<strong class="data">${bytes}</strong></h3>
+          <textarea spellcheck="false" class="code-text" onclick="this.select();document.execCommand('copy');alert('클립보드에 복사 되었습니다.');return false;" autocapitalize="off" autocomplete="off">${decodeURIComponent(atob(a[1]))}</textarea>
           <button class="code-toggle">
             <i class="fas code-chevron-down"></i>
             <i class="fas code-times"></i>

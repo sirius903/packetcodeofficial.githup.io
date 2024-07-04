@@ -199,7 +199,7 @@ body {
     padding: 5px 10px;
     cursor: pointer;
     transition: color 200ms;
-    background-color: #fffFFF50;
+    background-color: #fffFFF80;
 }
 
 #to-save:hover {
