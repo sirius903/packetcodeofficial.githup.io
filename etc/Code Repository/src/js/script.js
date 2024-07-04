@@ -15,11 +15,22 @@ const db = getFirestore(app);
 
 let sort = 'old';
 let list = [];
+let page = window.location.hash.slice(1);
+page = page == '' ? 1 : parseInt(page);
 
 document.getElementById("sort").addEventListener("change", function(){
     sort = this.value;
-    console.log(sort)
-    changeCodes();
+    changeCodes(page);
+})
+
+document.getElementById("form").addEventListener("submit", function(){
+    let value = this.querySelector("#input").value;
+    if(value == ''){
+        window.location.href = '?';
+    }else{
+        window.location.hash = '';
+        window.location.search = this.querySelector("#input").value;
+    }
 })
 
 onSnapshot(collection(db, "CODE"), (qas) => {
@@ -29,10 +40,28 @@ onSnapshot(collection(db, "CODE"), (qas) => {
             list.push([doc.data().name, doc.data().code, doc.data().date.toDate()]);
         }
     })
-    changeCodes();
+    changeCodes(page);
 })
 
-function changeCodes(){
+function changeCodes(n){
+    let search = decodeURIComponent(window.location.search).toLowerCase().split('').filter(x => x != ' ' && x != '?');
+    if(search != ''){
+        document.getElementById("answer").innerText = "'" + decodeURIComponent(window.location.search).slice(1) + "'의 검색결과 :";
+        document.getElementById("answer").classList.add("active");
+        list = list.filter(function(a){
+            let title = a[0].split(' ').join('');
+            let answer = true;
+            search.forEach((x, y) => {
+                if(y + 1 != search.length){
+                    title = title.split(x).slice(1).join(x);
+                }else{
+                    if(!title.includes(x)) answer = false;
+                }
+            })
+            return answer;
+        })
+    }
+
     list.sort(function(a, b){
         if(sort == 'old'){
             return a[2] - b[2];
@@ -44,11 +73,15 @@ function changeCodes(){
             return b[0].localeCompare(a[0]);
         }
     })
+    document.getElementById("pages").innerHTML = '';
+    for(let i = 1; i <= Math.ceil(list.length / 15); i++){
+        document.getElementById("pages").innerHTML += `<a class="page" href="#${i}">${i}</a>`;
+    }
     document.querySelector("#codes").innerHTML = '';
-    list.forEach(a => {
+    list.slice(15 * (n - 1), 15 * n).forEach(a => {
         document.querySelector("#codes").innerHTML += `
         <div class="code">
-          <h3 class="code-title">${a[0] + '(' + a[2].getFullYear() + '.' + String(a[2].getMonth()).padStart(2, "0") + '.' + String(a[2].getDate()).padStart(2, "0") + ')'}</h3>
+          <h3 class="code-title">${a[0] + '(' + a[2].getFullYear() + '.' + String(a[2].getMonth() + 1).padStart(2, "0") + '.' + String(a[2].getDate()).padStart(2, "0") + ')'}</h3>
           <textarea class="code-text" onclick="this.select();document.execCommand('copy');alert('클립보드에 복사 되었습니다.');return false;" autocapitalize="off" autocomplete="off">${decodeURIComponent(atob(a[1]))}</textarea>
           <button class="code-toggle">
             <i class="fas code-chevron-down"></i>
@@ -63,7 +96,20 @@ function changeCodes(){
             toggle.parentNode.classList.toggle("active");
         });
     });
+    document.querySelectorAll('.page').forEach((x, y) => {
+        if(y == page - 1){
+            x.classList.add("active");
+        }else{
+            x.classList.remove("active");
+        }
+    })
 }
+
+window.addEventListener("hashchange", function(){
+    page = window.location.hash.slice(1);
+    page = page == '' ? 1 : parseInt(page);
+    changeCodes(page);
+})
 
 document.getElementById("save").addEventListener("click", async function(){
     const name = document.getElementById("name");
@@ -76,4 +122,8 @@ document.getElementById("save").addEventListener("click", async function(){
     name.value = '';
     code.value = '';
     alert("저장 완료");
+})
+
+document.getElementById("to-save").addEventListener("click", function(){
+    document.getElementById("name").focus();
 })
