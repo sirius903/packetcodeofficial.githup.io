@@ -34,7 +34,15 @@ function reset(){
     time.forEach((x, y) => {
         let str = `<div class="day row"><div class="week">${["월", "화", "수", "목", "금"][y]}</div>`;
         x.forEach(e => {
-            str += `<div>${e}</div>`;
+            str += `<div>`;
+            e.split("\\n").forEach(a => {
+                if(a[0] + a[a.length - 1] == '**'){
+                    str += `<h4>${a.slice(1, a.length - 1)}</h4>`;
+                }else{
+                    str += `<p>${a}</p>`;
+                }
+            })
+            str += `</div>`;
         })
         $timetable.innerHTML += str + `</div>`;
     })
