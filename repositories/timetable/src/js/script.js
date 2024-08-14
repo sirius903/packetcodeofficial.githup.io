@@ -87,10 +87,29 @@ function peri(arr){
             if(x[0] == 0){
                 account.innerHTML = `<div class="week">${["월", "화", "수", "목", "금"][y]}</div><div class="public">${x[1]}</div>`;
             }else if(x[0] >= 1 && x[0] <= 5){
-                account.innerHTML += `<div>${time[x[0] - 1][x[1] - 1]}</div>`;
+                let str = '<div>';
+                time[x[0] - 1][x[1] - 1].split("\\n").forEach(a => {
+                    if(a[0] + a[a.length - 1] == '**'){
+                        str += `<h4>${a.slice(1, a.length - 1)}</h4>`;
+                    }else{
+                        str += `<p>${a}</p>`;
+                    }
+                })
+                str += `</div>`;
+                account.innerHTML += str;
             }else if(x[0] == 6){
-                x[1].forEach(a => {
-                    account.innerHTML += `<div>${time[a[0] - 1][a[1] - 1]}</div>`;
+                x[1].forEach(b => {
+                    let str = '<div>';
+                    time[b[0] - 1][b[1] - 1].split("\\n").forEach(a => {
+                        if(a[0] + a[a.length - 1] == '**'){
+                            str += `<h4>${a.slice(1, a.length - 1)}</h4>`;
+                        }else{
+                            str += `<p>${a}</p>`;
+                        }
+                    })
+                    str += `</div>`;
+                    account.innerHTML += str;
+                    // account.innerHTML += `<div>${}</div>`;
                 })
             }else if(x[0] == 7){
                 account.innerHTML += `<div class="twin">${x[1]}</div>`;

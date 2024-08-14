@@ -38,7 +38,9 @@ body {
     font-weight: 800;
 }
 .today {
-    font-weight: 800;
+    background-color: #a1e1ff;
+    color: #fff;
+    border-color: black;
 }
 .public {
     grid-row: span 8;
