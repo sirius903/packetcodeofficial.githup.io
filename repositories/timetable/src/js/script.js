@@ -151,3 +151,23 @@ document.querySelectorAll("#grid div").forEach((x, y) => {
         x.classList.add("change");
     }
 })
+
+document.querySelectorAll(".size-btn").forEach((x, y) => {
+    x.addEventListener("click", function(){
+        let n = document.getElementById("size-n");
+        let text = n.innerText;
+        let nu = +text.slice(0, text.length - 1) - 5 * Math.sign(y - 0.5)
+        n.innerText = nu + '%';
+        document.getElementById("content").style.transform = `scale(${nu / 100})`;
+        // document.querySelector("body").style.transform = `scale(${nu / 100})`;
+        localStorage.setItem("size", nu);
+    })
+})
+
+let size = localStorage.getItem("size");
+if(localStorage.getItem("size") == null){
+    localStorage.setItem("size", 100);
+}else{
+    document.getElementById("size-n").innerText = size + "%";
+    document.getElementById("content").style.transform = `scale(${+size / 100})`;
+}

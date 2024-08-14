@@ -6,15 +6,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* padding: 30px; */
 }
 #content {
     display: flex;
     justify-content: center;
     gap: 2em;
+    transition: transform 300ms;
 }
 #timetable {
     width: 540px;
-    height: 720px;
+    min-height: 720px;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     border: solid;
@@ -121,4 +123,10 @@ button {
 
 .change:hover {
     background-color: #e9e9e9;
+}
+#size {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
