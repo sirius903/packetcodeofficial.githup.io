@@ -1,242 +1,53 @@
 [
   {
-    "key": "NATIONS_KOREA_LEADER",
-    "original": "Sejong",
-    "translation": "세종",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_DECLARING-WAR",
-    "original": "Jip-hyun-jun (Hall of Worthies) will no longer tolerate your irksome behavior. We will liberate the citizens under your oppression even with force, and enlighten them!",
-    "translation": "네놈의 성가신 행태를 집현전은 더는 용인하지 않는다. 우리는 무력으로라도 너의 탄압받은 백성들을 자유롭게 하고 깨우치게 하리라!",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_ATTACKED",
-    "original": "Foolish, miserable wretch! You will be crushed by this country's magnificent scientific power!",
-    "translation": "가엾고 딱한 자로다! 이제 이 나라의 과학의 막강한 힘에 짓밟히고 말 것이거늘!",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_DEFEATED",
-    "original": "Now the question is who will protect my people. A dark age has come.",
-    "translation": "이제 나의 백성들은 누가 지켜준단 말인가. 암흑의 시대가 도래하였구나.",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_INTRODUCTION",
-    "original": "Welcome to the palace of Choson, stranger. I am the learned King Sejong, who looks after his great people.",
-    "translation": "조선의 궁궐에 당도한 것을 환영하오, 낯선 이여. 나는 나의 훌륭한 백성들을 굽어 살피는 깨우친 임금, 세종이오.",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_TRADE-REQUEST",
-    "original": "We have many things to discuss and have much to benefit from each other.",
-    "translation": "동지여, 우리는 상의해야 할 것이 많고 서로에게 얻을 수 있는 것이 많소.",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_HATE-HELLO",
-    "original": "Oh, it's you",
-    "translation": "네놈이로구나.",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_JIP-HYUN-JUN",
-    "original": "Scholars of the Jade Hall",
-    "translation": "집현전",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_INTRO1",
-    "original": "Greetings to you, King Sejong the Great, heir of the Choson Dynasty! Prosperity and benevolence towards the common man are the principles of your reign, and made of you the most beloved Korean king. You always aimed to provide a fair and equal society for all your people, and also to favor knowledge and technological discoveries. Your wisdom and intelligence imbued all the Korean society, and the scholars of the Jade Hall developed Korea's first written language, Hangul, sharing further literature and science to the people after centuries of darkness.",
-    "translation": "백성들의 종복이자 조선 왕조의 수호자이신 위대한 세종대왕이시여, 대왕님께 문안드리옵나이다. 조선의 번영을 내다보는 안목과 지극히 자비로우신 대왕은 한국에서 가장 사랑받는 왕으로 만들었습니다. 대왕님은 공정하고 정의로운 사회를 만들기 위해서 집권 초부터 많은 노력을 기울였고 지식을 중시해 기술을 크게 발전시키셨습니다. 대왕님의 현명함으로 인도받은 집현전의 학자들이 한국 최초의 문자인 한글을 개발하여 수 세기를 지속한 문학의 암흑기에 한 줄기 빛을 선사한 것으로 대중에게 문학과 과학을 접할 기회를 열어준 것이었습니다.",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_INTRO2",
-    "original": "Wise Sejong, will you gift your people with the radiance of harmony and knowledge to dispel the darkness once again? Will your new empire shine through the ages of history?",
-    "translation": "영예로운 세종대왕이시여, 대왕님의 현명함으로 조선 백성을 다시 한 번 이끌어 주십시오! 조선 백성에게 조화와 지식을 선사하십시오. 조선을 빛낼 위대한 업적을 다시 이룰 수 있겠습니까? 세월의 시련을 이겨낼 문명을 건설하실 수 있겠습니까?",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_SEOUL",
-    "original": "Seoul",
-    "translation": "서울",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_BUSAN",
-    "original": "Busan",
-    "translation": "부산",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_JEONJU",
-    "original": "Jeonju",
-    "translation": "전주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_DAEGU",
-    "original": "Daegu",
-    "translation": "대구",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_PYONGYANG",
-    "original": "Pyongyang",
-    "translation": "평양",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_KAESONG",
-    "original": "Kaesong",
-    "translation": "개성",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_SUWON",
-    "original": "Suwon",
-    "translation": "수원",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_GWANGJU",
-    "original": "Gwangju",
-    "translation": "광주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_GANGNEUNG",
-    "original": "Gangneung",
-    "translation": "강릉",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_HAMHUNG",
-    "original": "Hamhung",
-    "translation": "함흥",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_WONJU",
-    "original": "Wonju",
-    "translation": "원주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_ULSAN",
-    "original": "Ulsan",
-    "translation": "울산",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_CHANGWON",
-    "original": "Changwon",
-    "translation": "창원",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_ANDONG",
-    "original": "Andong",
-    "translation": "안동",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_GONGJU",
-    "original": "Gongju",
-    "translation": "공주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_HAEJU",
-    "original": "Haeju",
-    "translation": "해주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_CHEONGJU",
-    "original": "Cheongju",
-    "translation": "청주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_MOKPO",
-    "original": "Mokpo",
-    "translation": "목포",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_DONGDUCHEON",
-    "original": "Dongducheon",
-    "translation": "동두천",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_GEOJE",
-    "original": "Geoje",
-    "translation": "거제",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_SUNCHEON",
-    "original": "Suncheon",
-    "translation": "순천",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_JINJU",
-    "original": "Jinju",
-    "translation": "진주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_SANGJU",
-    "original": "Sangju",
-    "translation": "상주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_RASON",
-    "original": "Rason",
-    "translation": "라선",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_GYEONGJU",
-    "original": "Gyeongju",
-    "translation": "경주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_CHUNGJU",
-    "original": "Chungju",
-    "translation": "청주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_SACHEON",
-    "original": "Sacheon",
-    "translation": "사천",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_GIMJE",
-    "original": "Gimje",
-    "translation": "김제",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_CITY_ANJU",
-    "original": "Anju",
-    "translation": "안주",
-    "stage": 1
-  },
-  {
-    "key": "NATIONS_KOREA_NAME",
-    "original": "Korea",
-    "translation": "한국",
-    "stage": 1
+    "key": "CIV_NLD_SPY_JOOST",
+    "original": "Joost",
+    "translation": "요스트",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_HENDRIKA",
+    "original": "Hendrika",
+    "translation": "헨드리카",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_MARTEN",
+    "original": "Marten",
+    "translation": "마르턴",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_ANKE",
+    "original": "Anke",
+    "translation": "안케",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_GUUS",
+    "original": "Guus",
+    "translation": "휘스",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_MR.-X",
+    "original": "Mr. X",
+    "translation": "미스터 엑스",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_DR.-GRIJS",
+    "original": "Dr. Grijs",
+    "translation": "흐라이스 박사",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_WILLEM",
+    "original": "Willem",
+    "translation": "빌럼",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_THIJS",
+    "original": "Thijs",
+    "translation": "타이스",
+    "context": ""
+  },{
+    "key": "CIV_NLD_SPY_NEEF",
+    "original": "Neef",
+    "translation": "니프",
+    "context": ""
   }
 ]
